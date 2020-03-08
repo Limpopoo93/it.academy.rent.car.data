@@ -21,6 +21,15 @@
             <form:errors path="email" cssStyle="color: red"/>
             <form:input path="email" type="text" placeholder="_email"/>
 
+            <form:errors path="name" cssStyle="color: red"/>
+            <form:input path="user.name" type="text" placeholder="name"/>
+
+            <form:errors path="surname" cssStyle="color: red"/>
+            <form:input path="user.surname" type="text" placeholder="surname"/>
+
+            <form:errors path="age" cssStyle="color: red"/>
+            <form:input path="user.age" type="text" placeholder="age"/>
+
             <button>Registration</button>
         </form:form>
     </div>

@@ -90,6 +90,17 @@ public class AuthenticateController {
         return "redirect:/user-create";
     }
 
+    @GetMapping("/user-info")
+    public String createInfoUser(User user) {
+        return "createUserInfo";
+    }
+
+    @PostMapping("/user-create-info")
+    public String createUserInfo(User user) {
+            userRepository.save(user);
+            return "redirect:/index";
+    }
+
     @PostMapping("/add-letter")
     public String addLetterAdmin(Letter letter, HttpSession session) {
         Authenticate authenticate = (Authenticate) session.getAttribute("authenticate");
@@ -142,13 +153,13 @@ public class AuthenticateController {
         authenticateRepository.saveAndFlush(authenticate);
         return "redirect:/users";
     }
-    @GetMapping("user-unBlockId/{id}")
-    public String userUnBlockId(@PathVariable("id") Long id) {
-        Authenticate authenticate = authenticateRepository.findByLId(id);
-        authenticate.setProfileClose(true);
-        authenticateRepository.saveAndFlush(authenticate);
-        return "redirect:/users";
-    }
+   // @GetMapping("user-unBlockId/{id}")
+   // public String userUnBlockId(@PathVariable("id") Long id) {
+   //     Authenticate authenticate = authenticateRepository.findByLId(id);
+   //     authenticate.setProfileClose(true);
+   //     authenticateRepository.saveAndFlush(authenticate);
+    //    return "redirect:/users";
+   // }
     @GetMapping("/letterAdminList")
     public String letterAdmin(Model model) {
         List<Letter> letters = letterRepository.findAll();
