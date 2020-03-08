@@ -168,108 +168,23 @@ public class AuthenticateController {
         letterRepository.delete(letter);
         return "redirect:/letterAdminList";
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    @GetMapping("/ban-user")
-    public String banByUser(User user) {
-        return "user/userBlock";
+    @GetMapping("/user-ban-list")
+    public String userBanList(Model model) {
+        List<Authenticate> authenticates = authenticateRepository.findByProfileClose(false);
+        model.addAttribute("authenticates", authenticates);
+        return "/userBlockList";
     }
-    // бан аккаунта
-    @PostMapping("/ban-user")
-    public String banUser(Authenticate authenticate) {
-        Authenticate authenticateResult = authenticateRepository.findByLId(authenticate.getId());
-        authenticate.setProfileClose(false);
-        authenticateRepository.saveAndFlush(authenticateResult);
-        return "redirect:/ban-user";
-    }
-    //переход на разблакировку юзера
-    @GetMapping("/unBan-user")
-    public String unBanByUser(Authenticate authenticate) {
-        return "user/userUnBlock";
-    }
-    // разблакировка юзера
-    @PostMapping("/unBan-user")
-    public String unBanUser(Authenticate authenticate) {
-        Authenticate authenticateResult = authenticateRepository.findByLId(authenticate.getId());
-        authenticateResult.setProfileClose(true);
-        authenticateRepository.saveAndFlush(authenticateResult);
-        return "redirect:/unBan-user";
-    }
-    // переход на страницу для поиска юзера для админа
-    @GetMapping("/select-user")
-    public String selectUser(Authenticate authenticate) {
-        return "user/userFormSelect";
-    }
-    //лист писем от юзеров
-    //удаления юзера из блокировки
-    @GetMapping("user-deleteBanUser/{id}")
-    public String deleteBanUser(@PathVariable("id") Long id, Letter letter, Model model) {
-        Authenticate authenticate = authenticateRepository.findByLId(letter.getAuthenticate().getId());
+    @GetMapping("user-unBlock/{id}")
+    public String userUnBlock(@PathVariable("id") Long id, Model model) {
+        Authenticate authenticate = authenticateRepository.findByLId(id);
         authenticate.setProfileClose(true);
         authenticateRepository.saveAndFlush(authenticate);
-        List<Letter> letters = letterRepository.findAll();
-        model.addAttribute("letters", letters);
-        return "user/userFormSelect";
+        return "redirect:/user-ban-list";
     }
-    // вывод найденого юзера на страницу
-    @PostMapping("/user-select")
-    public String select(Authenticate authenticate, Model model) {
-        if (authenticate.getUser().getName() != null && authenticate.getUser().getSurname() != null && authenticate.getLogin() != null) {
-            User user = userRepository.findByNameAndSurname(authenticate.getUser().getName(), authenticate.getUser().getSurname());
-            Authenticate authenticate1 = authenticateRepository.findByLogin(authenticate.getLogin());
-            if(authenticate1.getUser().getId() == user.getId()){
-                model.addAttribute("authenticate1", authenticate1);
-                return "user/userSelectResult";
-            }
-        }
-        return "user/userFormSelect";
-    }
-    //лист блокированных пользователей
-    //удаление юзера из найденого юзера после поиска
-    @GetMapping("user-deleteId/{id}")
-    public String deleteUser(@PathVariable("id") Long id, Authenticate authenticate) {
-        Authenticate authenticate1 = authenticateRepository.findByLId(id);
-        authenticateRepository.deleteById(authenticate1.getId());
-        userRepository.deleteById(authenticate1.getUser().getId());
-        return "redirect:/users";
-    }
-    // перенаправление из формы юзера для изменения информации
-    // блокировка юзера из формы поиска юзера
-    // разблакировка юзера из формы юзера
-
-    @GetMapping("/user-updateUser")
-    public String updateUserForm(Model model, HttpSession session) {
+    @GetMapping("/update-userSession")
+    public String selectUser(HttpSession session, Model model) {
         Authenticate authenticate = (Authenticate) session.getAttribute("authenticate");
-        //User user = userService.findById(id);
-        model.addAttribute("authenticate", authenticate);
+        model.addAttribute(authenticate);
         return "user/userUpdate";
-    }
-    //изменение информации о юзере
-    @PostMapping("/user-update")
-    public String updateUser(Model model,Authenticate authenticate) {
-        Authenticate authenticate1 = authenticateRepository.findByLId(authenticate.getId());
-        authenticate.setLogin(authenticate1.getLogin());
-        authenticate.setPassword(authenticate1.getPassword());
-        authenticate.setEmail(authenticate1.getEmail());
-        authenticate.setProfileEnable(authenticate1.isProfileEnable());
-        authenticate.setProfileClose(authenticate1.isProfileClose());
-        authenticate.getUser().setName(authenticate1.getUser().getName());
-        authenticate.getUser().setSurname(authenticate1.getUser().getSurname());
-        authenticate.getUser().setAge(authenticate1.getUser().getAge());
-        authenticateRepository.saveAndFlush(authenticate);
-        model.addAttribute("authenticate", authenticate);
-        return "index";
     }
 }

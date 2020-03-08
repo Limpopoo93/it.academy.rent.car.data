@@ -16,13 +16,8 @@
             <li><a href="${pageContext.request.contextPath}/user-create-admin">Create Admin</a></li>
             <li><a href="${pageContext.request.contextPath}/users">List User</a></li>
             <li><a href="${pageContext.request.contextPath}/letterAdminList">List Letter to User</a></li>
-            <li><a href="/">List Block User</a></li>
-            <li><a href="/">Delete User</a></li>
-            <li><a href="/">Select User</a></li>
-            <li><a href="/">Update User</a></li>
-            <li><a href="/">Update User by Admin</a></li>
-            <li><a href="/">Block User</a></li>
-            <li><a href="/">UnBlock User</a></li>
+            <li><a href="${pageContext.request.contextPath}/user-ban-list">List Block User</a></li>
+            <li><a href="${pageContext.request.contextPath}/update-userSession">Update User</a></li>
         </uL>
     </li>
 <table>
