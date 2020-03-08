@@ -19,7 +19,10 @@ public class Authenticate {
     @Column(name = "profileclose")
     private boolean profileClose;
     @Column(name = "role")
-    private String role;
+    private Role role;
+    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @JoinColumn(name = "id_user", nullable = false)
+    private User user;
 
     public Authenticate() {
     }
@@ -72,12 +75,20 @@ public class Authenticate {
         this.profileClose = profileClose;
     }
 
-    public String getRole() {
+    public Role getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(Role role) {
         this.role = role;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @Override
@@ -90,6 +101,7 @@ public class Authenticate {
                 ", profileEnable=" + profileEnable +
                 ", profileClose=" + profileClose +
                 ", role=" + role +
+                ", user=" + user +
                 '}';
     }
 }

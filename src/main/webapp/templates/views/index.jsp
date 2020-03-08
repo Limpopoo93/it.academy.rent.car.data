@@ -7,24 +7,52 @@
     <title>Title</title>
 </head>
 <body>
-<div class="login-page">
-    <div class="form">
-        <%--@elvariable id="authenticate" type="it.academy.rent.bean.Authenticate"--%>
-        <form:form class="register-form" action="${pageContext.request.contextPath}/user-create"
-                   modelAttribute="authenticate" method="post">
-
-            <form:errors path="login" cssStyle="color: red"/>
-            <form:input path="login" type="text" placeholder="_login"/>
-
-            <form:errors path="password" cssStyle="color: red"/>
-            <form:input path="password" type="text" placeholder="_password"/>
-
-            <form:errors path="email" cssStyle="color: red"/>
-            <form:input path="email" type="text" placeholder="_email"/>
-
-            <button>Registration</button>
-        </form:form>
-    </div>
-</div>
+<ul id="menu">
+    <li><a href="/">Home</a></li>
+    <li>
+        <a>User </a>
+        <ul class="hidden">
+            <li><a href="${pageContext.request.contextPath}/user-create">Create User</a></li>
+            <li><a href="${pageContext.request.contextPath}/user-create-admin">Create Admin</a></li>
+            <li><a href="${pageContext.request.contextPath}/users">List User</a></li>
+            <li><a href="${pageContext.request.contextPath}/letterAdminList">List Letter to User</a></li>
+            <li><a href="/">List Block User</a></li>
+            <li><a href="/">Delete User</a></li>
+            <li><a href="/">Select User</a></li>
+            <li><a href="/">Update User</a></li>
+            <li><a href="/">Update User by Admin</a></li>
+            <li><a href="/">Block User</a></li>
+            <li><a href="/">UnBlock User</a></li>
+        </uL>
+    </li>
+<table>
+    <tr>
+        <th>name</th>
+        <th>surname</th>
+        <th>email</th>
+        <th>age</th>
+        <th>login</th>
+        <th>password</th>
+        <th>role</th>
+        <th>profileEnable</th>
+        <th>profileClose</th>
+    </tr>
+    <tr>
+        <td>
+        <td>${sessionScope.authenticate.login}</td>
+        <td>
+        <td>${sessionScope.authenticate.password}</td>
+        <td>
+        <td>${sessionScope.authenticate.profileEnable}</td>
+        <td>
+        <td>${sessionScope.authenticate.profileClose}</td>
+        <td>
+        <td>${sessionScope.authenticate.email}</td>
+        <td>
+        <td>${sessionScope.authenticate.role}</td>
+        <td>
+    </tr>
+</table>
+</ul>
 </body>
 </html>

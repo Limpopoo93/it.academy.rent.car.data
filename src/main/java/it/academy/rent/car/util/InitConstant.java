@@ -56,5 +56,5 @@ public interface InitConstant {
 
     String NAME = "name";
     String SURNAME = "surname";
-    String AGE = "AGE";
+    String AGE = "age";
 }
