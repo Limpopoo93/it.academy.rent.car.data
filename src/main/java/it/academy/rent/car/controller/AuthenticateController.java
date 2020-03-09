@@ -3,7 +3,6 @@ package it.academy.rent.car.controller;
 import it.academy.rent.car.bean.Authenticate;
 import it.academy.rent.car.bean.Letter;
 import it.academy.rent.car.bean.Role;
-import it.academy.rent.car.bean.User;
 import it.academy.rent.car.repository.AuthenticateRepository;
 import it.academy.rent.car.repository.LetterRepository;
 import it.academy.rent.car.repository.UserRepository;
