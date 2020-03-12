@@ -1,9 +1,7 @@
 package it.academy.rent.car.bean;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Entity
 @Table(name = "drivecard")
@@ -20,8 +18,14 @@ public class DriveCard {
     @Column(name = "datemake")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dateMake;
+    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @JoinColumn(name = "id_authenticate", nullable = false)
     private Authenticate authenticate;
-    private List<CategoryCard> categoryCards = new ArrayList<>();
+      @ManyToMany
+      @JoinTable(name = "category_card", joinColumns =
+      @JoinColumn(name = "id_categorycard", referencedColumnName = "id"),
+              inverseJoinColumns = @JoinColumn(name = "id_drivecard", referencedColumnName = "id"))
+    private Set<CategoryCard> categoryCards = new HashSet<>();
 
     public DriveCard() {
     }
@@ -74,6 +78,14 @@ public class DriveCard {
         this.authenticate = authenticate;
     }
 
+    public Set<CategoryCard> getCategoryCards() {
+        return categoryCards;
+    }
+
+    public void setCategoryCards(Set<CategoryCard> categoryCards) {
+        this.categoryCards = categoryCards;
+    }
+
     @Override
     public String toString() {
         return "DriveCard{" +
@@ -83,6 +95,7 @@ public class DriveCard {
                 ", country='" + country + '\'' +
                 ", dateMake=" + dateMake +
                 ", authenticate=" + authenticate +
+                ", categoryCards=" + categoryCards +
                 '}';
     }
 }

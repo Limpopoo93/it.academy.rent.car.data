@@ -14,15 +14,10 @@ public class Authenticate {
     private String password;
     @Column(name = "email")
     private String email;
-    @Column(name = "profileenable")
-    private boolean profileEnable;
     @Column(name = "profileclose")
     private boolean profileClose;
     @Column(name = "role")
     private Role role;
-    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    @JoinColumn(name = "id_user", nullable = false)
-    private User user;
 
     public Authenticate() {
     }
@@ -59,14 +54,6 @@ public class Authenticate {
         this.email = email;
     }
 
-    public boolean isProfileEnable() {
-        return profileEnable;
-    }
-
-    public void setProfileEnable(boolean profileEnable) {
-        this.profileEnable = profileEnable;
-    }
-
     public boolean isProfileClose() {
         return profileClose;
     }
@@ -83,14 +70,6 @@ public class Authenticate {
         this.role = role;
     }
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
     @Override
     public String toString() {
         return "Authenticate{" +
@@ -98,10 +77,8 @@ public class Authenticate {
                 ", login='" + login + '\'' +
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
-                ", profileEnable=" + profileEnable +
                 ", profileClose=" + profileClose +
                 ", role=" + role +
-                ", user=" + user +
                 '}';
     }
 }
