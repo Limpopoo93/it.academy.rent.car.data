@@ -12,8 +12,8 @@ public class CategoryCard {
     private long id;
     @Column(name = "categorycard")
     private String categoryCard;
-    @ManyToMany(mappedBy = "townSet")
-    private Set<DriveCard> categoryCards = new HashSet<>();
+   // @ManyToMany(mappedBy = "townSet")
+    //private Set<DriveCard> categoryCards = new HashSet<>();
 
     public CategoryCard() {
     }
@@ -34,20 +34,20 @@ public class CategoryCard {
         this.categoryCard = categoryCard;
     }
 
-    public Set<DriveCard> getCategoryCards() {
-        return categoryCards;
-    }
+  //  public Set<DriveCard> getCategoryCards() {
+  //      return categoryCards;
+   // }
 
-    public void setCategoryCards(Set<DriveCard> categoryCards) {
-        this.categoryCards = categoryCards;
-    }
+    //public void setCategoryCards(Set<DriveCard> categoryCards) {
+     //   this.categoryCards = categoryCards;
+    //}
 
     @Override
     public String toString() {
         return "CategoryCard{" +
                 "id=" + id +
                 ", categoryCard='" + categoryCard + '\'' +
-                ", categoryCards=" + categoryCards +
+      //          ", categoryCards=" + categoryCards +
                 '}';
     }
 }

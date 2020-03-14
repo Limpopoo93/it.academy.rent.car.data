@@ -30,7 +30,7 @@ public class AuthenticateController {
 //переход с main на страницу регистрации
 @GetMapping("/userRegistration")
 public String createUser(Authenticate authenticate) {
-    return "userRegistration";
+    return "user/userRegistration";
 }
 //переход с регистрации на index и добавление нового юзера
     @PostMapping("/userRegistration")
@@ -48,7 +48,7 @@ public String createUser(Authenticate authenticate) {
  //переход с main на страницу входа
  @GetMapping("/userComeIn")
  public String comeInUser(Authenticate authenticate) {
-     return "comeIn";
+     return "user/comeIn";
  }
  //переход со страницы входа проверка и отправка на index при открытом доступе7
  @PostMapping("/userComeIn")
@@ -59,7 +59,7 @@ public String createUser(Authenticate authenticate) {
              session.setAttribute("authenticate", authenticateResult);
              return "index";
          } else {
-             return "letterAdmin";
+             return "user/letterAdmin";
          }
      }
      return "redirect:/userComeIn";
@@ -75,7 +75,7 @@ public String addLetterAdmin(Letter letter, HttpSession session) {
 //переход на страницу регистрации админа
 @GetMapping("/adminCreate")
 public String createAdmin(Authenticate authenticate) {
-    return "adminRegistration";
+    return "user/adminRegistration";
 }
 //создания админа и переход на index
 @PostMapping("/adminCreate")
@@ -94,7 +94,7 @@ public String createAdminBase(Authenticate authenticate) {
 public String findAll(Model model) {
     List<Authenticate> authenticates = authenticateRepository.findAll();
     model.addAttribute("authenticates", authenticates);
-    return "/userList";
+    return "user/userList";
 }
 //удаление юзера из таблицы всех пользователей
 @GetMapping("/userDeleteId/{id}")
@@ -124,7 +124,7 @@ public String findBlockUser(@PathVariable("id") Long id) {
 public String letterAdmin(Model model) {
     List<Letter> letters = letterRepository.findAll();
     model.addAttribute("letters", letters);
-    return "/letterList";
+    return "user/letterList";
 }
 //разблакировка юзера со страницы списка писем
 @GetMapping("userUnBlockLetterId/{id}")
@@ -146,7 +146,7 @@ public String deleteLetter(@PathVariable("id") Long id){
 public String userBanList(Model model) {
     List<Authenticate> authenticates = authenticateRepository.findByProfileClose(false);
     model.addAttribute("authenticates", authenticates);
-    return "/userBlockList";
+    return "user/userBlockList";
 }
 //разблакировка юзера и переход на страницу лист блок юзера
 @GetMapping("userBlock/{id}")

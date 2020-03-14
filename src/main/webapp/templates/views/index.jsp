@@ -8,14 +8,21 @@
 </head>
 <body>
 <ul id="menu">
-    <li><a href="/">Home</a></li>
+    <li><a href="/static">Home</a></li>
     <li>
-        <a>User </a>
+        <a>User</a>
         <ul class="hidden">
             <li><a href="${pageContext.request.contextPath}/adminCreate">Create Admin</a></li>
             <li><a href="${pageContext.request.contextPath}/users">List User</a></li>
             <li><a href="${pageContext.request.contextPath}/letterAdminList">List Letter to Admin</a></li>
             <li><a href="${pageContext.request.contextPath}/userBlockList">List Block User</a></li>
+            <li><a href="${pageContext.request.contextPath}/createCreditCard">Create Credit Card</a></li>
+            <li><a href="${pageContext.request.contextPath}/createDriveCard">Create Drive Card</a></li>
+            <li><a href="${pageContext.request.contextPath}/countryRegistration">Create Country</a></li>
+            <li><a href="${pageContext.request.contextPath}/createCompany">Create Company</a></li>
+            <li><a href="${pageContext.request.contextPath}/createCar">Create Car</a></li>
+            <li><a href="${pageContext.request.contextPath}/createPrice">Create PriceCar</a></li>
+            <li><a href="${pageContext.request.contextPath}/createTown">Create Town</a></li>
         </uL>
     </li>
 <table>
