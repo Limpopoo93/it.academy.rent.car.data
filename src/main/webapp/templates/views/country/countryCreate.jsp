@@ -7,7 +7,6 @@
 <body>
 <div class="login-page">
     <div class="form">
-        <%--@elvariable id="authenticate" type="it.academy.rent.bean.Authenticate"--%>
         <%--@elvariable id="country" type="it.academy.rent.bean.Country"--%>
         <form:form class="register-form" action="${pageContext.request.contextPath}/countryRegistration"
                    modelAttribute="country" method="post">

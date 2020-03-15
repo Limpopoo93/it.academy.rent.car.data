@@ -8,9 +8,9 @@
 <body>
 <div class="login-page">
     <div class="form">
-        <%--@elvariable id="authenticate" type="it.academy.rent.bean.Authenticate"--%>
+        <%--@elvariable id="driveCard" type="it.academy.rent.bean.DriveCard"--%>
         <form:form class="register-form" action="${pageContext.request.contextPath}/createDriveCard"
-                   modelAttribute="authenticate" method="post">
+                   modelAttribute="driveCard" method="post">
 
             <form:errors path="name" cssStyle="color: red"/>
             <form:input path="name" type="text" placeholder="name"/>

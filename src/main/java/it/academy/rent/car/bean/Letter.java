@@ -8,8 +8,8 @@ public class Letter {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @Column(name = "letter")
-    private String letter;
+    @Column(name = "text_letter")
+    private String textLetter;
     @ManyToOne(fetch = FetchType.LAZY, cascade ={CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "id_authenticate", nullable = false)
     private Authenticate authenticate;
@@ -25,12 +25,12 @@ public class Letter {
         this.id = id;
     }
 
-    public String getLetter() {
-        return letter;
+    public String getTextLetter() {
+        return textLetter;
     }
 
-    public void setLetter(String letter) {
-        this.letter = letter;
+    public void setTextLetter(String textLetter) {
+        this.textLetter = textLetter;
     }
 
     public Authenticate getAuthenticate() {
@@ -45,7 +45,7 @@ public class Letter {
     public String toString() {
         return "Letter{" +
                 "id=" + id +
-                ", letter='" + letter + '\'' +
+                ", textLetter='" + textLetter + '\'' +
                 ", authenticate=" + authenticate +
                 '}';
     }

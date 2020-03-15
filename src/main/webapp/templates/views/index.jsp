@@ -43,8 +43,6 @@
         <td>
         <td>${sessionScope.authenticate.password}</td>
         <td>
-        <td>${sessionScope.authenticate.profileEnable}</td>
-        <td>
         <td>${sessionScope.authenticate.profileClose}</td>
         <td>
         <td>${sessionScope.authenticate.email}</td>

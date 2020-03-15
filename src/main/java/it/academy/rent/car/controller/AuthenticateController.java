@@ -48,18 +48,19 @@ public String createUser(Authenticate authenticate) {
  //переход с main на страницу входа
  @GetMapping("/userComeIn")
  public String comeInUser(Authenticate authenticate) {
-     return "user/comeIn";
+     return "user/userComeIn";
  }
  //переход со страницы входа проверка и отправка на index при открытом доступе7
  @PostMapping("/userComeIn")
- public String comeInUser(Authenticate authenticate, HttpSession session) {
+ public String comeInUser(Authenticate authenticate, HttpSession session, Letter letter) {
      Authenticate authenticateResult = authenticateRepository.findByLoginAndPassword(authenticate.getLogin(), authenticate.getPassword());
      if (authenticateResult != null) {
          if (authenticateResult.isProfileClose() == true) {
              session.setAttribute("authenticate", authenticateResult);
              return "index";
          } else {
-             return "user/letterAdmin";
+             session.setAttribute("authenticate", authenticateResult);
+            return "user/usetLetterAdmin";
          }
      }
      return "redirect:/userComeIn";
@@ -108,7 +109,7 @@ public String deleteUser(@PathVariable("id") Long id){
 public String findBlockUser(@PathVariable("id") Long id) {
     Authenticate authenticate = authenticateRepository.findByLId(id);
     authenticate.setProfileClose(false);
-    authenticateRepository.saveAndFlush(authenticate);
+   authenticateRepository.saveAndFlush(authenticate);
     return "redirect:/users";
 }
 //разблокировка пользователя из таблицы юзера

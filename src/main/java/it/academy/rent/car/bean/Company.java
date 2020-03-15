@@ -18,7 +18,7 @@ public class Company {
     private String telephone;
     @Column(name = "email")
     private String email;
-    private List<Country> companyList = new ArrayList<>();
+   // private List<Country> companyList = new ArrayList<>();
 
     public Company() {
     }

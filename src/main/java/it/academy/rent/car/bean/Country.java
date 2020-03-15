@@ -12,7 +12,7 @@ public class Country {
     private long id;
     @Column(name = "country")
     private String country;
-    private List<Company> companyList = new ArrayList<>();
+    //private List<Company> companyList = new ArrayList<>();
 
     public Country() {
     }

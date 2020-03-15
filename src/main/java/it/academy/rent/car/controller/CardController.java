@@ -30,7 +30,7 @@ public class CardController {
     @PostMapping("/createCreditCard")
     public String createCreditCard(Card card, HttpSession session) {
         Authenticate authenticate = (Authenticate) session.getAttribute("authenticate");
-        card.setAuthenticate(authenticate);
+        //card.setAuthenticate(authenticate);
         cardRepository.save(card);
         return "redirect:/createCreditCard";
     }

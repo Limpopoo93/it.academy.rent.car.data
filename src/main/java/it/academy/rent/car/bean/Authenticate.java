@@ -22,6 +22,15 @@ public class Authenticate {
     public Authenticate() {
     }
 
+    public Authenticate(long id, String login, String password, String email, boolean profileClose, Role role) {
+        this.id = id;
+        this.login = login;
+        this.password = password;
+        this.email = email;
+        this.profileClose = profileClose;
+        this.role = role;
+    }
+
     public long getId() {
         return id;
     }
@@ -81,4 +90,6 @@ public class Authenticate {
                 ", role=" + role +
                 '}';
     }
+
+
 }

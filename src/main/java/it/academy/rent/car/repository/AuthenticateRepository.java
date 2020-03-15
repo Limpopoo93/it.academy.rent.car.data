@@ -1,6 +1,4 @@
 package it.academy.rent.car.repository;
-
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import it.academy.rent.car.bean.Authenticate;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -13,12 +11,12 @@ import java.util.List;
 @Repository
 @Transactional
 public interface AuthenticateRepository extends JpaRepository<Authenticate, Long> {
-    @Query(nativeQuery = true, value = "select authenticate from authenticate  where login = ? and password = ?")
-    Authenticate findByLoginAndPassword(String login, String password);
-    @Query(nativeQuery = true, value = "select authenticate from authenticate  where profileclose = ?")
-    List<Authenticate> findByProfileClose(Boolean profileClose);
-    @Query(nativeQuery = true, value = "select authenticate from authenticate  where login = ?")
-    Authenticate findByLogin(String login);
-    @Query(nativeQuery = true, value = "select authenticate from authenticate  where id = ?")
-    Authenticate findByLId(long id);
+    @Query("select a from Authenticate a where a.login = :login and a.password = :password")
+    Authenticate findByLoginAndPassword(@Param("login") String login, @Param("password") String password);
+    @Query("select a from Authenticate a where a.profileClose = :profileclose")
+    List<Authenticate> findByProfileClose(@Param("profileclose") Boolean profileClose);
+    @Query("select a from Authenticate a where a.login = :login")
+    Authenticate findByLogin(@Param("login") String login);
+    @Query("select a from Authenticate a where a.id = :id")
+    Authenticate findByLId(@Param("id") long id);
 }
