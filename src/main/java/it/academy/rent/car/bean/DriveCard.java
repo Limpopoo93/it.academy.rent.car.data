@@ -1,7 +1,9 @@
 package it.academy.rent.car.bean;
 
 import javax.persistence.*;
-import java.util.*;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "drivecard")
@@ -21,11 +23,11 @@ public class DriveCard {
     @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "id_authenticate", nullable = false)
     private Authenticate authenticate;
-  //    @ManyToMany
- //     @JoinTable(name = "category_card", joinColumns =
- //     @JoinColumn(name = "id_categorycard", referencedColumnName = "id"),
-  //            inverseJoinColumns = @JoinColumn(name = "id_drivecard", referencedColumnName = "id"))
-  //  private Set<CategoryCard> categoryCards = new HashSet<>();
+      @ManyToMany
+      @JoinTable(name = "category_drivecard", joinColumns =
+     @JoinColumn(name = "id_categorycard", referencedColumnName = "id"),
+              inverseJoinColumns = @JoinColumn(name = "id_drivecard", referencedColumnName = "id"))
+    private Set<CategoryCard> categoryCards = new HashSet<>();
 
     public DriveCard() {
     }
@@ -78,13 +80,13 @@ public class DriveCard {
         this.authenticate = authenticate;
     }
 
-   // public Set<CategoryCard> getCategoryCards() {
-   //     return categoryCards;
-   // }
+    public Set<CategoryCard> getCategoryCards() {
+        return categoryCards;
+    }
 
-   // public void setCategoryCards(Set<CategoryCard> categoryCards) {
-   //     this.categoryCards = categoryCards;
-    //}
+    public void setCategoryCards(Set<CategoryCard> categoryCards) {
+        this.categoryCards = categoryCards;
+    }
 
     @Override
     public String toString() {
@@ -95,7 +97,7 @@ public class DriveCard {
                 ", country='" + country + '\'' +
                 ", dateMake=" + dateMake +
                 ", authenticate=" + authenticate +
-      //          ", categoryCards=" + categoryCards +
+                ", categoryCards=" + categoryCards +
                 '}';
     }
 }

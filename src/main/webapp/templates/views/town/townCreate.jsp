@@ -15,6 +15,9 @@
             <form:errors path="town" cssStyle="color: red"/>
             <form:input path="town" type="text" placeholder="town"/>
 
+            <form:errors path="country.country" cssStyle="color: red"/>
+            <form:input path="country.country" type="text" placeholder="country"/>
+
             <button>Registration</button>
         </form:form>
     </div>

@@ -21,6 +21,9 @@
             <form:errors path="email" cssStyle="color: red"/>
             <form:input path="email" type="text" placeholder="email"/>
 
+            <form:errors path="townSet" cssStyle="color: red"/>
+            <form:input path="townSet" type="text" placeholder="town"/>
+
             <button>Registration</button>
         </form:form>
     </div>

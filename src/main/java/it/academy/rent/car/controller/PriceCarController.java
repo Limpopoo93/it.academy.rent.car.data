@@ -1,6 +1,5 @@
 package it.academy.rent.car.controller;
 
-import it.academy.rent.car.bean.Car;
 import it.academy.rent.car.bean.PriceCar;
 import it.academy.rent.car.repository.PriceCarRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +13,7 @@ public class PriceCarController {
     private PriceCarRepository priceCarRepository;
     @GetMapping("/createPrice")
     public String createByCar(PriceCar priceCar) {
-        return "car/carCreate";
+        return "car/priceCarCreate";
     }
 
     @PostMapping("/createPrice")

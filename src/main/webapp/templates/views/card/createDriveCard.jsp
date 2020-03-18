@@ -24,8 +24,8 @@
             <form:errors path="dateMake" cssStyle="color: red"/>
             <form:input path="dateMake" type="text" placeholder="dateMake"/>
 
-            <form:errors path="category" cssStyle="color: red"/>
-            <form:input path="category" type="text" placeholder="category"/>
+            <form:errors path="categoryCards" cssStyle="color: red"/>
+            <form:input path="categoryCards" type="text" placeholder="category"/>
 
             <button>Registration</button>
         </form:form>

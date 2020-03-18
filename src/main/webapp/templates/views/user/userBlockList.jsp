@@ -18,7 +18,7 @@
 </tr>
 </thead>
 <tbody>
-<c:forEach items="${authenticates}" var="authenticate">
+<c:forEach items="${authenticate}" var="authenticate">
     <td>${authenticate.getLogin()}</td>
     <td>${authenticate.getPassword()}</td>
     <td>${authenticate.getEmail()}</td>
@@ -27,6 +27,7 @@
     <button class="button block"><i class="fa fa-lock">UnBlock User</i>
     </button>
     </form>
+</c:forEach>
     </table>
 </body>
 </html>

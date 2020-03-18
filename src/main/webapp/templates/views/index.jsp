@@ -8,7 +8,7 @@
 </head>
 <body>
 <ul id="menu">
-    <li><a href="/static">Home</a></li>
+    <li><a href="/">Home</a></li>
     <li>
         <a>User</a>
         <ul class="hidden">
@@ -23,6 +23,14 @@
             <li><a href="${pageContext.request.contextPath}/createCar">Create Car</a></li>
             <li><a href="${pageContext.request.contextPath}/createPrice">Create PriceCar</a></li>
             <li><a href="${pageContext.request.contextPath}/createTown">Create Town</a></li>
+
+            <li><a href="${pageContext.request.contextPath}/">Select User</a></li>
+            <li><a href="${pageContext.request.contextPath}/">Select Car</a></li>
+            <li><a href="${pageContext.request.contextPath}/">Select Company</a></li>
+            <li><a href="${pageContext.request.contextPath}/">Select Country</a></li>
+            <li><a href="${pageContext.request.contextPath}/">Select Town</a></li>
+            <li><a href="${pageContext.request.contextPath}/">Select DriveCard</a></li>
+
         </uL>
     </li>
 <table>
@@ -34,7 +42,6 @@
         <th>login</th>
         <th>password</th>
         <th>role</th>
-        <th>profileEnable</th>
         <th>profileClose</th>
     </tr>
     <tr>

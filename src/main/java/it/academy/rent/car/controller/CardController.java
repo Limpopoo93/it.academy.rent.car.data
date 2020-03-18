@@ -2,10 +2,8 @@ package it.academy.rent.car.controller;
 
 import it.academy.rent.car.bean.Authenticate;
 import it.academy.rent.car.bean.Card;
-import it.academy.rent.car.bean.CategoryCard;
 import it.academy.rent.car.bean.DriveCard;
 import it.academy.rent.car.repository.CardRepository;
-import it.academy.rent.car.repository.CategoryCardRepository;
 import it.academy.rent.car.repository.DriveCardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,7 +28,7 @@ public class CardController {
     @PostMapping("/createCreditCard")
     public String createCreditCard(Card card, HttpSession session) {
         Authenticate authenticate = (Authenticate) session.getAttribute("authenticate");
-        //card.setAuthenticate(authenticate);
+        card.setAuthenticate(authenticate);
         cardRepository.save(card);
         return "redirect:/createCreditCard";
     }
@@ -38,7 +36,7 @@ public class CardController {
     //создание водительских прав
     @GetMapping("/createDriveCard")
     public String createDriveCard(DriveCard driveCard) {
-        return "card/createCreditCard";
+        return "card/createDriveCard";
     }
 
     @PostMapping("/createDriveCard")

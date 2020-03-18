@@ -1,6 +1,8 @@
 package it.academy.rent.car.bean;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "town")
@@ -13,6 +15,8 @@ public class Town {
     @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "id_country", nullable = false)
     private Country country;
+     @ManyToMany(mappedBy = "townSet")
+     private Set<Company> companySet = new HashSet<>();
 
     public Town() {
     }
@@ -41,12 +45,21 @@ public class Town {
         this.country = country;
     }
 
+    public Set<Company> getCompanySet() {
+        return companySet;
+    }
+
+    public void setCompanySet(Set<Company> companySet) {
+        this.companySet = companySet;
+    }
+
     @Override
     public String toString() {
         return "Town{" +
                 "id=" + id +
                 ", town='" + town + '\'' +
                 ", country=" + country +
+                ", companySet=" + companySet +
                 '}';
     }
 }

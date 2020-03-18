@@ -18,6 +18,9 @@
             <form:errors path="namePrice" cssStyle="color: red"/>
             <form:input path="namePrice" type="text" placeholder="namePrice"/>
 
+            <form:errors path="car.id" cssStyle="color: red"/>
+            <form:input path="car.id" type="text" placeholder="indefNomerCar"/>
+
             <button>Registration</button>
         </form:form>
     </div>

@@ -145,8 +145,8 @@ public String deleteLetter(@PathVariable("id") Long id){
 //список блокированных юзеров
 @GetMapping("/userBlockList")
 public String userBanList(Model model) {
-    List<Authenticate> authenticates = authenticateRepository.findByProfileClose(false);
-    model.addAttribute("authenticates", authenticates);
+    List<Authenticate> authenticate = authenticateRepository.findByProfileClose(false);
+    model.addAttribute("authenticate", authenticate);
     return "user/userBlockList";
 }
 //разблакировка юзера и переход на страницу лист блок юзера

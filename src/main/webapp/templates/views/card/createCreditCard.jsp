@@ -7,18 +7,19 @@
 <body>
 <div class="login-page">
     <div class="form">
-        <%--@elvariable id="card" type="it.academy.rent.bean.Card"--%>
+
+        <%--@elvariable id="card" type="it.academy.rent.car.bean.Card"--%>
         <form:form class="register-form" action="${pageContext.request.contextPath}/createCreditCard"
                    modelAttribute="card" method="post">
+
+            <form:errors path="nameUser" cssStyle="color: red"/>
+            <form:input path="nameUser" type="text" placeholder="nameUser"/>
 
             <form:errors path="keyCard" cssStyle="color: red"/>
             <form:input path="keyCard" type="text" placeholder="keyCard"/>
 
-            <form:errors path="date" cssStyle="color: red"/>
-            <form:input path="date" type="date" placeholder="date"/>
-
-            <form:errors path="nameUser" cssStyle="color: red"/>
-            <form:input path="nameUser" type="text" placeholder="nameUser"/>
+            <form:errors path="carDate" cssStyle="color: red"/>
+            <form:input path="carDate" type="date" placeholder="date"/>
 
             <form:errors path="keySecurity" cssStyle="color: red"/>
             <form:input path="keySecurity" type="text" placeholder="keySecurity"/>

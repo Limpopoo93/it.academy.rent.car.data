@@ -15,7 +15,7 @@ public class Card {
     private int keyCard;
     @Column(name = "date")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date date;
+    private Date carDate;
     @Column(name = "keysecurity")
     private int keySecurity;
     @Column(name = "keys")
@@ -51,12 +51,12 @@ public class Card {
         this.keyCard = keyCard;
     }
 
-    public Date getDate() {
-        return date;
+    public Date getCarDate() {
+        return carDate;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setCarDate(Date carDate) {
+        this.carDate = carDate;
     }
 
     public int getKeySecurity() {
@@ -89,7 +89,7 @@ public class Card {
                 "id=" + id +
                 ", nameUser='" + nameUser + '\'' +
                 ", keyCard=" + keyCard +
-                ", date=" + date +
+                ", carDate=" + carDate +
                 ", keySecurity=" + keySecurity +
                 ", keys=" + keys +
                 ", authenticate=" + authenticate +

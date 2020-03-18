@@ -39,6 +39,9 @@
             <form:errors path="typeCar" cssStyle="color: red"/>
             <form:input path="typeCar" type="text" placeholder="typeCar"/>
 
+            <form:errors path="company.nameCompany" cssStyle="color: red"/>
+            <form:input path="company.nameCompany" type="text" placeholder="nameCompany"/>
+
             <button>Registration</button>
         </form:form>
     </div>

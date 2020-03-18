@@ -1,8 +1,8 @@
 package it.academy.rent.car.bean;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "company")
@@ -18,6 +18,11 @@ public class Company {
     private String telephone;
     @Column(name = "email")
     private String email;
+    @ManyToMany
+    @JoinTable(name = "company_town", joinColumns =
+    @JoinColumn(name = "id_company", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "id_town", referencedColumnName = "id"))
+    private Set<Town> townSet = new HashSet<>();
    // private List<Country> companyList = new ArrayList<>();
 
     public Company() {
@@ -63,6 +68,14 @@ public class Company {
         this.email = email;
     }
 
+    public Set<Town> getTownSet() {
+        return townSet;
+    }
+
+    public void setTownSet(Set<Town> townSet) {
+        this.townSet = townSet;
+    }
+
     @Override
     public String toString() {
         return "Company{" +
@@ -71,6 +84,7 @@ public class Company {
                 ", reting=" + reting +
                 ", telephone='" + telephone + '\'' +
                 ", email='" + email + '\'' +
+                ", townSet=" + townSet +
                 '}';
     }
 }
