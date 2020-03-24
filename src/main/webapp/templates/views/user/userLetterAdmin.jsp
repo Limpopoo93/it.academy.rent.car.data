@@ -1,8 +1,9 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Letter List</title>
+    <title>Letter Admin</title>
 </head>
 <body>
 <header>
@@ -32,39 +33,59 @@
         </div>
     </div>
 </header>
-<table>
-    <thead>
-    <tr>
-        <th>login</th>
-        <th>password</th>
-        <th>email</th>
-        <th>letter</th>
-        <th>UnBlock</th>
-        <th>Delete Letter</th>
-    </tr>
-    </thead>
-    <tbody>
-    <c:forEach items="${letters}" var="letter">
-        <tr>
-        <td>${letter.authenticate.getLogin()}</td>
-        <td>${letter.authenticate.getPassword()}</td>
-        <td>${letter.authenticate.getEmail()}</td>
-        <td>${letter.getTextLetter()}</td>
-            <td><form action="<c:url value="/userUnBlockLetterId/${letter.authenticate.getId()}"/>" method="get">
-            <button class="button block"><i class="fa fa-lock">UnBlock</i>
-            </button>
-        </form></td>
-            <td> <form action="<c:url value="/deleteLetter/${letter.getId()}"/>" method="get">
-            <button class="button block"><i class="fa fa-lock">DeleteLetter</i>
-            </button>
-        </form></td>
-        </tr>
-    </c:forEach>
-    </tbody>
-</table>
+<div class="full-width main-baner">
+    <div class="layer-main-baner"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-7 col-md-offset-5 col-sm-12">
+                <div class="home-contact-form">
+                    <div class="home-contact-form-wrap">
+                        <h1>Welcome to <br>rent <span class="blue-color">a car</span></h1>
+                        <div class="contact-form">
+                            <div class="form-header">
+                                <h3>Letter Form</h3>
+                            </div>
+                            <%--@elvariable id="letter" type="it.academy.rent.car.bean.Letter"--%>
+                            <form:form class="register-form" action="${pageContext.request.contextPath}/pushLetter"
+                                       modelAttribute="letter" method="post">
+
+                            <form:errors path="textLetter" cssStyle="color: red"/>
+                            <form:input path="textLetter" type="text" placeholder="letter"/>
+
+                            <div class="send-button">
+                                <input type="submit" value="Add Letter">
+                            </div>
+                        </div>
+                        </form:form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="swiper-container home-baner">
+    <div class="swiper-wrapper">
+        <div class="swiper-slide">
+            <div class="home-img">
+                <div class="bg-bg">
+                </div>
+            </div>
+        </div>
+        <div class="swiper-slide">
+            <div class="home-img">
+                <div class="bg-bg">
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
 </body>
 </html>
 <style type="text/css">
+
     html {
         margin: 0px;
         padding: 0px;
@@ -1020,81 +1041,5 @@
         .container {
             width: 1170px
         }
-    }
-
-    body {
-        margin: 20px;
-    }
-
-    table {
-        width: 100%;
-        margin-bottom: 18px;
-        padding: 0;
-        font-size: 13px;
-        border: 1px solid #141415;
-        border-spacing: 0;
-        border-collapse: separate;
-        -webkit-border-radius: 5px;
-        -moz-border-radius: 5px;
-        border-radius: 5px;
-        background-color: #37393c;
-        font-family: Helvetica, Arial;
-        font-size: 12px;
-        color: white;
-    }
-
-    table th, table td {
-        padding: 10px 10px 9px;
-        line-height: 18px;
-        text-align: left;
-    }
-
-    table th {
-        padding-top: 9px;
-        font-weight: bold;
-        vertical-align: middle;
-        color: #b6daff;
-    }
-
-    table td {
-        vertical-align: top;
-        border-top: 1px solid #ddd;
-    }
-
-    table th+th,table td+td,table th+td {
-        border-left: 1px solid #ddd;
-    }
-
-    table thead tr:first-child th:first-child, table tbody tr:first-child td:first-child {
-        -webkit-border-radius: 5px 0 0 0;
-        -moz-border-radius: 5px 0 0 0;
-        border-radius: 5px 0 0 0;
-    }
-
-    table thead tr:first-child th:last-child, table tbody tr:first-child td:last-child {
-        -webkit-border-radius: 0 5px 0 0;
-        -moz-border-radius: 0 5px 0 0;
-        border-radius: 0 5px 0 0;
-    }
-
-    table tbody tr:last-child td:first-child {
-        -webkit-border-radius: 0 0 0 5px;
-        -moz-border-radius: 0 0 0 5px;
-        border-radius: 0 0 0 5px;
-    }
-
-    table tbody tr:last-child td:last-child {
-        -webkit-border-radius: 0 0 5px 0;
-        -moz-border-radius: 0 0 5px 0;
-        border-radius: 0 0 5px 0;
-    }
-
-    table tbody tr:nth-child(odd) td {
-        background-color: #323841;
-    }
-
-    table tbody tr:hover td {
-        background-color: #202223;
-        cursor: pointer;
     }
 </style>

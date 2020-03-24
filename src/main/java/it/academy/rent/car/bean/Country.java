@@ -1,8 +1,6 @@
 package it.academy.rent.car.bean;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Table(name = "country")
@@ -12,7 +10,6 @@ public class Country {
     private long id;
     @Column(name = "country")
     private String country;
-    //private List<Company> companyList = new ArrayList<>();
 
     public Country() {
     }

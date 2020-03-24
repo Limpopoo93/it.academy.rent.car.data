@@ -11,7 +11,7 @@ public class Car {
     @Column(name = "namecar")
     private String nameCar;
     @Column(name = "typefuel")
-    private TypeFuel typeFuel;
+    private String typeFuel;
     @Column(name = "coldoors")
     private int colDoors;
     @Column(name = "colpeople")
@@ -93,11 +93,11 @@ public class Car {
         this.colPeople = colPeople;
     }
 
-    public TypeFuel getTypeFuel() {
+    public String getTypeFuel() {
         return typeFuel;
     }
 
-    public void setTypeFuel(TypeFuel typeFuel) {
+    public void setTypeFuel(String typeFuel) {
         this.typeFuel = typeFuel;
     }
 

@@ -23,7 +23,6 @@ public class Company {
     @JoinColumn(name = "id_company", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "id_town", referencedColumnName = "id"))
     private Set<Town> townSet = new HashSet<>();
-   // private List<Country> companyList = new ArrayList<>();
 
     public Company() {
     }

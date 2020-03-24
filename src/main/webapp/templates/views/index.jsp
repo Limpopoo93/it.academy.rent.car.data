@@ -8,7 +8,7 @@
 </head>
 <body>
 <ul id="menu">
-    <li><a href="/">Home</a></li>
+    <li><a href="${pageContext.request.contextPath}/">Home</a></li>
     <li>
         <a>User</a>
         <ul class="hidden">
@@ -17,19 +17,41 @@
             <li><a href="${pageContext.request.contextPath}/letterAdminList">List Letter to Admin</a></li>
             <li><a href="${pageContext.request.contextPath}/userBlockList">List Block User</a></li>
             <li><a href="${pageContext.request.contextPath}/createCreditCard">Create Credit Card</a></li>
-            <li><a href="${pageContext.request.contextPath}/createDriveCard">Create Drive Card</a></li>
             <li><a href="${pageContext.request.contextPath}/countryRegistration">Create Country</a></li>
             <li><a href="${pageContext.request.contextPath}/createCompany">Create Company</a></li>
             <li><a href="${pageContext.request.contextPath}/createCar">Create Car</a></li>
             <li><a href="${pageContext.request.contextPath}/createPrice">Create PriceCar</a></li>
             <li><a href="${pageContext.request.contextPath}/createTown">Create Town</a></li>
 
+            <%--@elvariable id="carSearch" type="it.academy.rent.car.bean.CarSearch"--%>
+            <form:form class="register-form" name="address" action="${pageContext.request.contextPath}/searchFormCountry"
+                        method="post" modelAttribute="carSearch">
+                Country:
+
+                <select name="country" onChange="MkHouseValues(this.selectedIndex)">
+                    <option value="Russia" >Россия</option>
+                    <option value="Anglia">Англия</option>
+                    <option value="Itally">Италия</option>
+                    <option value="France">Франция</option>
+                    <option value="Ukraine">Украина</option>
+                </select>
+
+                &nbsp;Town:
+                <select name="town">
+                    <option value="N/A">N/A</option>
+                </select>
+                <form:input path="dateCheck" type="date" value="2017-06-01"/>
+                <form:input path="dateReturn" type="date" value="2017-06-01"/>
+                <button>Search</button>
+            </form:form>
+
+
+
             <li><a href="${pageContext.request.contextPath}/">Select User</a></li>
             <li><a href="${pageContext.request.contextPath}/">Select Car</a></li>
             <li><a href="${pageContext.request.contextPath}/">Select Company</a></li>
             <li><a href="${pageContext.request.contextPath}/">Select Country</a></li>
             <li><a href="${pageContext.request.contextPath}/">Select Town</a></li>
-            <li><a href="${pageContext.request.contextPath}/">Select DriveCard</a></li>
 
         </uL>
     </li>
@@ -61,3 +83,81 @@
 </ul>
 </body>
 </html>
+<script type="application/javascript">
+    var aHouseValues = new Array(
+        "Москва, Питер, Самара, Бугуруслан",
+        "Лондон, Мантчестер",
+        "Рим, Турин",
+        "Lyon", "Париж",
+        "Киев, Семфирополь"
+    );
+
+    function getHouseValuesByStreet(index){
+        var sHouseValues = aHouseValues[index];
+        return sHouseValues.split(",");
+    }
+
+    function MkHouseValues(index){
+        var aCurrHouseValues = getHouseValuesByStreet(index);
+        var nCurrHouseValuesCnt = aCurrHouseValues.length;
+        var oHouseList = document.forms["address"].elements["town"];
+        var oHouseListOptionsCnt = oHouseList.options.length;
+        oHouseList.length = 0;
+        for (i = 0; i < nCurrHouseValuesCnt; i++){
+            if (document.createElement){
+                var newHouseListOption = document.createElement("OPTION");
+                newHouseListOption.text = aCurrHouseValues[i];
+                newHouseListOption.value = aCurrHouseValues[i];
+                (oHouseList.options.add) ? oHouseList.options.add(newHouseListOption) : oHouseList.add(newHouseListOption, null);
+            }else{
+                oHouseList.options[i] = new Option(aCurrHouseValues[i], aCurrHouseValues[i], false, false);
+            }
+        }
+    }
+
+    MkHouseValues(document.forms["address"].elements["country"].selectedIndex);
+    //-->
+</script>
+<style type="text/css">
+    .dropdown {
+        position: relative;
+        border-bottom: 5px solid white;
+    }
+   .dropdown:hover ul {
+        display: block;
+    }
+    .dropdown ul {
+        display: none;
+        position: absolute;
+        top: 39px;
+        left: -1px;
+        min-width: 160px;
+        padding: 0 0 5px;
+        background: white;
+        border: 1px solid #dadada;
+        border-top: 0;
+        border-radius: 0 0 3px 3px;
+        -webkit-box-shadow: 0 0 1px rgba(0, 0, 0, 0.04);
+        box-shadow: 0 0 1px rgba(0, 0, 0, 0.04);
+    }
+    .dropdown ul.large {
+        min-width: 200px;
+    }
+  .dropdown li {
+        display: block;
+        margin: 0 18px;
+        overflow: visible;
+    }
+    .dropdown li + li {
+        border-top: 1px solid #eee;
+    }
+    .dropdown li a {
+        color: #555;
+        padding: 8px 18px;
+        margin: 0 -18px;
+    }
+    .dropdown li a:hover {
+        color: black;
+    }
+
+</style>

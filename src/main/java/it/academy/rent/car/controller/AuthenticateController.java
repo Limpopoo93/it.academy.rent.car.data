@@ -1,6 +1,7 @@
 package it.academy.rent.car.controller;
 
 import it.academy.rent.car.bean.Authenticate;
+import it.academy.rent.car.bean.CarSearch;
 import it.academy.rent.car.bean.Letter;
 import it.academy.rent.car.bean.Role;
 import it.academy.rent.car.repository.AuthenticateRepository;
@@ -52,7 +53,7 @@ public String createUser(Authenticate authenticate) {
  }
  //переход со страницы входа проверка и отправка на index при открытом доступе7
  @PostMapping("/userComeIn")
- public String comeInUser(Authenticate authenticate, HttpSession session, Letter letter) {
+ public String comeInUser(Authenticate authenticate, HttpSession session, Letter letter, CarSearch carSearch) {
      Authenticate authenticateResult = authenticateRepository.findByLoginAndPassword(authenticate.getLogin(), authenticate.getPassword());
      if (authenticateResult != null) {
          if (authenticateResult.isProfileClose() == true) {
@@ -60,7 +61,7 @@ public String createUser(Authenticate authenticate) {
              return "index";
          } else {
              session.setAttribute("authenticate", authenticateResult);
-            return "user/usetLetterAdmin";
+            return "user/userLetterAdmin";
          }
      }
      return "redirect:/userComeIn";
