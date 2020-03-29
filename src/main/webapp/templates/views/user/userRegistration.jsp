@@ -5,7 +5,6 @@
     <title>Registration User</title>
 </head>
 <body>
-
 <header>
     <div class="full-width header">
         <div class="container">
@@ -49,45 +48,48 @@
                             <form:form class="register-form"
                                        action="${pageContext.request.contextPath}/userRegistration"
                                        modelAttribute="authenticate" method="post">
+                                <div class="form">
+                                    <form:errors path="login" cssStyle="color: red"/>
+                                    <form:input path="login" type="text" placeholder="login"/>
 
-                            <form:errors path="login" cssStyle="color: red"/>
-                            <form:input path="login" type="text" placeholder="login"/>
+                                    <form:errors path="password" cssStyle="color: red"/>
+                                    <form:input path="password" type="password" placeholder="password"/>
 
-                            <form:errors path="password" cssStyle="color: red"/>
-                            <form:input path="password" type="text" placeholder="password"/>
-
-                            <form:errors path="email" cssStyle="color: red"/>
-                            <form:input path="email" type="text" placeholder="email"/>
-
-                            <div class="send-button">
-                                <input type="submit" value="Registration">
-                            </div>
+                                    <form:errors path="email" cssStyle="color: red"/>
+                                    <form:input path="email" type="text" placeholder="email"/>
+                                    <div class="send-button">
+                                        <input type="submit" value="Registration">
+                                    </div>
+                                </div>
+                            </form:form>
                         </div>
-                        </form:form>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-<div class="swiper-container home-baner">
-    <div class="swiper-wrapper">
-        <div class="swiper-slide">
-            <div class="home-img">
-                <div class="bg-bg">
+    <div class="swiper-container home-baner">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide">
+                <div class="home-img">
+                    <div class="bg-bg" >
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="swiper-slide">
-            <div class="home-img">
-                <div class="bg-bg">
+            <div class="swiper-slide">
+                <div class="home-img">
+                    <div class="bg-bg" >
+                    </div>
                 </div>
             </div>
-        </div>
 
+        </div>
     </div>
+
 </div>
+
+
 
 </body>
 </html>
@@ -1049,4 +1051,79 @@
         }
     }
 
+    body {
+        margin: 20px;
+    }
+
+    table {
+        width: 100%;
+        margin-bottom: 18px;
+        padding: 0;
+        font-size: 13px;
+        border: 1px solid #141415;
+        border-spacing: 0;
+        border-collapse: separate;
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        border-radius: 5px;
+        background-color: #37393c;
+        font-family: Helvetica, Arial;
+        font-size: 12px;
+        color: white;
+    }
+
+    table th, table td {
+        padding: 10px 10px 9px;
+        line-height: 18px;
+        text-align: left;
+    }
+
+    table th {
+        padding-top: 9px;
+        font-weight: bold;
+        vertical-align: middle;
+        color: #b6daff;
+    }
+
+    table td {
+        vertical-align: top;
+        border-top: 1px solid #ddd;
+    }
+
+    table th+th,table td+td,table th+td {
+        border-left: 1px solid #ddd;
+    }
+
+    table thead tr:first-child th:first-child, table tbody tr:first-child td:first-child {
+        -webkit-border-radius: 5px 0 0 0;
+        -moz-border-radius: 5px 0 0 0;
+        border-radius: 5px 0 0 0;
+    }
+
+    table thead tr:first-child th:last-child, table tbody tr:first-child td:last-child {
+        -webkit-border-radius: 0 5px 0 0;
+        -moz-border-radius: 0 5px 0 0;
+        border-radius: 0 5px 0 0;
+    }
+
+    table tbody tr:last-child td:first-child {
+        -webkit-border-radius: 0 0 0 5px;
+        -moz-border-radius: 0 0 0 5px;
+        border-radius: 0 0 0 5px;
+    }
+
+    table tbody tr:last-child td:last-child {
+        -webkit-border-radius: 0 0 5px 0;
+        -moz-border-radius: 0 0 5px 0;
+        border-radius: 0 0 5px 0;
+    }
+
+    table tbody tr:nth-child(odd) td {
+        background-color: #323841;
+    }
+
+    table tbody tr:hover td {
+        background-color: #202223;
+        cursor: pointer;
+    }
 </style>

@@ -1,9 +1,8 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Town Create</title>
+    <title>Select Car</title>
 </head>
 <body>
 <header>
@@ -43,19 +42,24 @@
                         <h1>Welcome to <br>rent <span class="blue-color">a car</span></h1>
                         <div class="contact-form">
                             <div class="form-header">
-                                <h3>Town Form</h3>
+                                <h3>Select Form</h3>
                             </div>
-                            <%--@elvariable id="town" type="it.academy.rent.bean.Town"--%>
-                            <form:form class="register-form" action="${pageContext.request.contextPath}/createTown"
-                                       modelAttribute="town" method="post">
 
-                            <form:errors path="town" cssStyle="color: red"/>
-                            <form:input path="town" type="text" placeholder="town"/>
+                            <%--@elvariable id="car" type="it.academy.rent.car.bean.Car"--%>
+                            <form:form class="register-form"
+                                       action="${pageContext.request.contextPath}/updatePriceCar"
+                                       modelAttribute="car" method="post">
+                                <div class="form">
+                                    <form:errors path="nameCar" cssStyle="color: red"/>
+                                    <form:input path="nameCar" type="text" placeholder="nameCar"/>
 
-                            <form:errors path="country.country" cssStyle="color: red"/>
-                            <form:input path="country.country" type="text" placeholder="country"/>
+                                    <form:errors path="makeCar" cssStyle="color: red"/>
+                                    <form:input path="makeCar" type="makeCar" placeholder="makeCar"/>
+
+                                    <form:errors path="company.nameCompany" cssStyle="color: red"/>
+                                    <form:input path="company.nameCompany" type="text" placeholder="nameCompany"/>
                                     <div class="send-button">
-                                        <input type="submit" value="Registration">
+                                        <input type="submit" value="Select">
                                     </div>
                                 </div>
                             </form:form>
@@ -84,6 +88,7 @@
         </div>
     </div>
 
+</div>
 </body>
 </html>
 <style type="text/css">

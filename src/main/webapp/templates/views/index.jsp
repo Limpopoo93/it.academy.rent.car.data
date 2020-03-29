@@ -13,15 +13,34 @@
         <a>User</a>
         <ul class="hidden">
             <li><a href="${pageContext.request.contextPath}/adminCreate">Create Admin</a></li>
+            <li><a href="${pageContext.request.contextPath}/companyRegistration">Create User Company</a></li>
+            <li><a href="${pageContext.request.contextPath}/userDelete">Delete User</a></li>
+            <li><a href="${pageContext.request.contextPath}/userUpdate">Update User</a></li>
             <li><a href="${pageContext.request.contextPath}/users">List User</a></li>
             <li><a href="${pageContext.request.contextPath}/letterAdminList">List Letter to Admin</a></li>
             <li><a href="${pageContext.request.contextPath}/userBlockList">List Block User</a></li>
-            <li><a href="${pageContext.request.contextPath}/createCreditCard">Create Credit Card</a></li>
-            <li><a href="${pageContext.request.contextPath}/countryRegistration">Create Country</a></li>
-            <li><a href="${pageContext.request.contextPath}/createCompany">Create Company</a></li>
+
             <li><a href="${pageContext.request.contextPath}/createCar">Create Car</a></li>
-            <li><a href="${pageContext.request.contextPath}/createPrice">Create PriceCar</a></li>
+            <li><a href="${pageContext.request.contextPath}/listCar">List Car</a></li>
+
+            <li><a href="${pageContext.request.contextPath}/createCreditCard">Create Credit Card</a></li>
+            <li><a href="${pageContext.request.contextPath}/cardDelete">Card Delete</a></li>
+
+            <li><a href="${pageContext.request.contextPath}/createCompany">Create Company</a></li>
+            <li><a href="${pageContext.request.contextPath}/listCompany">List Company</a></li>
+            <li><a href="${pageContext.request.contextPath}/deleteCompany">Delete Company</a></li>
+
+            <li><a href="${pageContext.request.contextPath}/countryRegistration">Create Country</a></li>
+            <li><a href="${pageContext.request.contextPath}/listCountry">List Country</a></li>
+
             <li><a href="${pageContext.request.contextPath}/createTown">Create Town</a></li>
+            <li><a href="${pageContext.request.contextPath}/searchListTown">List Town</a></li>
+
+          еще не сделал  <li><a href="${pageContext.request.contextPath}/createPrice">Create PriceCar</a></li>
+            <li><a href="${pageContext.request.contextPath}/updatePriceCar">Update PriceCar</a></li>
+
+
+
 
             <%--@elvariable id="carSearch" type="it.academy.rent.car.bean.CarSearch"--%>
             <form:form class="register-form" name="address" action="${pageContext.request.contextPath}/searchFormCountry"
@@ -57,14 +76,6 @@
                 <form:input path="dateReturn" type="date" value="2017-06-01"/>
                 <button>Search</button>
             </form:form>
-
-
-
-            <li><a href="${pageContext.request.contextPath}/">Select User</a></li>
-            <li><a href="${pageContext.request.contextPath}/">Select Car</a></li>
-            <li><a href="${pageContext.request.contextPath}/">Select Company</a></li>
-            <li><a href="${pageContext.request.contextPath}/">Select Country</a></li>
-            <li><a href="${pageContext.request.contextPath}/">Select Town</a></li>
 
         </uL>
     </li>

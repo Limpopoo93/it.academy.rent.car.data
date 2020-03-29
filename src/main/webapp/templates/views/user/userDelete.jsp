@@ -1,9 +1,8 @@
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Town Create</title>
+    <title>User Delete</title>
 </head>
 <body>
 <header>
@@ -43,19 +42,23 @@
                         <h1>Welcome to <br>rent <span class="blue-color">a car</span></h1>
                         <div class="contact-form">
                             <div class="form-header">
-                                <h3>Town Form</h3>
+                                <h3>Delete Form</h3>
                             </div>
-                            <%--@elvariable id="town" type="it.academy.rent.bean.Town"--%>
-                            <form:form class="register-form" action="${pageContext.request.contextPath}/createTown"
-                                       modelAttribute="town" method="post">
+                            <%--@elvariable id="authenticate" type="it.academy.rent.bean.Authenticate"--%>
+                            <form:form class="register-form"
+                                       action="${pageContext.request.contextPath}/userDelete"
+                                       modelAttribute="authenticate" method="post">
+                                <div class="form">
+                                    <form:errors path="login" cssStyle="color: red"/>
+                                    <form:input path="login" type="text" placeholder="login"/>
 
-                            <form:errors path="town" cssStyle="color: red"/>
-                            <form:input path="town" type="text" placeholder="town"/>
+                                    <form:errors path="password" cssStyle="color: red"/>
+                                    <form:input path="password" type="password" placeholder="password"/>
 
-                            <form:errors path="country.country" cssStyle="color: red"/>
-                            <form:input path="country.country" type="text" placeholder="country"/>
+                                    <form:errors path="email" cssStyle="color: red"/>
+                                    <form:input path="email" type="text" placeholder="email"/>
                                     <div class="send-button">
-                                        <input type="submit" value="Registration">
+                                        <input type="submit" value="Delete">
                                     </div>
                                 </div>
                             </form:form>
@@ -83,6 +86,8 @@
 
         </div>
     </div>
+
+</div>
 
 </body>
 </html>

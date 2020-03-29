@@ -7,8 +7,8 @@ import javax.persistence.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(exclude = {"town"})
-@ToString(exclude = {"town"})
+@EqualsAndHashCode(exclude = {"town","authenticate"})
+@ToString(exclude = {"town","authenticate"})
 
 @Entity
 @Table(name = "m_company")
@@ -27,6 +27,9 @@ public class Company {
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "id_town", nullable = false)
     private Town town;
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_authenticate", nullable = false)
+    private Authenticate authenticate;
 
     public Long getId() {
         return id;
@@ -74,5 +77,13 @@ public class Company {
 
     public void setTown(Town town) {
         this.town = town;
+    }
+
+    public Authenticate getAuthenticate() {
+        return authenticate;
+    }
+
+    public void setAuthenticate(Authenticate authenticate) {
+        this.authenticate = authenticate;
     }
 }

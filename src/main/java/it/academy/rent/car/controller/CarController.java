@@ -1,11 +1,9 @@
 package it.academy.rent.car.controller;
 
-import it.academy.rent.car.bean.Authenticate;
-import it.academy.rent.car.bean.BusyDate;
-import it.academy.rent.car.bean.Car;
-import it.academy.rent.car.bean.CarSearch;
+import it.academy.rent.car.bean.*;
 import it.academy.rent.car.repository.BusyDateRepository;
 import it.academy.rent.car.repository.CarRepository;
+import it.academy.rent.car.repository.CompanyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
@@ -29,6 +27,8 @@ public class CarController {
     private CarRepository carRepository;
     @Autowired
     private BusyDateRepository busyDateRepository;
+    @Autowired
+    private CompanyRepository companyRepository;
 
     @InitBinder
     public final void initBinderUsuariosFormValidator(final WebDataBinder binder, final Locale locale) {
@@ -75,6 +75,27 @@ public class CarController {
         //тут значит дата занята и надо вывести что дата заняти
         return "redirect:/searchFormCountry";
     }
+    @GetMapping("/listCar")
+    public String listCar(HttpSession session, Model model) {
+        Authenticate authenticate = (Authenticate) session.getAttribute("authenticate");
+        Company company = companyRepository.findByIdAndAuthenticate(authenticate.getId());
+        if (company.getAuthenticate().getId() != null){
+            List<Car> cars = carRepository.findByIdCompany(company.getId());
+            model.addAttribute("cars", cars);
+            return "car/carList";
+        }else {
+            List<Car> cars = carRepository.findAll();
+            model.addAttribute("cars", cars);
+            return "car/carList";
+        }
+    }
+    @GetMapping("/carDeleteId/{id}")
+    public String deleteCar(@PathVariable("id") Long id) {
+        Car car = carRepository.findByCId(id);
+        carRepository.delete(car);
+        return "redirect:/listCar";
+    }
+
 }
 
 

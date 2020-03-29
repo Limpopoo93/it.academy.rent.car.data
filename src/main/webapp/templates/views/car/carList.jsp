@@ -1,9 +1,8 @@
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Town Create</title>
+    <title>List Car</title>
 </head>
 <body>
 <header>
@@ -33,57 +32,39 @@
         </div>
     </div>
 </header>
-<div class="full-width main-baner">
-    <div class="layer-main-baner"></div>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-7 col-md-offset-5 col-sm-12">
-                <div class="home-contact-form">
-                    <div class="home-contact-form-wrap">
-                        <h1>Welcome to <br>rent <span class="blue-color">a car</span></h1>
-                        <div class="contact-form">
-                            <div class="form-header">
-                                <h3>Town Form</h3>
-                            </div>
-                            <%--@elvariable id="town" type="it.academy.rent.bean.Town"--%>
-                            <form:form class="register-form" action="${pageContext.request.contextPath}/createTown"
-                                       modelAttribute="town" method="post">
-
-                            <form:errors path="town" cssStyle="color: red"/>
-                            <form:input path="town" type="text" placeholder="town"/>
-
-                            <form:errors path="country.country" cssStyle="color: red"/>
-                            <form:input path="country.country" type="text" placeholder="country"/>
-                                    <div class="send-button">
-                                        <input type="submit" value="Registration">
-                                    </div>
-                                </div>
-                            </form:form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="swiper-container home-baner">
-        <div class="swiper-wrapper">
-            <div class="swiper-slide">
-                <div class="home-img">
-                    <div class="bg-bg" >
-                    </div>
-                </div>
-            </div>
-            <div class="swiper-slide">
-                <div class="home-img">
-                    <div class="bg-bg" >
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </div>
-
+<table>
+    <thead>
+    <tr>
+        <th>name Car</th>
+        <th>type Fuel</th>
+        <th>col Doors</th>
+        <th>col People</th>
+        <th>mileage</th>
+        <th>make Car</th>
+        <th>type Car</th>
+        <th>company</th>
+        <th>delete Car</th>
+    </tr>
+    </thead>
+    <tbody>
+    <c:forEach items="${cars}" var="car">
+        <tr>
+            <td>${car.getNameCar()}</td>
+            <td>${car.getTypeFuel()}</td>
+            <td>${car.getColDoors()}</td>
+            <td>${car.getColPeople()}</td>
+            <td>${car.getMileage()}</td>
+            <td>${car.getMakeCar()}</td>
+            <td>${car.getTypeCar()}</td>
+            <td>${car.company.getNameCompany()}</td>
+            <td> <form action="<c:url value="/carDeleteId/${car.id}"/>" method="get">
+                <button class="button block"><i class="fa fa-lock">Delete</i>
+                </button>
+            </form></td>
+        </tr>
+    </c:forEach>
+    </tbody>
+</table>
 </body>
 </html>
 <style type="text/css">

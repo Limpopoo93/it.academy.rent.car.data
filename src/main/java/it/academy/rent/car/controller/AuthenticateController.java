@@ -38,7 +38,7 @@ public class AuthenticateController {
 
     //переход с регистрации на index и добавление нового юзера
     @PostMapping("/userRegistration")
-    public String createUser(Authenticate authenticate, HttpSession session) {
+    public String createUser(Authenticate authenticate, HttpSession session, CarSearch carSearch) {
         Authenticate authenticateResult = authenticateRepository.findByLoginAndPassword(authenticate.getLogin(), authenticate.getPassword());
         if (authenticateResult == null) {
             authenticate.setProfileClose(true);
@@ -48,6 +48,25 @@ public class AuthenticateController {
             return "index";
         }
         return "redirect:/userRegistration";
+    }
+
+    //переход с main на страницу регистрации
+    @GetMapping("/companyRegistration")
+    public String createCompany(Authenticate authenticate) {
+        return "user/companyRegistrationUser";
+    }
+
+    //переход с регистрации на index и добавление нового юзера
+    @PostMapping("/companyRegistration")
+    public String createCompanyUser(Authenticate authenticate, HttpSession session, CarSearch carSearch) {
+        Authenticate authenticateResult = authenticateRepository.findByLoginAndPassword(authenticate.getLogin(), authenticate.getPassword());
+        if (authenticateResult == null) {
+            authenticate.setProfileClose(true);
+            authenticate.setRole(Role.COMPANY);
+            authenticateRepository.save(authenticate);
+            return "index";
+        }
+        return "redirect:/companyRegistration";
     }
 
     //переход с main на страницу входа
@@ -70,6 +89,25 @@ public class AuthenticateController {
             }
         }
         return "redirect:/userComeIn";
+    }
+    //переход с main на страницу входа
+    @GetMapping("/userDelete")
+    public String deleteUser(Authenticate authenticate) {
+        return "user/userDelete";
+    }
+
+    //переход со страницы входа проверка и отправка на index при открытом доступе7
+    @PostMapping("/userDelete")
+    public String deleteUserForm(Authenticate authenticate, HttpSession session, Letter letter, CarSearch carSearch) {
+        Authenticate authenticateResult = authenticateRepository.findByLoginAndPassword(authenticate.getLogin(), authenticate.getPassword());
+        Authenticate authenticateSession = (Authenticate) session.getAttribute("authenticate");
+        if(authenticateResult.getLogin().equals(authenticateSession.getLogin()) && authenticateResult.getPassword().equals(authenticateSession.getPassword()) && authenticateResult.getEmail().equals(authenticateSession.getEmail())){
+            Authenticate authenticateBase = authenticateRepository.findByLoginAndPassword(authenticateResult.getLogin(), authenticateResult.getPassword());
+            authenticateRepository.delete(authenticateBase);
+            return "redirect:/";
+        }else {
+            return "redirect:/userDelete";
+        }
     }
 
     //переход со страницы письмо админу, добавление базу и отправка на main
@@ -175,5 +213,23 @@ public class AuthenticateController {
         authenticateRepository.saveAndFlush(authenticate);
         return "redirect:/userBlockList";
     }
+    //переход на страницу регистрации админа
+    @GetMapping("/userUpdate")
+    public String updateUser(Authenticate authenticate, HttpSession session) {
+        return "user/userUpdateInfo";
+    }
 
+    //создания админа и переход на index
+    @PostMapping("/userUpdate")
+    public String updateUserForm(Authenticate authenticate, HttpSession session) {
+        Authenticate authenticateSession = (Authenticate) session.getAttribute("authenticate");
+        Authenticate authenticateResult = authenticateRepository.findByAId(authenticateSession.getId());
+        authenticateResult.setLogin(authenticate.getLogin());
+        authenticateResult.setPassword(authenticate.getPassword());
+        authenticateResult.setEmail(authenticate.getEmail());
+        authenticateRepository.saveAndFlush(authenticateResult);
+        session.invalidate();
+        session.setAttribute("authenticate", authenticateResult);
+        return "redirect:/userUpdate";
+    }
 }

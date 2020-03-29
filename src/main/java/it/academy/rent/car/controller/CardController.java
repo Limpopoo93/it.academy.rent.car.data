@@ -28,6 +28,20 @@ public class CardController {
         cardRepository.save(card);
         return "redirect:/createCreditCard";
     }
+    @GetMapping("/cardDelete")
+    public String deleteCard(Card card) {
+        return "card/createCreditCard";
+    }
 
-
+    @PostMapping("/cardDelete")
+    public String deleteCardForm(Card card, HttpSession session) {
+        Authenticate authenticate = (Authenticate) session.getAttribute("authenticate");
+        if(card.getAuthenticate().getLogin().equals(authenticate.getLogin()) && card.getAuthenticate().getPassword().equals(authenticate.getPassword())){
+            Card cardResult = cardRepository.findByNameUserAndKeyCardAndAuthenticateLoginAndAuthenticatePassword(card.getNameUser(), card.getKeyCard(),authenticate.getLogin(), authenticate.getPassword());
+       cardRepository.delete(cardResult);
+       return "cardDelete";
+        }else {
+            return "redirect:/cardDelete";
+        }
+    }
 }

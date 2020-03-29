@@ -1,9 +1,8 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Town Create</title>
+    <title>Town Search</title>
 </head>
 <body>
 <header>
@@ -43,21 +42,35 @@
                         <h1>Welcome to <br>rent <span class="blue-color">a car</span></h1>
                         <div class="contact-form">
                             <div class="form-header">
-                                <h3>Town Form</h3>
+                                <h3>Registration Form</h3>
                             </div>
-                            <%--@elvariable id="town" type="it.academy.rent.bean.Town"--%>
-                            <form:form class="register-form" action="${pageContext.request.contextPath}/createTown"
+
+                            <%--@elvariable id="town" type="it.academy.rent.car.bean.Town"--%>
+                            <form:form class="register-form"
+                                       action="${pageContext.request.contextPath}/listTown"
                                        modelAttribute="town" method="post">
+                                Country:
 
-                            <form:errors path="town" cssStyle="color: red"/>
-                            <form:input path="town" type="text" placeholder="town"/>
-
-                            <form:errors path="country.country" cssStyle="color: red"/>
-                            <form:input path="country.country" type="text" placeholder="country"/>
-                                    <div class="send-button">
-                                        <input type="submit" value="Registration">
-                                    </div>
-                                </div>
+                                <select name="country">
+                                    <option value="Russia" >Russia</option>
+                                    <option value="England">England</option>
+                                    <option value="Italy">Italy</option>
+                                    <option value="France">France</option>
+                                    <option value="Ukraine">Ukraine</option>
+                                    <option value="Finland" >Finland</option>
+                                    <option value="Sweden">Sweden</option>
+                                    <option value="Norway">Norway</option>
+                                    <option value="Denmark">Denmark</option>
+                                    <option value="Poland" >Poland</option>
+                                    <option value="Germany">Germany</option>
+                                    <option value="Spain">Spain</option>
+                                    <option value="Portugal">Portugal</option>
+                                    <option value="Austria">Austria</option>
+                                    <option value="Czech Republic" >Czech Republic</option>
+                                    <option value="Slovakia">Slovakia</option>
+                                    <option value="Bulgaria">Bulgaria</option>
+                                    <option value="Turkey">Turkey</option>
+                                </select>
                             </form:form>
                         </div>
                     </div>
@@ -83,6 +96,9 @@
 
         </div>
     </div>
+
+</div>
+
 
 </body>
 </html>

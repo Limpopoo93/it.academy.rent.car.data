@@ -8,4 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository
 @Transactional
 public interface CardRepository extends JpaRepository<Card, Long> {
+
+    Card findByNameUserAndKeyCardAndAuthenticateLoginAndAuthenticatePassword(String nameUser, Long keyCard, String authenticate_login, String authenticate_password);
 }

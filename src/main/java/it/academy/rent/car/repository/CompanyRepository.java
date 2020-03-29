@@ -15,6 +15,8 @@ public interface CompanyRepository extends JpaRepository<Company, Long> {
     @Query("select c from Company c  join Town tn on c.town.id = tn.id where tn.id =:id")
     List<Company> findByIdByTown(@Param("id") Long id);
     @Query("select cm from Company cm where cm.id = :id")
-    Company findByLId(@Param("id") long id);
-
+    Company findByLId(@Param("id") Long id);
+    @Query("select cm from Company cm where cm.authenticate.id = :id")
+    Company findByIdAndAuthenticate(@Param("id") Long id);
+    Company findByNameCompanyAndEmail(@Param("nameCompany") String nameCompany, @Param("email") String email);
 }
