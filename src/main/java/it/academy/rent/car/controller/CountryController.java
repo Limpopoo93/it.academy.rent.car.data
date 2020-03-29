@@ -11,11 +11,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class CountryController {
     @Autowired
     private CountryRepository countryRepository;
+
     //создание страны
     @GetMapping("/countryRegistration")
     public String createByCountry(Country country) {
         return "country/countryCreate";
     }
+
     @PostMapping("/countryRegistration")
     public String createCountry(Country country) {
         countryRepository.save(country);

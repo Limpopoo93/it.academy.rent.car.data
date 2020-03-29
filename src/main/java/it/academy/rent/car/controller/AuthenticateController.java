@@ -23,17 +23,20 @@ public class AuthenticateController {
     private AuthenticateRepository authenticateRepository;
     @Autowired
     private LetterRepository letterRepository;
-//для перехода на стартовую страницу
+
+    //для перехода на стартовую страницу
     @GetMapping("/")
     public String startPage(Map<String, Object> model) {
         return "main";
     }
-//переход с main на страницу регистрации
-@GetMapping("/userRegistration")
-public String createUser(Authenticate authenticate) {
-    return "user/userRegistration";
-}
-//переход с регистрации на index и добавление нового юзера
+
+    //переход с main на страницу регистрации
+    @GetMapping("/userRegistration")
+    public String createUser(Authenticate authenticate) {
+        return "user/userRegistration";
+    }
+
+    //переход с регистрации на index и добавление нового юзера
     @PostMapping("/userRegistration")
     public String createUser(Authenticate authenticate, HttpSession session) {
         Authenticate authenticateResult = authenticateRepository.findByLoginAndPassword(authenticate.getLogin(), authenticate.getPassword());
@@ -46,117 +49,131 @@ public String createUser(Authenticate authenticate) {
         }
         return "redirect:/userRegistration";
     }
- //переход с main на страницу входа
- @GetMapping("/userComeIn")
- public String comeInUser(Authenticate authenticate) {
-     return "user/userComeIn";
- }
- //переход со страницы входа проверка и отправка на index при открытом доступе7
- @PostMapping("/userComeIn")
- public String comeInUser(Authenticate authenticate, HttpSession session, Letter letter, CarSearch carSearch) {
-     Authenticate authenticateResult = authenticateRepository.findByLoginAndPassword(authenticate.getLogin(), authenticate.getPassword());
-     if (authenticateResult != null) {
-         if (authenticateResult.isProfileClose() == true) {
-             session.setAttribute("authenticate", authenticateResult);
-             return "index";
-         } else {
-             session.setAttribute("authenticate", authenticateResult);
-            return "user/userLetterAdmin";
-         }
-     }
-     return "redirect:/userComeIn";
- }
-//переход со страницы письмо админу, добавление базу и отправка на main
-@PostMapping("/pushLetter")
-public String addLetterAdmin(Letter letter, HttpSession session) {
-    Authenticate authenticate = (Authenticate) session.getAttribute("authenticate");
-    letter.setAuthenticate(authenticate);
-    letterRepository.save(letter);
-    return "redirect:/";
-}
-//переход на страницу регистрации админа
-@GetMapping("/adminCreate")
-public String createAdmin(Authenticate authenticate) {
-    return "user/adminRegistration";
-}
-//создания админа и переход на index
-@PostMapping("/adminCreate")
-public String createAdminBase(Authenticate authenticate) {
-    Authenticate authenticateResult = authenticateRepository.findByLoginAndPassword(authenticate.getLogin(), authenticate.getPassword());
-    if (authenticateResult == null) {
-        authenticate.setProfileClose(true);
-        authenticate.setRole(Role.ADMIN);
-        authenticateRepository.save(authenticate);
-        return "index";
+
+    //переход с main на страницу входа
+    @GetMapping("/userComeIn")
+    public String comeInUser(Authenticate authenticate) {
+        return "user/userComeIn";
     }
-    return "redirect:/adminCreate";
-}
-//лист всех юзеров для админа
-@GetMapping("/users")
-public String findAll(Model model) {
-    List<Authenticate> authenticates = authenticateRepository.findAll();
-    model.addAttribute("authenticates", authenticates);
-    return "user/userList";
-}
-//удаление юзера из таблицы всех пользователей
-@GetMapping("/userDeleteId/{id}")
-public String deleteUser(@PathVariable("id") Long id){
-    Authenticate authenticate = authenticateRepository.findByLId(id);
-    authenticateRepository.delete(authenticate);
-    return "redirect:/users";
-}
-//блокировка пользователя из таблицы юзера
-@GetMapping("/userBlockId/{id}")
-public String findBlockUser(@PathVariable("id") Long id) {
-    Authenticate authenticate = authenticateRepository.findByLId(id);
-    authenticate.setProfileClose(false);
-   authenticateRepository.saveAndFlush(authenticate);
-    return "redirect:/users";
-}
-//разблокировка пользователя из таблицы юзера
+
+    //переход со страницы входа проверка и отправка на index при открытом доступе7
+    @PostMapping("/userComeIn")
+    public String comeInUser(Authenticate authenticate, HttpSession session, Letter letter, CarSearch carSearch) {
+        Authenticate authenticateResult = authenticateRepository.findByLoginAndPassword(authenticate.getLogin(), authenticate.getPassword());
+        if (authenticateResult != null) {
+            if (authenticateResult.isProfileClose() == true) {
+                session.setAttribute("authenticate", authenticateResult);
+                return "index";
+            } else {
+                session.setAttribute("authenticate", authenticateResult);
+                return "user/userLetterAdmin";
+            }
+        }
+        return "redirect:/userComeIn";
+    }
+
+    //переход со страницы письмо админу, добавление базу и отправка на main
+    @PostMapping("/pushLetter")
+    public String addLetterAdmin(Letter letter, HttpSession session) {
+        Authenticate authenticate = (Authenticate) session.getAttribute("authenticate");
+        letter.setAuthenticate(authenticate);
+        letterRepository.save(letter);
+        return "redirect:/";
+    }
+
+    //переход на страницу регистрации админа
+    @GetMapping("/adminCreate")
+    public String createAdmin(Authenticate authenticate) {
+        return "user/adminRegistration";
+    }
+
+    //создания админа и переход на index
+    @PostMapping("/adminCreate")
+    public String createAdminBase(Authenticate authenticate) {
+        Authenticate authenticateResult = authenticateRepository.findByLoginAndPassword(authenticate.getLogin(), authenticate.getPassword());
+        if (authenticateResult == null) {
+            authenticate.setProfileClose(true);
+            authenticate.setRole(Role.ADMIN);
+            authenticateRepository.save(authenticate);
+            return "index";
+        }
+        return "redirect:/adminCreate";
+    }
+
+    //лист всех юзеров для админа
+    @GetMapping("/users")
+    public String findAll(Model model) {
+        List<Authenticate> authenticates = authenticateRepository.findAll();
+        model.addAttribute("authenticates", authenticates);
+        return "user/userList";
+    }
+
+    //удаление юзера из таблицы всех пользователей
+    @GetMapping("/userDeleteId/{id}")
+    public String deleteUser(@PathVariable("id") Long id) {
+        Authenticate authenticate = authenticateRepository.findByAId(id);
+        authenticateRepository.delete(authenticate);
+        return "redirect:/users";
+    }
+
+    //блокировка пользователя из таблицы юзера
+    @GetMapping("/userBlockId/{id}")
+    public String findBlockUser(@PathVariable("id") Long id) {
+        Authenticate authenticate = authenticateRepository.findByAId(id);
+        authenticate.setProfileClose(false);
+        authenticateRepository.saveAndFlush(authenticate);
+        return "redirect:/users";
+    }
+
+    //разблокировка пользователя из таблицы юзера
     @GetMapping("userUnBlockId/{id}")
     public String userUnBlockId(@PathVariable("id") Long id) {
-        Authenticate authenticate = authenticateRepository.findByLId(id);
+        Authenticate authenticate = authenticateRepository.findByAId(id);
         authenticate.setProfileClose(true);
         authenticateRepository.saveAndFlush(authenticate);
         return "redirect:/users";
     }
-//переход на страницу со списком писем заблокированых пользователей
-@GetMapping("/letterAdminList")
-public String letterAdmin(Model model) {
-    List<Letter> letters = letterRepository.findAll();
-    model.addAttribute("letters", letters);
-    return "user/letterList";
-}
-//разблакировка юзера со страницы списка писем
-@GetMapping("userUnBlockLetterId/{id}")
-public String userLetterUnblock(@PathVariable("id") Long id) {
-    Authenticate authenticate = authenticateRepository.findByLId(id);
-    authenticate.setProfileClose(true);
-    authenticateRepository.saveAndFlush(authenticate);
-    return "redirect:/letterAdminList";
-}
-//удалить письмо из страницы списка писем
-@GetMapping("/deleteLetter/{id}")
-public String deleteLetter(@PathVariable("id") Long id){
-    Letter letter = letterRepository.findByLId(id);
-    letterRepository.delete(letter);
-    return "redirect:/letterAdminList";
-}
-//список блокированных юзеров
-@GetMapping("/userBlockList")
-public String userBanList(Model model) {
-    List<Authenticate> authenticate = authenticateRepository.findByProfileClose(false);
-    model.addAttribute("authenticate", authenticate);
-    return "user/userBlockList";
-}
-//разблакировка юзера и переход на страницу лист блок юзера
-@GetMapping("userBlock/{id}")
-public String userBlockList(@PathVariable("id") Long id) {
-    Authenticate authenticate = authenticateRepository.findByLId(id);
-    authenticate.setProfileClose(true);
-    authenticateRepository.saveAndFlush(authenticate);
-    return "redirect:/userBlockList";
-}
+
+    //переход на страницу со списком писем заблокированых пользователей
+    @GetMapping("/letterAdminList")
+    public String letterAdmin(Model model) {
+        List<Letter> letters = letterRepository.findAll();
+        model.addAttribute("letters", letters);
+        return "user/letterList";
+    }
+
+    //разблакировка юзера со страницы списка писем
+    @GetMapping("userUnBlockLetterId/{id}")
+    public String userLetterUnblock(@PathVariable("id") Long id) {
+        Authenticate authenticate = authenticateRepository.findByAId(id);
+        authenticate.setProfileClose(true);
+        authenticateRepository.saveAndFlush(authenticate);
+        return "redirect:/letterAdminList";
+    }
+
+    //удалить письмо из страницы списка писем
+    @GetMapping("/deleteLetter/{id}")
+    public String deleteLetter(@PathVariable("id") Long id) {
+        Letter letter = letterRepository.findByLId(id);
+        letterRepository.delete(letter);
+        return "redirect:/letterAdminList";
+    }
+
+    //список блокированных юзеров
+    @GetMapping("/userBlockList")
+    public String userBanList(Model model) {
+        List<Authenticate> authenticate = authenticateRepository.findByProfileClose(false);
+        model.addAttribute("authenticate", authenticate);
+        return "user/userBlockList";
+    }
+
+    //разблакировка юзера и переход на страницу лист блок юзера
+    @GetMapping("userBlock/{id}")
+    public String userBlockList(@PathVariable("id") Long id) {
+        Authenticate authenticate = authenticateRepository.findByAId(id);
+        authenticate.setProfileClose(true);
+        authenticateRepository.saveAndFlush(authenticate);
+        return "redirect:/userBlockList";
+    }
 
 }

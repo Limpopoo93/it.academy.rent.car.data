@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class PriceCarController {
     @Autowired
     private PriceCarRepository priceCarRepository;
+
     @GetMapping("/createPrice")
     public String createByCar(PriceCar priceCar) {
         return "car/priceCarCreate";

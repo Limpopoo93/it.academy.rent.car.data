@@ -1,35 +1,40 @@
 package it.academy.rent.car.bean;
 
+import lombok.*;
+
 import javax.persistence.*;
 import java.util.Date;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@EqualsAndHashCode(exclude = {"authenticate", "car"})
+@ToString(exclude = {"authenticate", "car"})
+
 @Entity
-@Table(name = "busydate")
+@Table(name = "m_busy_date")
 public class BusyDate {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
-    @Column(name = "datecheck")
-    @Temporal(TemporalType.TIMESTAMP)
+    private Long id;
+    @Column(name = "date_check")
+    @Temporal(TemporalType.DATE)
     private Date dateCheck;
-    @Column(name = "datereturn")
-    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "date_return")
+    @Temporal(TemporalType.DATE)
     private Date dateReturn;
-    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "id_car", nullable = false)
     private Car car;
-    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "id_authenticate", nullable = false)
     private Authenticate authenticate;
 
-    public BusyDate() {
-    }
-
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -64,17 +69,4 @@ public class BusyDate {
     public void setAuthenticate(Authenticate authenticate) {
         this.authenticate = authenticate;
     }
-
-    @Override
-    public String toString() {
-        return "BusyDate{" +
-                "id=" + id +
-                ", dateCheck=" + dateCheck +
-                ", dateReturn=" + dateReturn +
-                ", car=" + car +
-                ", authenticate=" + authenticate +
-                '}';
-    }
-
-
 }

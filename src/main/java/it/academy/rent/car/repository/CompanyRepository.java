@@ -12,6 +12,9 @@ import java.util.List;
 @Repository
 @Transactional
 public interface CompanyRepository extends JpaRepository<Company, Long> {
-    @Query("select c from Company c join CompanyTown ct on c.id = ct.idCompany join Town tn on ct.idTown = tn.id where tn.id =:id")
-    List<Company> findByCompany(@Param("id") Long id);
+    @Query("select c from Company c  join Town tn on c.town.id = tn.id where tn.id =:id")
+    List<Company> findByIdByTown(@Param("id") Long id);
+    @Query("select cm from Company cm where cm.id = :id")
+    Company findByLId(@Param("id") long id);
+
 }

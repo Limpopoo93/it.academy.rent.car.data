@@ -1,29 +1,34 @@
 package it.academy.rent.car.bean;
 
+import lombok.*;
+
 import javax.persistence.*;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@EqualsAndHashCode(exclude = {"car"})
+@ToString(exclude = {"car"})
+
 @Entity
-@Table(name = "pricecar")
+@Table(name = "m_price_car")
 public class PriceCar {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
-    @Column(name = "nameprice")
+    private Long id;
+    @Column(name = "name_price")
     private String namePrice;
-    @Column(name = "pricecar")
-    private long priceCar;
-    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @Column(name = "price_car")
+    private Long priceCar;
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "id_car", nullable = false)
     private Car car;
 
-    public PriceCar() {
-    }
-
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -35,11 +40,11 @@ public class PriceCar {
         this.namePrice = namePrice;
     }
 
-    public long getPriceCar() {
+    public Long getPriceCar() {
         return priceCar;
     }
 
-    public void setPriceCar(long priceCar) {
+    public void setPriceCar(Long priceCar) {
         this.priceCar = priceCar;
     }
 
@@ -49,15 +54,5 @@ public class PriceCar {
 
     public void setCar(Car car) {
         this.car = car;
-    }
-
-    @Override
-    public String toString() {
-        return "PriceCar{" +
-                "id=" + id +
-                ", namePrice='" + namePrice + '\'' +
-                ", priceCar=" + priceCar +
-                ", car=" + car +
-                '}';
     }
 }

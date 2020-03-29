@@ -19,7 +19,7 @@ public class CompanyController {
 
     @PostMapping("/createCompany")
     public String createCompany(Company company) {
-        company.setReting(0);
+        company.setReting(0L);
         companyRepository.save(company);
         return "redirect:/createCompany";
     }

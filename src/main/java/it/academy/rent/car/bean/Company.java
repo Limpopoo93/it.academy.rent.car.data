@@ -1,37 +1,38 @@
 package it.academy.rent.car.bean;
 
+import lombok.*;
+
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@EqualsAndHashCode(exclude = {"town"})
+@ToString(exclude = {"town"})
 
 @Entity
-@Table(name = "company")
+@Table(name = "m_company")
 public class Company {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
-    @Column(name = "namecompany")
+    private Long id;
+    @Column(name = "name_company")
     private String nameCompany;
     @Column(name = "reting")
-    private int reting;
+    private Long reting;
     @Column(name = "telephone")
     private String telephone;
     @Column(name = "email")
     private String email;
-    @ManyToMany
-    @JoinTable(name = "company_town", joinColumns =
-    @JoinColumn(name = "id_company", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "id_town", referencedColumnName = "id"))
-    private Set<Town> townSet = new HashSet<>();
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_town", nullable = false)
+    private Town town;
 
-    public Company() {
-    }
-
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -43,11 +44,11 @@ public class Company {
         this.nameCompany = nameCompany;
     }
 
-    public int getReting() {
+    public Long getReting() {
         return reting;
     }
 
-    public void setReting(int reting) {
+    public void setReting(Long reting) {
         this.reting = reting;
     }
 
@@ -67,23 +68,11 @@ public class Company {
         this.email = email;
     }
 
-    public Set<Town> getTownSet() {
-        return townSet;
+    public Town getTown() {
+        return town;
     }
 
-    public void setTownSet(Set<Town> townSet) {
-        this.townSet = townSet;
-    }
-
-    @Override
-    public String toString() {
-        return "Company{" +
-                "id=" + id +
-                ", nameCompany='" + nameCompany + '\'' +
-                ", reting=" + reting +
-                ", telephone='" + telephone + '\'' +
-                ", email='" + email + '\'' +
-                ", townSet=" + townSet +
-                '}';
+    public void setTown(Town town) {
+        this.town = town;
     }
 }

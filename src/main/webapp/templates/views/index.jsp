@@ -29,11 +29,24 @@
                 Country:
 
                 <select name="country" onChange="MkHouseValues(this.selectedIndex)">
-                    <option value="Russia" >Россия</option>
-                    <option value="Anglia">Англия</option>
-                    <option value="Itally">Италия</option>
-                    <option value="France">Франция</option>
-                    <option value="Ukraine">Украина</option>
+                    <option value="Russia" >Russia</option>
+                    <option value="England">England</option>
+                    <option value="Italy">Italy</option>
+                    <option value="France">France</option>
+                    <option value="Ukraine">Ukraine</option>
+                    <option value="Finland" >Finland</option>
+                    <option value="Sweden">Sweden</option>
+                    <option value="Norway">Norway</option>
+                    <option value="Denmark">Denmark</option>
+                    <option value="Poland" >Poland</option>
+                    <option value="Germany">Germany</option>
+                    <option value="Spain">Spain</option>
+                    <option value="Portugal">Portugal</option>
+                    <option value="Austria">Austria</option>
+                    <option value="Czech Republic" >Czech Republic</option>
+                    <option value="Slovakia">Slovakia</option>
+                    <option value="Bulgaria">Bulgaria</option>
+                    <option value="Turkey">Turkey</option>
                 </select>
 
                 &nbsp;Town:
@@ -85,11 +98,24 @@
 </html>
 <script type="application/javascript">
     var aHouseValues = new Array(
-        "Москва, Питер, Самара, Бугуруслан",
-        "Лондон, Мантчестер",
-        "Рим, Турин",
-        "Lyon", "Париж",
-        "Киев, Семфирополь"
+        "Moscow, Peter, Samara",
+        "London, Manchester",
+        "Roma, Torino, Milano, Bari",
+        "Lyon", "Paris, Toulouse",
+        "Kiev, Lions",
+        "Helsinki, Tampere",
+        "Stockholm, Goterborg",
+        "Oslo, Bergen",
+        "Kopenhavn, Malmo",
+        "Warszawa, Lublin",
+        "Berlin, Koln, Hamburg",
+        "Madrid, Sevilla, Barselona",
+        "Lisboa, Porto",
+        "Wien, Graz",
+        "Praha, Brno",
+        "Bratislava, Kosice",
+        "Sofia, Warna",
+        "Ankara, Kayseri, Antalya"
     );
 
     function getHouseValuesByStreet(index){

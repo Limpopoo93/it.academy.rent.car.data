@@ -9,6 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository
 @Transactional
 public interface LetterRepository extends JpaRepository<Letter, Long> {
-    @Query(nativeQuery = true, value = "select text_letter from letter  where id = ?")
+    @Query(nativeQuery = true, value = "select text_letter from m_letter  where id = ?")
     Letter findByLId(long id);
 }

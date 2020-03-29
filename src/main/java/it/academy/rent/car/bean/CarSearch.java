@@ -1,25 +1,32 @@
 package it.academy.rent.car.bean;
 
+import lombok.*;
+
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import java.util.Date;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@EqualsAndHashCode
+@ToString
+
 public class CarSearch {
-    private long id;
+    private Long id;
     private String country;
-    //@DateTimeFormat(pattern = "yyyy/MM/dd")
+    @Temporal(TemporalType.DATE)
     private Date dateCheck;
-    //@DateTimeFormat(pattern = "yyyy/MM/dd")
+    @Temporal(TemporalType.DATE)
     private Date dateReturn;
     private String town;
     private String typeCar;
 
-    public CarSearch() {
-    }
-
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -62,5 +69,4 @@ public class CarSearch {
     public void setTypeCar(String typeCar) {
         this.typeCar = typeCar;
     }
-
 }

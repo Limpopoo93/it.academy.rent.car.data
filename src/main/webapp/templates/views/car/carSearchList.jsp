@@ -37,7 +37,7 @@
             <td>${car.getMakeCar()}</td>
             <td>${car.getTypeCar()}</td>
             <td>${car.getCompany().getNameCompany()}</td>
-            <td> <form action="<c:url value="/bookCarId/${car.id}"/>" method="get">
+            <td> <form action="<c:url value="/bookCarId/${car.getId()}"/>" method="get">
                 <button class="button block"><i class="fa fa-lock">Book Car</i>
                 </button>
             </form></td>

@@ -1,39 +1,44 @@
 package it.academy.rent.car.bean;
 
+import lombok.*;
+
 import javax.persistence.*;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@EqualsAndHashCode(exclude = {"company"})
+@ToString(exclude = {"company"})
+
 @Entity
-@Table(name = "car")
+@Table(name = "m_car")
 public class Car {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
-    @Column(name = "namecar")
+    private Long id;
+    @Column(name = "name_car")
     private String nameCar;
-    @Column(name = "typefuel")
+    @Column(name = "type_fuel")
     private String typeFuel;
-    @Column(name = "coldoors")
-    private int colDoors;
-    @Column(name = "colpeople")
-    private int colPeople;
+    @Column(name = "col_doors")
+    private Long colDoors;
+    @Column(name = "col_people")
+    private Long colPeople;
     @Column(name = "mileage")
-    private int mileage;
-    @Column(name = "makecar")
+    private Long mileage;
+    @Column(name = "make_car")
     private String makeCar;
-    @Column(name = "typecar")
+    @Column(name = "type_car")
     private String typeCar;
-    @ManyToOne(fetch = FetchType.LAZY, cascade ={CascadeType.MERGE, CascadeType.PERSIST})
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "id_company", nullable = false)
     private Company company;
 
-    public Car() {
-    }
-
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -45,19 +50,35 @@ public class Car {
         this.nameCar = nameCar;
     }
 
-    public int getColDoors() {
+    public String getTypeFuel() {
+        return typeFuel;
+    }
+
+    public void setTypeFuel(String typeFuel) {
+        this.typeFuel = typeFuel;
+    }
+
+    public Long getColDoors() {
         return colDoors;
     }
 
-    public void setColDoors(int colDoors) {
+    public void setColDoors(Long colDoors) {
         this.colDoors = colDoors;
     }
 
-    public int getMileage() {
+    public Long  getColPeople() {
+        return colPeople;
+    }
+
+    public void setColPeople(Long colPeople) {
+        this.colPeople = colPeople;
+    }
+
+    public Long getMileage() {
         return mileage;
     }
 
-    public void setMileage(int mileage) {
+    public void setMileage(Long mileage) {
         this.mileage = mileage;
     }
 
@@ -84,37 +105,4 @@ public class Car {
     public void setCompany(Company company) {
         this.company = company;
     }
-
-    public int getColPeople() {
-        return colPeople;
-    }
-
-    public void setColPeople(int colPeople) {
-        this.colPeople = colPeople;
-    }
-
-    public String getTypeFuel() {
-        return typeFuel;
-    }
-
-    public void setTypeFuel(String typeFuel) {
-        this.typeFuel = typeFuel;
-    }
-
-    @Override
-    public String toString() {
-        return "Car{" +
-                "id=" + id +
-                ", nameCar='" + nameCar + '\'' +
-                ", typeFuel='" + typeFuel + '\'' +
-                ", colDoors=" + colDoors +
-                ", colPeople=" + colPeople +
-                ", mileage=" + mileage +
-                ", makeCar='" + makeCar + '\'' +
-                ", typeCar='" + typeCar + '\'' +
-                ", company=" + company +
-                '}';
-    }
-
-
 }

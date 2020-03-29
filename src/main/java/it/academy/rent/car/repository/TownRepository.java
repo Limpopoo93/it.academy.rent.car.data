@@ -11,5 +11,5 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public interface TownRepository extends JpaRepository<Town, Long> {
     @Query("select t from Town t where t.town = :town and t.country.country =:country")
-    Town findByTown(@Param("town") String town, @Param("country") String country);
+    Town findByTownByCountry(@Param("town") String town, @Param("country") String country);
 }

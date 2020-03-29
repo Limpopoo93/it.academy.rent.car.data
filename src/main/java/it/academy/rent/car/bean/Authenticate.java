@@ -1,41 +1,38 @@
 package it.academy.rent.car.bean;
 
+import lombok.*;
+
 import javax.persistence.*;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@EqualsAndHashCode(exclude = {"profileClose", "role"})
+@ToString(exclude = {"profileClose", "role"})
+
 @Entity
-@Table(name = "authenticate")
+@Table(name = "m_authenticate")
 public class Authenticate {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
     @Column(name = "login")
     private String login;
     @Column(name = "password")
     private String password;
     @Column(name = "email")
     private String email;
-    @Column(name = "profileclose")
+    @Column(name = "profile_close")
     private boolean profileClose;
+    @Enumerated(EnumType.ORDINAL)
     @Column(name = "role")
     private Role role;
 
-    public Authenticate() {
-    }
-
-    public Authenticate(long id, String login, String password, String email, boolean profileClose, Role role) {
-        this.id = id;
-        this.login = login;
-        this.password = password;
-        this.email = email;
-        this.profileClose = profileClose;
-        this.role = role;
-    }
-
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -78,18 +75,4 @@ public class Authenticate {
     public void setRole(Role role) {
         this.role = role;
     }
-
-    @Override
-    public String toString() {
-        return "Authenticate{" +
-                "id=" + id +
-                ", login='" + login + '\'' +
-                ", password='" + password + '\'' +
-                ", email='" + email + '\'' +
-                ", profileClose=" + profileClose +
-                ", role=" + role +
-                '}';
-    }
-
-
 }

@@ -1,32 +1,36 @@
 package it.academy.rent.car.bean;
 
+import lombok.*;
+
 import javax.persistence.*;
-import java.util.Arrays;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@EqualsAndHashCode(exclude = {"typePhoto", "car"})
+@ToString(exclude = {"typePhoto", "car"})
 
 @Entity
-@Table(name = "photocar")
+@Table(name = "m_photo_car")
 public class PhotoCar {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
-    @Column(name = "namephoto")
+    private Long id;
+    @Column(name = "name_photo")
     private String namePhoto;
     @Lob
-    @Column(name = "typephoto")
+    @Column(name = "type_photo")
     @Basic(fetch = FetchType.LAZY)
     private byte[] typePhoto;
-    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "id_car", nullable = false)
     private Car car;
 
-    public PhotoCar() {
-    }
-
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -52,15 +56,5 @@ public class PhotoCar {
 
     public void setCar(Car car) {
         this.car = car;
-    }
-
-    @Override
-    public String toString() {
-        return "PhotoCar{" +
-                "id=" + id +
-                ", namePhoto='" + namePhoto + '\'' +
-                ", typePhoto=" + Arrays.toString(typePhoto) +
-                ", car=" + car +
-                '}';
     }
 }

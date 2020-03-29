@@ -1,31 +1,32 @@
 package it.academy.rent.car.bean;
 
+import lombok.*;
+
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@EqualsAndHashCode(exclude = {"country"})
+@ToString(exclude = {"country"})
 
 @Entity
-@Table(name = "town")
+@Table(name = "m_town")
 public class Town {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
     @Column(name = "town")
     private String town;
-    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "id_country", nullable = false)
     private Country country;
-     @ManyToMany(mappedBy = "townSet")
-     private Set<Company> companySet = new HashSet<>();
 
-    public Town() {
-    }
-
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -43,23 +44,5 @@ public class Town {
 
     public void setCountry(Country country) {
         this.country = country;
-    }
-
-    public Set<Company> getCompanySet() {
-        return companySet;
-    }
-
-    public void setCompanySet(Set<Company> companySet) {
-        this.companySet = companySet;
-    }
-
-    @Override
-    public String toString() {
-        return "Town{" +
-                "id=" + id +
-                ", town='" + town + '\'' +
-                ", country=" + country +
-                ", companySet=" + companySet +
-                '}';
     }
 }
