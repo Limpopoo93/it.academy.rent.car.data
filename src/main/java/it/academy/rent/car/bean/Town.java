@@ -17,10 +17,12 @@ public class Town {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name = "town")
-    private String town;
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private String nameTown;
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "id_country", nullable = false)
     private Country country;
+    @Column(name = "town_remote")
+    private Boolean townRemote;
 
     public Long getId() {
         return id;
@@ -30,12 +32,12 @@ public class Town {
         this.id = id;
     }
 
-    public String getTown() {
-        return town;
+    public String getNameTown() {
+        return nameTown;
     }
 
-    public void setTown(String town) {
-        this.town = town;
+    public void setNameTown(String nameTown) {
+        this.nameTown = nameTown;
     }
 
     public Country getCountry() {
@@ -44,5 +46,13 @@ public class Town {
 
     public void setCountry(Country country) {
         this.country = country;
+    }
+
+    public Boolean getTownRemote() {
+        return townRemote;
+    }
+
+    public void setTownRemote(Boolean townRemote) {
+        this.townRemote = townRemote;
     }
 }

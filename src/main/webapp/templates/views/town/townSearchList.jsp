@@ -51,7 +51,7 @@
                                        modelAttribute="town" method="post">
                                 Country:
 
-                                <select name="country">
+                                <select name="nameCountry">
                                     <option value="Russia" >Russia</option>
                                     <option value="England">England</option>
                                     <option value="Italy">Italy</option>
@@ -71,6 +71,9 @@
                                     <option value="Bulgaria">Bulgaria</option>
                                     <option value="Turkey">Turkey</option>
                                 </select>
+                                <div class="send-button">
+                                    <input type="submit" value="Search">
+                                </div>
                             </form:form>
                         </div>
                     </div>

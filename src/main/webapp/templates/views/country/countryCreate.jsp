@@ -11,8 +11,8 @@
         <form:form class="register-form" action="${pageContext.request.contextPath}/countryRegistration"
                    modelAttribute="country" method="post">
 
-            <form:errors path="country" cssStyle="color: red"/>
-            <form:input path="country" type="text" placeholder="country"/>
+            <form:errors path="nameCountry" cssStyle="color: red"/>
+            <form:input path="nameCountry" type="text" placeholder="nameCountry"/>
 
             <button>Registration</button>
         </form:form>

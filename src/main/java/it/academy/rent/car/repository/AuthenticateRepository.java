@@ -12,11 +12,15 @@ import java.util.List;
 @Transactional
 public interface AuthenticateRepository extends JpaRepository<Authenticate, Long> {
 
-    Authenticate findByLoginAndPassword (String login, String password);
+    Authenticate findByLoginAndPassword(String login, String password);
 
     List<Authenticate> findByProfileClose(Boolean profileClose);
 
+    @Query("select a from Authenticate a where a.profileRemote = :profileRemote")
+    List<Authenticate> findByDelete(Boolean profileRemote);
+
     Authenticate findByLogin(String login);
+
     @Query("select a from Authenticate a where a.id = :id")
     Authenticate findByAId(long id);
 }

@@ -57,6 +57,7 @@
 
                                     <form:errors path="email" cssStyle="color: red"/>
                                     <form:input path="email" type="text" placeholder="email"/>
+
                                     <div class="send-button">
                                         <input type="submit" value="Registration">
                                     </div>

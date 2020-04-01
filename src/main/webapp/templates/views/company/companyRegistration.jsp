@@ -24,7 +24,7 @@
 
             Country:
 
-            <select name="country" onChange="MkHouseValues(this.selectedIndex)">
+            <select name="town.country.country" onChange="MkHouseValues(this.selectedIndex)">
                 <option value="Russia" >Russia</option>
                 <option value="England">England</option>
                 <option value="Italy">Italy</option>
@@ -46,7 +46,7 @@
             </select>
 
             &nbsp;Town:
-            <select name="town">
+            <select name="town.town">
                 <option value="N/A">N/A</option>
             </select>
 
@@ -54,6 +54,7 @@
         </form:form>
     </div>
 </div>
+
 </body>
 </html>
 <script type="application/javascript">

@@ -24,12 +24,14 @@ public class Company {
     private String telephone;
     @Column(name = "email")
     private String email;
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "id_town", nullable = false)
     private Town town;
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "id_authenticate", nullable = false)
     private Authenticate authenticate;
+    @Column(name = "company_remote")
+    private Boolean companyRemote;
 
     public Long getId() {
         return id;
@@ -85,5 +87,13 @@ public class Company {
 
     public void setAuthenticate(Authenticate authenticate) {
         this.authenticate = authenticate;
+    }
+
+    public Boolean getCompanyRemote() {
+        return companyRemote;
+    }
+
+    public void setCompanyRemote(Boolean companyRemote) {
+        this.companyRemote = companyRemote;
     }
 }

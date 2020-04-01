@@ -18,9 +18,11 @@ public class Letter {
     private Long id;
     @Column(name = "text_letter")
     private String textLetter;
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "id_authenticate", nullable = false)
     private Authenticate authenticate;
+    @Column(name = "letter_remote")
+    private Boolean letterRemote;
 
     public Long getId() {
         return id;
@@ -44,5 +46,13 @@ public class Letter {
 
     public void setAuthenticate(Authenticate authenticate) {
         this.authenticate = authenticate;
+    }
+
+    public Boolean getLetterRemote() {
+        return letterRemote;
+    }
+
+    public void setLetterRemote(Boolean letterRemote) {
+        this.letterRemote = letterRemote;
     }
 }

@@ -24,9 +24,11 @@ public class Authenticate {
     private String email;
     @Column(name = "profile_close")
     private boolean profileClose;
-    @Enumerated(EnumType.ORDINAL)
+    @Enumerated(EnumType.STRING)
     @Column(name = "role")
     private Role role;
+    @Column(name = "profile_remote")
+    private Boolean profileRemote;
 
     public Long getId() {
         return id;
@@ -74,5 +76,13 @@ public class Authenticate {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    public Boolean getProfileRemote() {
+        return profileRemote;
+    }
+
+    public void setProfileRemote(Boolean profileRemote) {
+        this.profileRemote = profileRemote;
     }
 }

@@ -7,8 +7,8 @@ import javax.persistence.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(exclude = {"company"})
-@ToString(exclude = {"company"})
+@EqualsAndHashCode(exclude = {"company, priceCar"})
+@ToString(exclude = {"company, priceCar"})
 
 @Entity
 @Table(name = "m_car")
@@ -30,9 +30,13 @@ public class Car {
     private String makeCar;
     @Column(name = "type_car")
     private String typeCar;
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @Column(name = "price")
+    private Long price;
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "id_company", nullable = false)
     private Company company;
+    @Column(name = "car_remote")
+    private Boolean carRemote;
 
     public Long getId() {
         return id;
@@ -66,7 +70,7 @@ public class Car {
         this.colDoors = colDoors;
     }
 
-    public Long  getColPeople() {
+    public Long getColPeople() {
         return colPeople;
     }
 
@@ -104,5 +108,21 @@ public class Car {
 
     public void setCompany(Company company) {
         this.company = company;
+    }
+
+    public Boolean getCarRemote() {
+        return carRemote;
+    }
+
+    public void setCarRemote(Boolean carRemote) {
+        this.carRemote = carRemote;
+    }
+
+    public Long getPrice() {
+        return price;
+    }
+
+    public void setPrice(Long price) {
+        this.price = price;
     }
 }

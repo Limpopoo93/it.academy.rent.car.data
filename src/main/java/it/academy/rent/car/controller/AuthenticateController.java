@@ -41,6 +41,7 @@ public class AuthenticateController {
     public String createUser(Authenticate authenticate, HttpSession session, CarSearch carSearch) {
         Authenticate authenticateResult = authenticateRepository.findByLoginAndPassword(authenticate.getLogin(), authenticate.getPassword());
         if (authenticateResult == null) {
+            authenticate.setProfileRemote(true);
             authenticate.setProfileClose(true);
             authenticate.setRole(Role.USER);
             authenticateRepository.save(authenticate);
@@ -53,14 +54,15 @@ public class AuthenticateController {
     //переход с main на страницу регистрации
     @GetMapping("/companyRegistration")
     public String createCompany(Authenticate authenticate) {
-        return "user/companyRegistrationUser";
+        return "company/companyRegistrationUser";
     }
 
     //переход с регистрации на index и добавление нового юзера
     @PostMapping("/companyRegistration")
-    public String createCompanyUser(Authenticate authenticate, HttpSession session, CarSearch carSearch) {
+    public String createCompanyUser(Authenticate authenticate, CarSearch carSearch) {
         Authenticate authenticateResult = authenticateRepository.findByLoginAndPassword(authenticate.getLogin(), authenticate.getPassword());
         if (authenticateResult == null) {
+            authenticate.setProfileRemote(true);
             authenticate.setProfileClose(true);
             authenticate.setRole(Role.COMPANY);
             authenticateRepository.save(authenticate);
@@ -79,12 +81,11 @@ public class AuthenticateController {
     @PostMapping("/userComeIn")
     public String comeInUser(Authenticate authenticate, HttpSession session, Letter letter, CarSearch carSearch) {
         Authenticate authenticateResult = authenticateRepository.findByLoginAndPassword(authenticate.getLogin(), authenticate.getPassword());
-        if (authenticateResult != null) {
-            if (authenticateResult.isProfileClose() == true) {
-                session.setAttribute("authenticate", authenticateResult);
+        if (authenticateResult != null && authenticateResult.getProfileRemote().equals(true)) {
+            session.setAttribute("authenticate", authenticateResult);
+            if (authenticateResult.isProfileClose()) {
                 return "index";
             } else {
-                session.setAttribute("authenticate", authenticateResult);
                 return "user/userLetterAdmin";
             }
         }
@@ -96,17 +97,19 @@ public class AuthenticateController {
         return "user/userDelete";
     }
 
-    //переход со страницы входа проверка и отправка на index при открытом доступе7
+    //ЭТО УДАЛЕНИЕ ТОЛЬКО ДЛЯ АДМИНА, НЕОБХОДИМО СДЕЛАТЬ УДАЛЕНИЕ ДЛЯ ЮЗЕРА КОТОРЫЙ В СЕССИИ ДЛЯ ОБЫЧНЫХ ПОЛЬЗОВАТЕЛЕЙ
     @PostMapping("/userDelete")
     public String deleteUserForm(Authenticate authenticate, HttpSession session, Letter letter, CarSearch carSearch) {
         Authenticate authenticateResult = authenticateRepository.findByLoginAndPassword(authenticate.getLogin(), authenticate.getPassword());
         Authenticate authenticateSession = (Authenticate) session.getAttribute("authenticate");
         if(authenticateResult.getLogin().equals(authenticateSession.getLogin()) && authenticateResult.getPassword().equals(authenticateSession.getPassword()) && authenticateResult.getEmail().equals(authenticateSession.getEmail())){
-            Authenticate authenticateBase = authenticateRepository.findByLoginAndPassword(authenticateResult.getLogin(), authenticateResult.getPassword());
-            authenticateRepository.delete(authenticateBase);
-            return "redirect:/";
-        }else {
             return "redirect:/userDelete";
+        }else {
+            Authenticate authenticateBase = authenticateRepository.findByLoginAndPassword(authenticateResult.getLogin(), authenticateResult.getPassword());
+            authenticateBase.setProfileRemote(false);
+            authenticateRepository.saveAndFlush(authenticateBase);
+            session.invalidate();
+            return "index";
         }
     }
 
@@ -115,6 +118,7 @@ public class AuthenticateController {
     public String addLetterAdmin(Letter letter, HttpSession session) {
         Authenticate authenticate = (Authenticate) session.getAttribute("authenticate");
         letter.setAuthenticate(authenticate);
+        //не работает сохранение письма, проверить почему
         letterRepository.save(letter);
         return "redirect:/";
     }
@@ -127,11 +131,12 @@ public class AuthenticateController {
 
     //создания админа и переход на index
     @PostMapping("/adminCreate")
-    public String createAdminBase(Authenticate authenticate) {
+    public String createAdminBase(Authenticate authenticate,CarSearch carSearch) {
         Authenticate authenticateResult = authenticateRepository.findByLoginAndPassword(authenticate.getLogin(), authenticate.getPassword());
         if (authenticateResult == null) {
-            authenticate.setProfileClose(true);
             authenticate.setRole(Role.ADMIN);
+            authenticate.setProfileClose(true);
+            authenticate.setProfileRemote(true);
             authenticateRepository.save(authenticate);
             return "index";
         }
@@ -141,7 +146,7 @@ public class AuthenticateController {
     //лист всех юзеров для админа
     @GetMapping("/users")
     public String findAll(Model model) {
-        List<Authenticate> authenticates = authenticateRepository.findAll();
+        List<Authenticate> authenticates = authenticateRepository.findByDelete(true);
         model.addAttribute("authenticates", authenticates);
         return "user/userList";
     }
@@ -150,7 +155,8 @@ public class AuthenticateController {
     @GetMapping("/userDeleteId/{id}")
     public String deleteUser(@PathVariable("id") Long id) {
         Authenticate authenticate = authenticateRepository.findByAId(id);
-        authenticateRepository.delete(authenticate);
+        authenticate.setProfileRemote(false);
+        authenticateRepository.saveAndFlush(authenticate);
         return "redirect:/users";
     }
 
@@ -175,8 +181,8 @@ public class AuthenticateController {
     //переход на страницу со списком писем заблокированых пользователей
     @GetMapping("/letterAdminList")
     public String letterAdmin(Model model) {
-        List<Letter> letters = letterRepository.findAll();
-        model.addAttribute("letters", letters);
+       // List<Letter> letters = letterRepository.findByDelete();
+        //model.addAttribute("letters", letters);
         return "user/letterList";
     }
 
@@ -192,8 +198,9 @@ public class AuthenticateController {
     //удалить письмо из страницы списка писем
     @GetMapping("/deleteLetter/{id}")
     public String deleteLetter(@PathVariable("id") Long id) {
-        Letter letter = letterRepository.findByLId(id);
-        letterRepository.delete(letter);
+        Letter letter = letterRepository.findByIdLetter(id);
+        letter.setLetterRemote(false);
+        letterRepository.saveAndFlush(letter);
         return "redirect:/letterAdminList";
     }
 

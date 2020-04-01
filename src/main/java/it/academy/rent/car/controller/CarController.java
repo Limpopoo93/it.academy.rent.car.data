@@ -43,7 +43,11 @@ public class CarController {
 
     @PostMapping("/createCar")
     public String createCar(Car car) {
-        carRepository.save(car);
+        Company company = companyRepository.findByNameCompany(car.getCompany().getNameCompany());
+        if(company != null){
+            car.setCompany(company);
+            carRepository.save(car);
+        }
         return "redirect:/createCar";
     }
 
@@ -80,7 +84,7 @@ public class CarController {
         Authenticate authenticate = (Authenticate) session.getAttribute("authenticate");
         Company company = companyRepository.findByIdAndAuthenticate(authenticate.getId());
         if (company.getAuthenticate().getId() != null){
-            List<Car> cars = carRepository.findByIdCompany(company.getId());
+            List<Car> cars = carRepository.findByIdCompany(company.getId(), true);
             model.addAttribute("cars", cars);
             return "car/carList";
         }else {
@@ -89,10 +93,13 @@ public class CarController {
             return "car/carList";
         }
     }
+
+
     @GetMapping("/carDeleteId/{id}")
     public String deleteCar(@PathVariable("id") Long id) {
         Car car = carRepository.findByCId(id);
-        carRepository.delete(car);
+        car.setCarRemote(false);
+        carRepository.saveAndFlush(car);
         return "redirect:/listCar";
     }
 

@@ -23,12 +23,14 @@ public class BusyDate {
     @Column(name = "date_return")
     @Temporal(TemporalType.DATE)
     private Date dateReturn;
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "id_car", nullable = false)
     private Car car;
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "id_authenticate", nullable = false)
     private Authenticate authenticate;
+    @Column(name = "busy_date_remote")
+    private Boolean busyDateRemote;
 
     public Long getId() {
         return id;
@@ -68,5 +70,13 @@ public class BusyDate {
 
     public void setAuthenticate(Authenticate authenticate) {
         this.authenticate = authenticate;
+    }
+
+    public Boolean getBusyDateRemote() {
+        return busyDateRemote;
+    }
+
+    public void setBusyDateRemote(Boolean busyDateRemote) {
+        this.busyDateRemote = busyDateRemote;
     }
 }

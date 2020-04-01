@@ -22,9 +22,11 @@ public class PhotoCar {
     @Column(name = "type_photo")
     @Basic(fetch = FetchType.LAZY)
     private byte[] typePhoto;
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "id_car", nullable = false)
     private Car car;
+    @Column(name = "photo_car_remote")
+    private Boolean photoCarRemote;
 
     public Long getId() {
         return id;
@@ -56,5 +58,13 @@ public class PhotoCar {
 
     public void setCar(Car car) {
         this.car = car;
+    }
+
+    public Boolean getPhotoCarRemote() {
+        return photoCarRemote;
+    }
+
+    public void setPhotoCarRemote(Boolean photoCarRemote) {
+        this.photoCarRemote = photoCarRemote;
     }
 }

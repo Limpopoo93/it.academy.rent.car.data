@@ -17,7 +17,9 @@ public class Country {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name = "country")
-    private String country;
+    private String nameCountry;
+    @Column(name = "country_remote")
+    private Boolean countryRemote;
 
     public Long getId() {
         return id;
@@ -27,11 +29,19 @@ public class Country {
         this.id = id;
     }
 
-    public String getCountry() {
-        return country;
+    public String getNameCountry() {
+        return nameCountry;
     }
 
-    public void setCountry(String country) {
-        this.country = country;
+    public void setNameCountry(String nameCountry) {
+        this.nameCountry = nameCountry;
+    }
+
+    public Boolean getCountryRemote() {
+        return countryRemote;
+    }
+
+    public void setCountryRemote(Boolean countryRemote) {
+        this.countryRemote = countryRemote;
     }
 }

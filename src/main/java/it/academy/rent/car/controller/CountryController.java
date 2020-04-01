@@ -24,19 +24,21 @@ public class CountryController {
 
     @PostMapping("/countryRegistration")
     public String createCountry(Country country) {
+        country.setCountryRemote(true);
         countryRepository.save(country);
         return "redirect:/countryRegistration";
     }
     @GetMapping("/listCountry")
     public String listCountry(Model model) {
-        List<Country> countries = countryRepository.findAll();
+       List<Country> countries = countryRepository.findByDelete(true);
         model.addAttribute("countries",countries);
         return "country/countryList";
     }
     @GetMapping("/countryDelete/{id}")
     public String listCountry(@PathVariable("id") Long id) {
         Country countryResult = countryRepository.findByCId(id);
-        countryRepository.delete(countryResult);
-        return "country/listCountry";
+        countryResult.setCountryRemote(false);
+        countryRepository.saveAndFlush(countryResult);
+        return "redirect:/listCountry";
     }
 }

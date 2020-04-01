@@ -4,7 +4,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>Index</title>
 </head>
 <body>
 <ul id="menu">
@@ -12,36 +12,32 @@
     <li>
         <a>User</a>
         <ul class="hidden">
-            <li><a href="${pageContext.request.contextPath}/adminCreate">Create Admin</a></li>
-            <li><a href="${pageContext.request.contextPath}/companyRegistration">Create User Company</a></li>
-            <li><a href="${pageContext.request.contextPath}/userDelete">Delete User</a></li>
+            <li><a href="${pageContext.request.contextPath}/adminCreate">Create Admin</a></li>+++
+            <li><a href="${pageContext.request.contextPath}/companyRegistration">Create User Company</a></li>+++
+            <li><a href="${pageContext.request.contextPath}/userDelete">Delete User</a></li>++++
             <li><a href="${pageContext.request.contextPath}/userUpdate">Update User</a></li>
-            <li><a href="${pageContext.request.contextPath}/users">List User</a></li>
-            <li><a href="${pageContext.request.contextPath}/letterAdminList">List Letter to Admin</a></li>
-            <li><a href="${pageContext.request.contextPath}/userBlockList">List Block User</a></li>
+            <li><a href="${pageContext.request.contextPath}/users">List User</a></li> ++++++
+            <li><a href="${pageContext.request.contextPath}/letterAdminList">List Letter to Admin</a></li> +++++
+            <li><a href="${pageContext.request.contextPath}/userBlockList">List Block User</a></li> ++++++
 
-            <li><a href="${pageContext.request.contextPath}/createCar">Create Car</a></li>
-            <li><a href="${pageContext.request.contextPath}/listCar">List Car</a></li>
+            <li><a href="${pageContext.request.contextPath}/createCar">Create Car</a></li> +++
+            <li><a href="${pageContext.request.contextPath}/listCar">List Car</a></li> ++++ это для компании
 
-            <li><a href="${pageContext.request.contextPath}/createCreditCard">Create Credit Card</a></li>
-            <li><a href="${pageContext.request.contextPath}/cardDelete">Card Delete</a></li>
+            <li><a href="${pageContext.request.contextPath}/createCreditCard">Create Credit Card</a></li> ---- не сохраняет, ошибка с преобразованием даты
+            <li><a href="${pageContext.request.contextPath}/cardDelete">Card Delete</a></li>public
 
-            <li><a href="${pageContext.request.contextPath}/createCompany">Create Company</a></li>
-            <li><a href="${pageContext.request.contextPath}/listCompany">List Company</a></li>
-            <li><a href="${pageContext.request.contextPath}/deleteCompany">Delete Company</a></li>
+            <li><a href="${pageContext.request.contextPath}/createCompany">Create Company</a></li> ------ все хорошо но не вижу я городов, а страны вижу
+            <li><a href="${pageContext.request.contextPath}/listCompany">List Company</a></li> +++++++++
+            <li><a href="${pageContext.request.contextPath}/deleteCompany">Delete Company</a></li>+++
 
-            <li><a href="${pageContext.request.contextPath}/countryRegistration">Create Country</a></li>
-            <li><a href="${pageContext.request.contextPath}/listCountry">List Country</a></li>
-
-            <li><a href="${pageContext.request.contextPath}/createTown">Create Town</a></li>
-            <li><a href="${pageContext.request.contextPath}/searchListTown">List Town</a></li>
-
-          еще не сделал  <li><a href="${pageContext.request.contextPath}/createPrice">Create PriceCar</a></li>
-            <li><a href="${pageContext.request.contextPath}/updatePriceCar">Update PriceCar</a></li>
+            <li><a href="${pageContext.request.contextPath}/countryRegistration">Create Country</a></li> ++++
+            <li><a href="${pageContext.request.contextPath}/listCountry">List Country</a></li> +++++
 
 
+                <li><a href="${pageContext.request.contextPath}/createTown">Create Town</a></li> ++++++
+                <li><a href="${pageContext.request.contextPath}/searchListTown">List Town</a></li>  ---------
 
-
+            
             <%--@elvariable id="carSearch" type="it.academy.rent.car.bean.CarSearch"--%>
             <form:form class="register-form" name="address" action="${pageContext.request.contextPath}/searchFormCountry"
                         method="post" modelAttribute="carSearch">

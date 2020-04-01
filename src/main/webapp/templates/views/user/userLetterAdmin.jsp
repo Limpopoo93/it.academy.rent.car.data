@@ -48,39 +48,41 @@
                             <%--@elvariable id="letter" type="it.academy.rent.car.bean.Letter"--%>
                             <form:form class="register-form" action="${pageContext.request.contextPath}/pushLetter"
                                        modelAttribute="letter" method="post">
-
-                            <form:errors path="textLetter" cssStyle="color: red"/>
-                            <form:input path="textLetter" type="text" placeholder="letter"/>
-
-                            <div class="send-button">
-                                <input type="submit" value="Add Letter">
-                            </div>
+                                <div class="form">
+                                    <form:errors path="textLetter" cssStyle="color: red"/>
+                                    <form:input path="textLetter" type="text" placeholder="letter"/>
+                                    <div class="send-button">
+                                        <input type="submit" value="Push Letter">
+                                    </div>
+                                </div>
+                            </form:form>
                         </div>
-                        </form:form>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-<div class="swiper-container home-baner">
-    <div class="swiper-wrapper">
-        <div class="swiper-slide">
-            <div class="home-img">
-                <div class="bg-bg">
+    <div class="swiper-container home-baner">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide">
+                <div class="home-img">
+                    <div class="bg-bg" >
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="swiper-slide">
-            <div class="home-img">
-                <div class="bg-bg">
+            <div class="swiper-slide">
+                <div class="home-img">
+                    <div class="bg-bg" >
+                    </div>
                 </div>
             </div>
-        </div>
 
+        </div>
     </div>
+
 </div>
+
 
 </body>
 </html>
