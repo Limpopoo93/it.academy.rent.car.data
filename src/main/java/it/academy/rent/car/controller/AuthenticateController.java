@@ -6,6 +6,7 @@ import it.academy.rent.car.bean.Letter;
 import it.academy.rent.car.bean.Role;
 import it.academy.rent.car.repository.AuthenticateRepository;
 import it.academy.rent.car.repository.LetterRepository;
+import it.academy.rent.car.service.AuthenticateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -24,6 +26,8 @@ public class AuthenticateController {
     private AuthenticateRepository authenticateRepository;
     @Autowired
     private LetterRepository letterRepository;
+    @Autowired
+    private AuthenticateService authenticateService;
 
     //для перехода на стартовую страницу
     @GetMapping("/")
@@ -44,8 +48,9 @@ public class AuthenticateController {
         if (authenticateResult == null) {
             authenticate.setProfileRemote(true);
             authenticate.setProfileClose(true);
-            authenticate.setRole(Role.USER);
-            authenticateRepository.save(authenticate);
+            authenticate.setRoles(Collections.singleton(new Role(1L, "ROLE_USER")));
+            authenticateService.saveUser(authenticate);
+            // authenticateRepository.save(authenticate);
             session.setAttribute("authenticate", authenticate);
             return "index";
         }
@@ -65,8 +70,9 @@ public class AuthenticateController {
         if (authenticateResult == null) {
             authenticate.setProfileRemote(true);
             authenticate.setProfileClose(true);
-            authenticate.setRole(Role.COMPANY);
-            authenticateRepository.save(authenticate);
+            authenticate.setRoles(Collections.singleton(new Role(1L, "ROLE_COMPANY")));
+            authenticateService.saveUser(authenticate);
+           // authenticateRepository.save(authenticate);
             return "index";
         }
         return "redirect:/companyRegistration";
@@ -82,7 +88,7 @@ public class AuthenticateController {
 
     @PostMapping("/userComeIn")
     public String comeInUser(@Valid Authenticate authenticate, HttpSession session, Letter letter, CarSearch carSearch) {
-        Authenticate authenticateResult = authenticateRepository.findByLoginAndPassword(authenticate.getLogin(), authenticate.getPassword());
+        Authenticate authenticateResult = authenticateRepository.findByLogin(authenticate.getLogin());
         if (authenticateResult != null && authenticateResult.getProfileRemote().equals(true)) {
             session.setAttribute("authenticate", authenticateResult);
             if (authenticateResult.isProfileClose()) {
@@ -136,7 +142,7 @@ public class AuthenticateController {
     public String createAdminBase(@Valid Authenticate authenticate,CarSearch carSearch) {
         Authenticate authenticateResult = authenticateRepository.findByLoginAndPassword(authenticate.getLogin(), authenticate.getPassword());
         if (authenticateResult == null) {
-            authenticate.setRole(Role.ADMIN);
+            authenticate.setRoles(Collections.singleton(new Role(1L, "ROLE_ADMIN")));
             authenticate.setProfileClose(true);
             authenticate.setProfileRemote(true);
             authenticateRepository.save(authenticate);

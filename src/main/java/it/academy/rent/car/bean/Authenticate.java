@@ -1,10 +1,14 @@
 package it.academy.rent.car.bean;
 
 import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.Collection;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -14,29 +18,35 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "m_authenticate")
-public class Authenticate {
+public class Authenticate implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Column
     @Size(min = 1, max = 15)
     @NotNull
     private String login;
+
     @Column
-    @Size(min = 1, max = 15)
+    @Size(min = 1, max = 150)
     @NotNull
     private String password;
+
+    @Transient
+    private String passwordConfirm;
+
     @Column
     @Size(min = 1, max = 15)
-    @NotNull
     private String email;
+
     @Column(name = "profile_close")
     private boolean profileClose;
+
     @Enumerated(EnumType.STRING)
-    @Column
-    @Size(min = 1, max = 15)
-    @NotNull
-    private Role role;
+    @ManyToMany(fetch = FetchType.EAGER)
+    private Set<Role> roles;
+
     @Column(name = "profile_remote")
     private Boolean profileRemote;
 
@@ -56,8 +66,38 @@ public class Authenticate {
         this.login = login;
     }
 
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return getRoles();
+    }
+
     public String getPassword() {
         return password;
+    }
+
+    @Override
+    public String getUsername() {
+        return login;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 
     public void setPassword(String password) {
@@ -80,12 +120,12 @@ public class Authenticate {
         this.profileClose = profileClose;
     }
 
-    public Role getRole() {
-        return role;
+    public Set<Role> getRoles() {
+        return roles;
     }
 
-    public void setRole(Role role) {
-        this.role = role;
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 
     public Boolean getProfileRemote() {
@@ -94,5 +134,13 @@ public class Authenticate {
 
     public void setProfileRemote(Boolean profileRemote) {
         this.profileRemote = profileRemote;
+    }
+
+    public String getPasswordConfirm() {
+        return passwordConfirm;
+    }
+
+    public void setPasswordConfirm(String passwordConfirm) {
+        this.passwordConfirm = passwordConfirm;
     }
 }

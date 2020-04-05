@@ -55,6 +55,9 @@
                                     <form:errors path="password" cssStyle="color: red"/>
                                     <form:input path="password" type="password" placeholder="password"/>
 
+                                    <form:errors path="passwordConfirm" cssStyle="color: red"/>
+                                    <form:input path="passwordConfirm" type="password" placeholder="passwordConfirm"/>
+
                                     <form:errors path="email" cssStyle="color: red"/>
                                     <form:input path="email" type="text" placeholder="email"/>
                                     <div class="send-button">
