@@ -7,6 +7,7 @@ public interface InitConstant {
     String ID_USER = "idUser";
     String ID_COMPANY = "idCompany";
     String ID_AUTHENTICATE = "idAuthenticate";
+    String BUSY_DATE_REMOTE = "busy_date_remote";
     String ID_COUNTRY = "idCountry";
     String ID_CARD = "idCard";
 
@@ -16,6 +17,7 @@ public interface InitConstant {
     String PROFILE_CLOSE = "profileClose";
     String PROFILE_ENABLE = "profileEnable";
     String EMAIL = "email";
+    String PROFILE_REMOTE = "profile_remote";
 
     String STREET = "street";
     String NUMBER_STREET = "numberStreet";
@@ -42,7 +44,7 @@ public interface InitConstant {
     String RETING = "reting";
     String TELEPHONE = "telephone";
 
-    String COUNTRY = "COUNTRY";
+    String COUNTRY = "country";
 
     String LETTER = "letter";
 
@@ -57,6 +59,10 @@ public interface InitConstant {
     String NAME = "name";
     String SURNAME = "surname";
     String AGE = "age";
+
+    String AUTHENTICATE = "authenticate";
+    String CAR = "car";
+    String COMPANY = "company";
 
     String ERROR_KEY = "error";
 }

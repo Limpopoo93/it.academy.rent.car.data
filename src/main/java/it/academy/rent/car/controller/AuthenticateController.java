@@ -8,6 +8,7 @@ import it.academy.rent.car.repository.AuthenticateRepository;
 import it.academy.rent.car.repository.LetterRepository;
 import it.academy.rent.car.service.AuthenticateService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,6 +29,8 @@ public class AuthenticateController {
     private LetterRepository letterRepository;
     @Autowired
     private AuthenticateService authenticateService;
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     //для перехода на стартовую страницу
     @GetMapping("/")
@@ -89,7 +92,7 @@ public class AuthenticateController {
     @PostMapping("/userComeIn")
     public String comeInUser(@Valid Authenticate authenticate, HttpSession session, Letter letter, CarSearch carSearch) {
         Authenticate authenticateResult = authenticateRepository.findByLogin(authenticate.getLogin());
-        if (authenticateResult != null && authenticateResult.getProfileRemote().equals(true)) {
+       if (authenticateResult.getProfileRemote().equals(true)) {
             session.setAttribute("authenticate", authenticateResult);
             if (authenticateResult.isProfileClose()) {
                 return "index";

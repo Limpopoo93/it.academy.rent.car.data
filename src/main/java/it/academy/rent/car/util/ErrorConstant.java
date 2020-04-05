@@ -1,0 +1,48 @@
+package it.academy.rent.car.util;
+
+public interface ErrorConstant {
+    String LOGIN_INVALID = "login invalid";
+    String LOGIN_EMPTY = "login empty";
+    String PASSWORD_INVALID ="password invalid";
+    String PASSWORD_EMPTY = "password empty";
+    String PRICE_INVALID = "price invalid";
+    String PRICE_CAR_EMPTY = "price car empty";
+    String NAME_CAR_INVALID = "name car invalid";
+    String NAME_CAR_EMPTY = "name car empty";
+    String TYPE_FUEL_INVALID = "type fuel invalid";
+    String TYPE_FUEL_EMPTY = "type fuel empty";
+    String COL_DOOR_INVALID = "col door invalid";
+    String COL_DOOR_EMPTY = "col door empty";
+    String COL_PEOPLE_INVALID = "col people invalid";
+    String COL_PEOPLE_EMPTY = "col people empty";
+    String MILEAGE_INVALID = "mileage invalid";
+    String MILEAGE_EMPTY = "mileage empty";
+    String MAKE_CAR_INVALID = "make car invalid";
+    String MAKE_CAR_EMPTY = "make car empty";
+    String TYPE_CAR_INVALID = "type car invalid";
+    String TYPE_CAR_EMPTY = "type car empty";
+    String NAME_USER_INVALID = "name user invalid";
+    String NAME_USER_EMPTY = "name user empty";
+    String KEY_CARD_INVALID = "key card invalid";
+    String KEY_CARD_EMPTY = "key card empty";
+    String KEY_SECURITY_INVALID = "key security invalid";
+    String KEY_SECURITY_EMPTY = "key security empty";
+    String KEYS_INVALID = "keys invalid";
+    String KEYS_EMPTY = "keys empty";
+    String NAME_COMPANY_INVALID = "name company invalid";
+    String NAME_COMPANY_EMPTY = "name company empty";
+    String RETING_INVALID = "reting invalid";
+    String RETING_EMPTY = "reting empty";
+    String TELEPHONE_INVALID = "telephone invalid";
+    String TELEPHONE_EMPTY = "telephone empty";
+    String EMAIL_INVALID = "email invalid";
+    String EMAIL_EMPTY = "email empty";
+    String NAME_COUNTRY_INVALID = "name country invalid";
+    String NAME_COUNTRY_EMPTY = "name country empty";
+    String TEXT_INVALID = "text invalid";
+    String TEXT_EMPTY = "text empty";
+    String NAME_PHOTO_INVALID = "name photo invalid";
+    String NAME_PHOTO_EMPTY = "name photo empty";
+    String NAME_TOWN_INVALID = "name town invalid";
+    String NAME_TOWN_EMPTY = "name town empty";
+}

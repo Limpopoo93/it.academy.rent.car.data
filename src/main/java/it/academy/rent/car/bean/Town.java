@@ -3,29 +3,35 @@ package it.academy.rent.car.bean;
 import lombok.*;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
+
+import static it.academy.rent.car.util.DBConstant.*;
+import static it.academy.rent.car.util.ErrorConstant.NAME_TOWN_EMPTY;
+import static it.academy.rent.car.util.ErrorConstant.NAME_TOWN_INVALID;
+import static it.academy.rent.car.util.InitConstant.COUNTRY;
+import static it.academy.rent.car.util.InitConstant.TOWN;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(exclude = {"country"})
-@ToString(exclude = {"country"})
+@EqualsAndHashCode(exclude = {COUNTRY})
+@ToString(exclude = {COUNTRY})
 
 @Entity
-@Table(name = "m_town")
+@Table(name = DB_TOWN)
 public class Town {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "town")
-    @Size(min = 1, max = 15)
-    @NotNull
+    @Column(name = TOWN)
+    @Size(min = 1, max = 15, message = NAME_TOWN_INVALID)
+    @NotEmpty(message = NAME_TOWN_EMPTY)
     private String nameTown;
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinColumn(name = "id_country", nullable = false)
+    @JoinColumn(name = DB_ID_COUNTRY, nullable = false)
     private Country country;
-    @Column(name = "town_remote")
+    @Column(name = DB_TOWN_REMOTE)
     private Boolean townRemote;
 
     public Long getId() {

@@ -3,33 +3,39 @@ package it.academy.rent.car.bean;
 import lombok.*;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
+
+import static it.academy.rent.car.util.DBConstant.*;
+import static it.academy.rent.car.util.ErrorConstant.NAME_PHOTO_EMPTY;
+import static it.academy.rent.car.util.ErrorConstant.NAME_PHOTO_INVALID;
+import static it.academy.rent.car.util.InitConstant.CAR;
+import static it.academy.rent.car.util.InitConstant.TYPE_PHOTO;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(exclude = {"typePhoto", "car"})
-@ToString(exclude = {"typePhoto", "car"})
+@EqualsAndHashCode(exclude = {TYPE_PHOTO, CAR})
+@ToString(exclude = {TYPE_PHOTO, CAR})
 
 @Entity
-@Table(name = "m_photo_car")
+@Table(name = DB_PHOTO_CAR)
 public class PhotoCar {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "name_photo")
-    @Size(min = 1, max = 15)
-    @NotNull
+    @Column(name = DB_NAME_PHOTO)
+    @Size(min = 1, max = 15, message = NAME_PHOTO_INVALID)
+    @NotEmpty(message = NAME_PHOTO_EMPTY)
     private String namePhoto;
     @Lob
-    @Column(name = "type_photo")
+    @Column(name = DB_TYPE_PHOTO)
     @Basic(fetch = FetchType.LAZY)
     private byte[] typePhoto;
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinColumn(name = "id_car", nullable = false)
+    @JoinColumn(name = DB_ID_CAR, nullable = false)
     private Car car;
-    @Column(name = "photo_car_remote")
+    @Column(name = DB_PHOTO_CAR_REMOTE)
     private Boolean photoCarRemote;
 
     public Long getId() {

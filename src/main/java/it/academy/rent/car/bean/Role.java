@@ -5,15 +5,17 @@ import org.springframework.security.core.GrantedAuthority;
 import javax.persistence.*;
 import java.util.Set;
 
+import static it.academy.rent.car.util.DBConstant.*;
+
 @Entity
-@Table(name = "m_role")
+@Table(name = DB_ROLE)
 public class Role implements GrantedAuthority {
     @Id
     private Long id;
-    @Column(name = "type_role")
+    @Column(name = DB_TYPE_ROLE)
     private String name;
     @Transient
-    @ManyToMany(mappedBy = "roles")
+    @ManyToMany(mappedBy = DB_ROLES)
     private Set<Authenticate> authenticates;
     public Role() {
     }

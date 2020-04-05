@@ -3,45 +3,49 @@ package it.academy.rent.car.bean;
 import lombok.*;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import java.util.Date;
+
+import static it.academy.rent.car.util.DBConstant.*;
+import static it.academy.rent.car.util.ErrorConstant.*;
+import static it.academy.rent.car.util.InitConstant.AUTHENTICATE;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(exclude = {"authenticate"})
-@ToString(exclude = {"authenticate"})
+@EqualsAndHashCode(exclude = {AUTHENTICATE})
+@ToString(exclude = {AUTHENTICATE})
 
 @Entity
-@Table(name = "m_card")
+@Table(name = DB_CARD)
 public class Card {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "name_user")
-    @Size(min = 1, max = 15)
-    @NotNull
+    @Column(name = DB_NAME_USER)
+    @Size(min = 1, max = 15, message = NAME_USER_INVALID)
+    @NotEmpty(message = NAME_USER_EMPTY)
     private String nameUser;
-    @Column(name = "key_card")
-    @Size(min = 1, max = 15)
-    @NotNull
+    @Column(name = DB_KEY_CARD)
+    @Size(min = 1, max = 15, message = KEY_CARD_INVALID)
+    @NotEmpty(message = KEY_CARD_EMPTY)
     private Long keyCard;
-    @Column(name = "car_date")
+    @Column(name = DB_CAR_DATE)
     @Temporal(TemporalType.TIMESTAMP)
     private Date carDate;
-    @Column(name = "key_security")
-    @Size(min = 1, max = 15)
-    @NotNull
+    @Column(name = DB_KEY_SECURITY)
+    @Size(min = 1, max = 15, message = KEY_SECURITY_INVALID)
+    @NotEmpty(message = KEY_SECURITY_EMPTY)
     private Long keySecurity;
     @Column
-    @Size(min = 1, max = 15)
-    @NotNull
+    @Size(min = 1, max = 15, message = KEYS_INVALID)
+    @NotEmpty(message = KEYS_EMPTY)
     private Long keys;
     @OneToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinColumn(name = "id_authenticate", nullable = false)
+    @JoinColumn(name = DB_ID_AUTHENTICATE, nullable = false)
     private Authenticate authenticate;
-    @Column(name = "card_remote")
+    @Column(name = DB_CARD_REMOTE)
     private Boolean cardRemote;
 
     public Long getId() {

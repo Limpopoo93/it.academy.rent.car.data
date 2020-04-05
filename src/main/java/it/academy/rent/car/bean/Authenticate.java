@@ -5,32 +5,37 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import java.util.Collection;
 import java.util.Set;
 
+import static it.academy.rent.car.util.DBConstant.DB_AUTHENTICATE;
+import static it.academy.rent.car.util.DBConstant.DB_PROFILE_CLOSE;
+import static it.academy.rent.car.util.ErrorConstant.*;
+import static it.academy.rent.car.util.InitConstant.*;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(exclude = {"profileClose", "role"})
-@ToString(exclude = {"profileClose", "role"})
+@EqualsAndHashCode(exclude = {PROFILE_CLOSE, ROLE})
+@ToString(exclude = {PROFILE_CLOSE, ROLE})
 
 @Entity
-@Table(name = "m_authenticate")
+@Table(name = DB_AUTHENTICATE)
 public class Authenticate implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column
-    @Size(min = 1, max = 15)
-    @NotNull
+    @Size(min = 1, max = 20, message = LOGIN_INVALID)
+    @NotEmpty(message = LOGIN_EMPTY)
     private String login;
 
     @Column
-    @Size(min = 1, max = 150)
-    @NotNull
+    @Size(min = 1, max = 150, message = PASSWORD_INVALID)
+    @NotEmpty(message = PASSWORD_EMPTY)
     private String password;
 
     @Transient
@@ -40,14 +45,14 @@ public class Authenticate implements UserDetails {
     @Size(min = 1, max = 15)
     private String email;
 
-    @Column(name = "profile_close")
+    @Column(name = DB_PROFILE_CLOSE)
     private boolean profileClose;
 
     @Enumerated(EnumType.STRING)
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Role> roles;
 
-    @Column(name = "profile_remote")
+    @Column(name = PROFILE_REMOTE)
     private Boolean profileRemote;
 
     public Long getId() {
