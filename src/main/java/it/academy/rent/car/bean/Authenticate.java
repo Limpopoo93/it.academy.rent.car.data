@@ -3,6 +3,8 @@ package it.academy.rent.car.bean;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Data
 @NoArgsConstructor
@@ -16,16 +18,24 @@ public class Authenticate {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "login")
+    @Column
+    @Size(min = 1, max = 15)
+    @NotNull
     private String login;
-    @Column(name = "password")
+    @Column
+    @Size(min = 1, max = 15)
+    @NotNull
     private String password;
-    @Column(name = "email")
+    @Column
+    @Size(min = 1, max = 15)
+    @NotNull
     private String email;
     @Column(name = "profile_close")
     private boolean profileClose;
     @Enumerated(EnumType.STRING)
-    @Column(name = "role")
+    @Column
+    @Size(min = 1, max = 15)
+    @NotNull
     private Role role;
     @Column(name = "profile_remote")
     private Boolean profileRemote;

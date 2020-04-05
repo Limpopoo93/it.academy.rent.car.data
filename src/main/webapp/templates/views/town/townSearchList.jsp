@@ -44,11 +44,11 @@
                             <div class="form-header">
                                 <h3>Registration Form</h3>
                             </div>
-
-                            <%--@elvariable id="town" type="it.academy.rent.car.bean.Town"--%>
+                            
+                            <%--@elvariable id="country" type="it.academy.rent.car.bean.Country"--%>
                             <form:form class="register-form"
                                        action="${pageContext.request.contextPath}/listTown"
-                                       modelAttribute="town" method="post">
+                                       modelAttribute="country" method="post">
                                 Country:
 
                                 <select name="nameCountry">

@@ -57,4 +57,6 @@ public interface InitConstant {
     String NAME = "name";
     String SURNAME = "surname";
     String AGE = "age";
+
+    String ERROR_KEY = "error";
 }

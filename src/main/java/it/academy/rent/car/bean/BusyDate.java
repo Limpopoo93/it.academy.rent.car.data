@@ -3,6 +3,8 @@ package it.academy.rent.car.bean;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.Date;
 
 @Data
@@ -23,6 +25,10 @@ public class BusyDate {
     @Column(name = "date_return")
     @Temporal(TemporalType.DATE)
     private Date dateReturn;
+    @Column(name = "price_car")
+    @Size(min = 1, max = 15)
+    @NotNull
+    private Long priceCar;
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "id_car", nullable = false)
     private Car car;
@@ -78,5 +84,13 @@ public class BusyDate {
 
     public void setBusyDateRemote(Boolean busyDateRemote) {
         this.busyDateRemote = busyDateRemote;
+    }
+
+    public Long getPriceCar() {
+        return priceCar;
+    }
+
+    public void setPriceCar(Long priceCar) {
+        this.priceCar = priceCar;
     }
 }

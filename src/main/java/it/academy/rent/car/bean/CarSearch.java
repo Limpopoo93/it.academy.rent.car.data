@@ -21,6 +21,7 @@ public class CarSearch {
     private Date dateReturn;
     private String town;
     private String typeCar;
+    private Long priceCar;
 
     public Long getId() {
         return id;
@@ -68,5 +69,13 @@ public class CarSearch {
 
     public void setTypeCar(String typeCar) {
         this.typeCar = typeCar;
+    }
+
+    public Long getPriceCar() {
+        return priceCar;
+    }
+
+    public void setPriceCar(Long priceCar) {
+        this.priceCar = priceCar;
     }
 }

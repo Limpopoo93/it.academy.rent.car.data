@@ -3,6 +3,8 @@ package it.academy.rent.car.bean;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Data
 @NoArgsConstructor
@@ -17,12 +19,20 @@ public class Company {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name = "name_company")
+    @Size(min = 1, max = 15)
+    @NotNull
     private String nameCompany;
-    @Column(name = "reting")
+    @Column
+    @Size(min = 1, max = 10)
+    @NotNull
     private Long reting;
-    @Column(name = "telephone")
+    @Column
+    @Size(min = 1, max = 15)
+    @NotNull
     private String telephone;
-    @Column(name = "email")
+    @Column
+    @Size(min = 1, max = 15)
+    @NotNull
     private String email;
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "id_town", nullable = false)

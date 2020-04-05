@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Map;
 
@@ -38,7 +39,7 @@ public class AuthenticateController {
 
     //переход с регистрации на index и добавление нового юзера
     @PostMapping("/userRegistration")
-    public String createUser(Authenticate authenticate, HttpSession session, CarSearch carSearch) {
+    public String createUser(@Valid Authenticate authenticate, HttpSession session, CarSearch carSearch) {
         Authenticate authenticateResult = authenticateRepository.findByLoginAndPassword(authenticate.getLogin(), authenticate.getPassword());
         if (authenticateResult == null) {
             authenticate.setProfileRemote(true);
@@ -59,7 +60,7 @@ public class AuthenticateController {
 
     //переход с регистрации на index и добавление нового юзера
     @PostMapping("/companyRegistration")
-    public String createCompanyUser(Authenticate authenticate, CarSearch carSearch) {
+    public String createCompanyUser(@Valid Authenticate authenticate, CarSearch carSearch) {
         Authenticate authenticateResult = authenticateRepository.findByLoginAndPassword(authenticate.getLogin(), authenticate.getPassword());
         if (authenticateResult == null) {
             authenticate.setProfileRemote(true);
@@ -78,8 +79,9 @@ public class AuthenticateController {
     }
 
     //переход со страницы входа проверка и отправка на index при открытом доступе7
+
     @PostMapping("/userComeIn")
-    public String comeInUser(Authenticate authenticate, HttpSession session, Letter letter, CarSearch carSearch) {
+    public String comeInUser(@Valid Authenticate authenticate, HttpSession session, Letter letter, CarSearch carSearch) {
         Authenticate authenticateResult = authenticateRepository.findByLoginAndPassword(authenticate.getLogin(), authenticate.getPassword());
         if (authenticateResult != null && authenticateResult.getProfileRemote().equals(true)) {
             session.setAttribute("authenticate", authenticateResult);
@@ -115,7 +117,7 @@ public class AuthenticateController {
 
     //переход со страницы письмо админу, добавление базу и отправка на main
     @PostMapping("/pushLetter")
-    public String addLetterAdmin(Letter letter, HttpSession session) {
+    public String addLetterAdmin(@Valid Letter letter, HttpSession session) {
         Authenticate authenticate = (Authenticate) session.getAttribute("authenticate");
         letter.setAuthenticate(authenticate);
         //не работает сохранение письма, проверить почему
@@ -131,7 +133,7 @@ public class AuthenticateController {
 
     //создания админа и переход на index
     @PostMapping("/adminCreate")
-    public String createAdminBase(Authenticate authenticate,CarSearch carSearch) {
+    public String createAdminBase(@Valid Authenticate authenticate,CarSearch carSearch) {
         Authenticate authenticateResult = authenticateRepository.findByLoginAndPassword(authenticate.getLogin(), authenticate.getPassword());
         if (authenticateResult == null) {
             authenticate.setRole(Role.ADMIN);
@@ -181,8 +183,8 @@ public class AuthenticateController {
     //переход на страницу со списком писем заблокированых пользователей
     @GetMapping("/letterAdminList")
     public String letterAdmin(Model model) {
-       // List<Letter> letters = letterRepository.findByDelete();
-        //model.addAttribute("letters", letters);
+        List<Letter> letters = letterRepository.findByLetterList(true);
+        model.addAttribute("letters", letters);
         return "user/letterList";
     }
 
@@ -228,7 +230,7 @@ public class AuthenticateController {
 
     //создания админа и переход на index
     @PostMapping("/userUpdate")
-    public String updateUserForm(Authenticate authenticate, HttpSession session) {
+    public String updateUserForm(@Valid Authenticate authenticate, HttpSession session) {
         Authenticate authenticateSession = (Authenticate) session.getAttribute("authenticate");
         Authenticate authenticateResult = authenticateRepository.findByAId(authenticateSession.getId());
         authenticateResult.setLogin(authenticate.getLogin());

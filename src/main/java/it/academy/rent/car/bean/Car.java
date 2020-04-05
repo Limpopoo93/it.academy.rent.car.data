@@ -3,6 +3,8 @@ package it.academy.rent.car.bean;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Data
 @NoArgsConstructor
@@ -17,20 +19,36 @@ public class Car {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name = "name_car")
+    @Size(min = 1, max = 15)
+    @NotNull
     private String nameCar;
     @Column(name = "type_fuel")
+    @Size(min = 1, max = 10)
+    @NotNull
     private String typeFuel;
     @Column(name = "col_doors")
+    @Size(min = 1, max = 7)
+    @NotNull
     private Long colDoors;
     @Column(name = "col_people")
+    @Size(min = 1, max = 10)
+    @NotNull
     private Long colPeople;
-    @Column(name = "mileage")
+    @Column
+    @Size(min = 1, max = 30)
+    @NotNull
     private Long mileage;
     @Column(name = "make_car")
+    @Size(min = 1, max = 15)
+    @NotNull
     private String makeCar;
     @Column(name = "type_car")
+    @Size(min = 1, max = 15)
+    @NotNull
     private String typeCar;
-    @Column(name = "price")
+    @Column
+    @Size(min = 1, max = 15)
+    @NotNull
     private Long price;
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "id_company", nullable = false)

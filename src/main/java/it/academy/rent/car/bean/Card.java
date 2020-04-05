@@ -3,6 +3,8 @@ package it.academy.rent.car.bean;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.Date;
 
 @Data
@@ -18,15 +20,23 @@ public class Card {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name = "name_user")
+    @Size(min = 1, max = 15)
+    @NotNull
     private String nameUser;
     @Column(name = "key_card")
+    @Size(min = 1, max = 15)
+    @NotNull
     private Long keyCard;
     @Column(name = "car_date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date carDate;
     @Column(name = "key_security")
+    @Size(min = 1, max = 15)
+    @NotNull
     private Long keySecurity;
-    @Column(name = "keys")
+    @Column
+    @Size(min = 1, max = 15)
+    @NotNull
     private Long keys;
     @OneToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "id_authenticate", nullable = false)

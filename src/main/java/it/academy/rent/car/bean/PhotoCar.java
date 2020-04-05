@@ -3,6 +3,8 @@ package it.academy.rent.car.bean;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Data
 @NoArgsConstructor
@@ -17,6 +19,8 @@ public class PhotoCar {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name = "name_photo")
+    @Size(min = 1, max = 15)
+    @NotNull
     private String namePhoto;
     @Lob
     @Column(name = "type_photo")

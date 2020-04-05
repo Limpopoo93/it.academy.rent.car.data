@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -42,7 +43,7 @@ public class CarController {
     }
 
     @PostMapping("/createCar")
-    public String createCar(Car car) {
+    public String createCar(@Valid Car car) {
         Company company = companyRepository.findByNameCompany(car.getCompany().getNameCompany());
         if(company != null){
             car.setCompany(company);
@@ -53,13 +54,23 @@ public class CarController {
 
     //методы для поиска машины
     @PostMapping("/searchFormCountry")
-    public String searchCar(CarSearch carSearch, HttpSession session, Model model) {
+    public String searchCar(@Valid CarSearch carSearch, HttpSession session, Model model) {
         List<Car> cars = carRepository.findByTownByAndByCountry(carSearch.getTown(), carSearch.getCountry());
+        for (Car car:cars) {
+            Long price = car.getPrice();
+            Date dateCheck = carSearch.getDateCheck();
+            Date dateReturn = carSearch.getDateReturn();
+            int colDay = daysBetween(dateCheck, dateReturn);
+            Long finalPrice = price*colDay;
+            car.setPrice(finalPrice);
+        }
         model.addAttribute("cars", cars);
         session.setAttribute("carSearch", carSearch);
         return "car/carSearchList";
     }
-
+    public int daysBetween(Date d1, Date d2){
+        return (int)( (d2.getTime() - d1.getTime()) / (1000 * 60 * 60 * 24));
+    }
     @GetMapping("/bookCarId/{id}")
     public String searchBookCar(@PathVariable("id") Long id, HttpSession session) {
         Car carResult = carRepository.findByCId(id);

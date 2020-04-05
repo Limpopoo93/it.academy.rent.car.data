@@ -14,8 +14,10 @@ import java.util.List;
 public interface TownRepository extends JpaRepository<Town, Long> {
     @Query("select t from Town t where t.nameTown = :nameTown and t.country.nameCountry =:nameCountry")
     Town findByTownByCountry(@Param("nameTown") String nameTown, @Param("nameCountry") String nameCountry);
+
     @Query("select t from Town t where t.country.nameCountry = :nameCountry and t.townRemote = :townRemote ")
     List<Town> findByCountry(@Param("nameCountry") String nameCountry, @Param("townRemote") Boolean townRemote);
+
     @Query("select t from Town t where t.id = :id")
     Town findByAId(long id);
 }

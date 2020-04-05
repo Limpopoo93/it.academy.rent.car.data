@@ -42,7 +42,7 @@
     <tbody>
     <c:forEach items="${towns}" var="town">
         <tr>
-            <td>${town.getTown()}</td>
+            <td>${town.getNameTown()}</td>
             <td> <form action="<c:url value="/townDelete/${town.id}"/>" method="get">
                 <button class="button block"><i class="fa fa-lock">Delete</i>
                 </button>

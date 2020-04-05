@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -24,7 +25,7 @@ public class CompanyController {
     }
 
     @PostMapping("/createCompany")
-    public String createCompany(Company company, HttpSession session) {
+    public String createCompany(@Valid Company company, HttpSession session) {
         // приходит норм request но я не вижу города. решить проблему надо
         Authenticate authenticate = (Authenticate) session.getAttribute("authenticate");
         company.setReting(0L);
@@ -50,7 +51,7 @@ public class CompanyController {
         return "company/deleteCompany";
     }
     @PostMapping("/deleteCompany")
-    public String deleteCompanyForm(Company company, HttpSession session) {
+    public String deleteCompanyForm(@Valid Company company, HttpSession session) {
         Authenticate authenticate = (Authenticate) session.getAttribute("authenticate");
        if(company.getAuthenticate().getLogin().equals(authenticate.getLogin()) && company.getAuthenticate().getPassword().equals(authenticate.getPassword())){
            Company companyResult = companyRepository.findByNameCompanyAndEmail(company.getNameCompany(), company.getEmail());

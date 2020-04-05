@@ -34,13 +34,13 @@ public class TownController {
         return "redirect:/createTown";
     }
     @GetMapping("/searchListTown")
-    public String searchListTown(Town town) {
+    public String searchListTown(Country Country) {
         return "town/townSearchList";
     }
 
     @PostMapping("/listTown")
-    public String listTown(Town town, Model model) {
-        List<Town> towns = townRepository.findByCountry(town.getCountry().getNameCountry(), true);
+    public String listTown(Country country, Model model) {
+        List<Town> towns = townRepository.findByCountry(country.getNameCountry(), true);
         model.addAttribute("towns", towns);
         return "town/townList";
     }
