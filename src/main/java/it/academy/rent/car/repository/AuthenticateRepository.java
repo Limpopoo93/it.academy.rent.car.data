@@ -21,6 +21,4 @@ public interface AuthenticateRepository extends JpaRepository<Authenticate, Long
 
     Authenticate findByLogin(String login);
 
-    @Query("select a from Authenticate a where a.id = :id")
-    Authenticate findByAId(long id);
 }

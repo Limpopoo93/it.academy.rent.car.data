@@ -47,6 +47,8 @@ public interface InitConstant {
     String COUNTRY = "country";
 
     String LETTER = "letter";
+    String LETTERS = "letters";
+    String AUTHENTICATIES = "authenticates";
 
     String NAME_PHOTO = "namePhoto";
     String TYPE_PHOTO = "typePhoto";
@@ -63,6 +65,7 @@ public interface InitConstant {
     String AUTHENTICATE = "authenticate";
     String CAR = "car";
     String COMPANY = "company";
+    String CAR_SEARCH = "carSearch";
 
     String ERROR_KEY = "error";
 }

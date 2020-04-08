@@ -9,7 +9,7 @@
     <div class="form">
 
         <%--@elvariable id="card" type="it.academy.rent.car.bean.Card"--%>
-        <form:form class="register-form" action="${pageContext.request.contextPath}/createCreditCard"
+        <form:form class="register-form" action="${pageContext.request.contextPath}user/createCreditCard"
                    modelAttribute="card" method="post">
 
             <form:errors path="nameUser" cssStyle="color: red"/>

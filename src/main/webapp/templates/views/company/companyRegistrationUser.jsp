@@ -46,7 +46,7 @@
                             </div>
                             <%--@elvariable id="authenticate" type="it.academy.rent.bean.Authenticate"--%>
                             <form:form class="register-form"
-                                       action="${pageContext.request.contextPath}/companyRegistration"
+                                       action="${pageContext.request.contextPath}company/companyRegistration"
                                        modelAttribute="authenticate" method="post">
                                 <div class="form">
                                     <form:errors path="login" cssStyle="color: red"/>

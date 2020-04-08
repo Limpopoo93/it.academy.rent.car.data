@@ -6,4 +6,5 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @ComponentScan(basePackages = "it.academy.rent.car")
 public class BeanUtil {
+
 }

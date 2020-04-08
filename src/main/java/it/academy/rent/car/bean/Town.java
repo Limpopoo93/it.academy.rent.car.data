@@ -3,20 +3,17 @@ package it.academy.rent.car.bean;
 import lombok.*;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
 import static it.academy.rent.car.util.DBConstant.*;
-import static it.academy.rent.car.util.ErrorConstant.NAME_TOWN_EMPTY;
 import static it.academy.rent.car.util.ErrorConstant.NAME_TOWN_INVALID;
-import static it.academy.rent.car.util.InitConstant.COUNTRY;
 import static it.academy.rent.car.util.InitConstant.TOWN;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(exclude = {COUNTRY})
-@ToString(exclude = {COUNTRY})
+@EqualsAndHashCode(exclude = {"country"})
+@ToString(exclude = {"country"})
 
 @Entity
 @Table(name = DB_TOWN)
@@ -25,8 +22,7 @@ public class Town {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name = TOWN)
-    @Size(min = 1, max = 15, message = NAME_TOWN_INVALID)
-    @NotEmpty(message = NAME_TOWN_EMPTY)
+    @Size(min = 3, message = NAME_TOWN_INVALID)
     private String nameTown;
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = DB_ID_COUNTRY, nullable = false)

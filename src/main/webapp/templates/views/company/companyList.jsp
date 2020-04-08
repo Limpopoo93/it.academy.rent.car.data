@@ -53,7 +53,7 @@
             <td>${company.getEmail()}</td>
             <td>${company.town.getTown()}</td>
             <td>${company.town.country.getCountry()}</td>
-            <td> <form action="<c:url value="/listCompanyForm/${company.id}"/>" method="get">
+            <td> <form action="<c:url value="admin/listCompanyForm/${company.id}"/>" method="get">
                 <button class="button block"><i class="fa fa-lock">Delete</i>
                 </button>
             </form></td>

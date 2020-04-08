@@ -1,7 +1,6 @@
 package it.academy.rent.car.service;
 
 import it.academy.rent.car.bean.Authenticate;
-import it.academy.rent.car.bean.Role;
 import it.academy.rent.car.repository.AuthenticateRepository;
 import it.academy.rent.car.repository.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,9 +12,6 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
 
 @Service
 public class AuthenticateService implements UserDetailsService {
@@ -39,26 +35,12 @@ public class AuthenticateService implements UserDetailsService {
         return authenticate;
     }
 
-    public Authenticate findUserById(Long userId) {
-        Optional<Authenticate> userFromDb = authenticateRepository.findById(userId);
-        return userFromDb.orElse(new Authenticate());
-    }
-
-    public List<Authenticate> allUsers() {
-        return authenticateRepository.findAll();
-    }
-
-    public boolean saveUser(Authenticate authenticate) {
-        Authenticate userFromDB = authenticateRepository.findByLogin(authenticate.getLogin());
-
-        if (userFromDB != null) {
-            return false;
-        }
-
-        authenticate.setRoles(Collections.singleton(new Role(1L, "ROLE_USER")));
+    public Authenticate saveAuthenticate(Authenticate authenticate) {
+        authenticate.setProfileRemote(true);
+        authenticate.setProfileClose(true);
         authenticate.setPassword(bCryptPasswordEncoder.encode(authenticate.getPassword()));
         authenticateRepository.save(authenticate);
-        return true;
+        return authenticate;
     }
 
 

@@ -44,7 +44,7 @@
         <tr>
             <td>${country.getNameCountry()}</td>
 
-            <td> <form action="<c:url value="/countryDelete/${country.id}"/>" method="get">
+            <td> <form action="<c:url value="admin/countryDelete/${country.id}"/>" method="get">
                 <button class="button block"><i class="fa fa-lock">Delete</i>
                 </button>
             </form></td>

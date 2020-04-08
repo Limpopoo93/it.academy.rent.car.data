@@ -3,20 +3,16 @@ package it.academy.rent.car.bean;
 import lombok.*;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
 import static it.academy.rent.car.util.DBConstant.*;
-import static it.academy.rent.car.util.ErrorConstant.NAME_PHOTO_EMPTY;
 import static it.academy.rent.car.util.ErrorConstant.NAME_PHOTO_INVALID;
-import static it.academy.rent.car.util.InitConstant.CAR;
-import static it.academy.rent.car.util.InitConstant.TYPE_PHOTO;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(exclude = {TYPE_PHOTO, CAR})
-@ToString(exclude = {TYPE_PHOTO, CAR})
+@EqualsAndHashCode(exclude = {"typePhoto", "car"})
+@ToString(exclude = {"typePhoto", "car"})
 
 @Entity
 @Table(name = DB_PHOTO_CAR)
@@ -25,8 +21,7 @@ public class PhotoCar {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name = DB_NAME_PHOTO)
-    @Size(min = 1, max = 15, message = NAME_PHOTO_INVALID)
-    @NotEmpty(message = NAME_PHOTO_EMPTY)
+    @Size(min = 3, message = NAME_PHOTO_INVALID)
     private String namePhoto;
     @Lob
     @Column(name = DB_TYPE_PHOTO)

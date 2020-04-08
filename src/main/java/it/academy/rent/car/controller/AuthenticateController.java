@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,6 +21,10 @@ import javax.validation.Valid;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+
+import static it.academy.rent.car.util.InitConstant.*;
+import static it.academy.rent.car.util.PageConstant.INDEX;
+import static it.academy.rent.car.util.PageConstant.*;
 
 @Controller
 public class AuthenticateController {
@@ -32,222 +37,231 @@ public class AuthenticateController {
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    //для перехода на стартовую страницу
     @GetMapping("/")
     public String startPage(Map<String, Object> model) {
-        return "main";
+        return MAIN;
     }
 
-    //переход с main на страницу регистрации
-    @GetMapping("/userRegistration")
+    @GetMapping("user/userRegistration")
     public String createUser(Authenticate authenticate) {
-        return "user/userRegistration";
+        return USER_REGISTRATION;
     }
 
-    //переход с регистрации на index и добавление нового юзера
-    @PostMapping("/userRegistration")
-    public String createUser(@Valid Authenticate authenticate, HttpSession session, CarSearch carSearch) {
+    @PostMapping("user/userRegistration")
+    public String createUser(@Valid Authenticate authenticate, BindingResult bindingResult, HttpSession session, CarSearch carSearch, Model model) {
+        if (bindingResult.hasErrors()) {
+            return USER_REGISTRATION;
+        }
+        if (!authenticate.getPassword().equals(authenticate.getPasswordConfirm())) {
+            model.addAttribute("passwordError", "password dont match");
+            return USER_REGISTRATION;
+        }
         Authenticate authenticateResult = authenticateRepository.findByLoginAndPassword(authenticate.getLogin(), authenticate.getPassword());
         if (authenticateResult == null) {
-            authenticate.setProfileRemote(true);
-            authenticate.setProfileClose(true);
             authenticate.setRoles(Collections.singleton(new Role(1L, "ROLE_USER")));
-            authenticateService.saveUser(authenticate);
-            // authenticateRepository.save(authenticate);
-            session.setAttribute("authenticate", authenticate);
-            return "index";
+            authenticateService.saveAuthenticate(authenticate);
+            session.setAttribute(AUTHENTICATE, authenticate);
+            return INDEX;
         }
-        return "redirect:/userRegistration";
+        model.addAttribute("authenticateError", "user busy");
+        return REDIRECT_REGISTRATION;
     }
 
-    //переход с main на страницу регистрации
-    @GetMapping("/companyRegistration")
+    @GetMapping("company/companyRegistration")
     public String createCompany(Authenticate authenticate) {
-        return "company/companyRegistrationUser";
+        return COMPANY_USER_REGISTRATION;
     }
 
-    //переход с регистрации на index и добавление нового юзера
-    @PostMapping("/companyRegistration")
-    public String createCompanyUser(@Valid Authenticate authenticate, CarSearch carSearch) {
+    @PostMapping("company/companyRegistration")
+    public String createCompanyUser(@Valid Authenticate authenticate, BindingResult bindingResult, CarSearch carSearch, Model model) {
+        if (bindingResult.hasErrors()) {
+            return COMPANY_USER_REGISTRATION;
+        }
         Authenticate authenticateResult = authenticateRepository.findByLoginAndPassword(authenticate.getLogin(), authenticate.getPassword());
         if (authenticateResult == null) {
-            authenticate.setProfileRemote(true);
-            authenticate.setProfileClose(true);
             authenticate.setRoles(Collections.singleton(new Role(1L, "ROLE_COMPANY")));
-            authenticateService.saveUser(authenticate);
-           // authenticateRepository.save(authenticate);
-            return "index";
+            authenticateService.saveAuthenticate(authenticate);
+            return INDEX;
         }
-        return "redirect:/companyRegistration";
+        model.addAttribute("companyError", "company busy");
+        return REDIRECT_COMPANY_REGISTRATION;
     }
 
-    //переход с main на страницу входа
     @GetMapping("/userComeIn")
     public String comeInUser(Authenticate authenticate) {
-        return "user/userComeIn";
+        return USER_COME;
     }
-
-    //переход со страницы входа проверка и отправка на index при открытом доступе7
 
     @PostMapping("/userComeIn")
-    public String comeInUser(@Valid Authenticate authenticate, HttpSession session, Letter letter, CarSearch carSearch) {
-        Authenticate authenticateResult = authenticateRepository.findByLogin(authenticate.getLogin());
-       if (authenticateResult.getProfileRemote().equals(true)) {
-            session.setAttribute("authenticate", authenticateResult);
-            if (authenticateResult.isProfileClose()) {
-                return "index";
-            } else {
-                return "user/userLetterAdmin";
-            }
+    public String comeInUser(@Valid Authenticate authenticate, BindingResult bindingResult, HttpSession session, Letter letter, CarSearch carSearch, Model model) {
+        if (bindingResult.hasErrors()) {
+            return USER_COME;
         }
-        return "redirect:/userComeIn";
+        Authenticate authenticateResult = authenticateRepository.findByLogin(authenticate.getLogin());
+        if (authenticateResult.getLogin().equals(authenticate.getLogin()) && bCryptPasswordEncoder.matches(authenticate.getPassword(), authenticateResult.getPassword())) {
+            if (authenticateResult.getProfileRemote().equals(true)) {
+                session.setAttribute(AUTHENTICATE, authenticateResult);
+                if (authenticateResult.isProfileClose()) {
+                    return INDEX;
+                } else {
+                    return LETTER_ADMIN;
+                }
+            }
+            model.addAttribute("authenticateError", "user deleted");
+            return REDIRECT_USER_COME;
+        }
+        model.addAttribute("authenticateError", "user dont registration");
+        return REDIRECT_USER_COME;
     }
-    //переход с main на страницу входа
-    @GetMapping("/userDelete")
+
+    @GetMapping("user/userDelete")
     public String deleteUser(Authenticate authenticate) {
-        return "user/userDelete";
+        return USER_DELETE;
     }
 
     //ЭТО УДАЛЕНИЕ ТОЛЬКО ДЛЯ АДМИНА, НЕОБХОДИМО СДЕЛАТЬ УДАЛЕНИЕ ДЛЯ ЮЗЕРА КОТОРЫЙ В СЕССИИ ДЛЯ ОБЫЧНЫХ ПОЛЬЗОВАТЕЛЕЙ
-    @PostMapping("/userDelete")
-    public String deleteUserForm(Authenticate authenticate, HttpSession session, Letter letter, CarSearch carSearch) {
+    @PostMapping("user/userDelete")
+    public String deleteUserForm(@Valid Authenticate authenticate, BindingResult bindingResult, HttpSession session, Letter letter, CarSearch carSearch, Model model) {
+        if (bindingResult.hasErrors()) {
+            return USER_DELETE;
+        }
         Authenticate authenticateResult = authenticateRepository.findByLoginAndPassword(authenticate.getLogin(), authenticate.getPassword());
-        Authenticate authenticateSession = (Authenticate) session.getAttribute("authenticate");
-        if(authenticateResult.getLogin().equals(authenticateSession.getLogin()) && authenticateResult.getPassword().equals(authenticateSession.getPassword()) && authenticateResult.getEmail().equals(authenticateSession.getEmail())){
-            return "redirect:/userDelete";
-        }else {
+        if (authenticateResult == null) {
+            model.addAttribute("authenticateError", "user empty");
+            return REDIRECT_USER_COME;
+        }
+        Authenticate authenticateSession = (Authenticate) session.getAttribute(AUTHENTICATE);
+        if (authenticateResult.getLogin().equals(authenticateSession.getLogin()) && authenticateResult.getPassword().equals(authenticateSession.getPassword()) && authenticateResult.getEmail().equals(authenticateSession.getEmail())) {
+            model.addAttribute("authenticateError", "user dont deleted");
+            return REDIRECT_USER_DELETE;
+        } else {
             Authenticate authenticateBase = authenticateRepository.findByLoginAndPassword(authenticateResult.getLogin(), authenticateResult.getPassword());
             authenticateBase.setProfileRemote(false);
             authenticateRepository.saveAndFlush(authenticateBase);
             session.invalidate();
-            return "index";
+            return INDEX;
         }
     }
 
-    //переход со страницы письмо админу, добавление базу и отправка на main
-    @PostMapping("/pushLetter")
-    public String addLetterAdmin(@Valid Letter letter, HttpSession session) {
-        Authenticate authenticate = (Authenticate) session.getAttribute("authenticate");
+    @PostMapping("user/pushLetter")
+    public String addLetterAdmin(@Valid Letter letter, BindingResult bindingResult, HttpSession session) {
+        if (bindingResult.hasErrors()) {
+            return LETTER_ADMIN;
+        }
+        Authenticate authenticate = (Authenticate) session.getAttribute(AUTHENTICATE);
         letter.setAuthenticate(authenticate);
         //не работает сохранение письма, проверить почему
         letterRepository.save(letter);
-        return "redirect:/";
+        return REDIRECT_MAIN;
     }
 
-    //переход на страницу регистрации админа
-    @GetMapping("/adminCreate")
+    @GetMapping("admin/adminCreate")
     public String createAdmin(Authenticate authenticate) {
-        return "user/adminRegistration";
+        return ADMIN_REGISTRATION;
     }
 
-    //создания админа и переход на index
-    @PostMapping("/adminCreate")
-    public String createAdminBase(@Valid Authenticate authenticate,CarSearch carSearch) {
+    @PostMapping("admin/adminCreate")
+    public String createAdminBase(@Valid Authenticate authenticate, BindingResult bindingResult, CarSearch carSearch, Model model) {
+        if (bindingResult.hasErrors()) {
+            return ADMIN_REGISTRATION;
+        }
         Authenticate authenticateResult = authenticateRepository.findByLoginAndPassword(authenticate.getLogin(), authenticate.getPassword());
         if (authenticateResult == null) {
             authenticate.setRoles(Collections.singleton(new Role(1L, "ROLE_ADMIN")));
-            authenticate.setProfileClose(true);
-            authenticate.setProfileRemote(true);
-            authenticateRepository.save(authenticate);
-            return "index";
+            authenticateService.saveAuthenticate(authenticate);
+            return INDEX;
         }
-        return "redirect:/adminCreate";
+        model.addAttribute("authenticateError", "user empty");
+        return REDIRECT_ADMIN_CREATE;
     }
 
-    //лист всех юзеров для админа
-    @GetMapping("/users")
+    @GetMapping("admin/users")
     public String findAll(Model model) {
         List<Authenticate> authenticates = authenticateRepository.findByDelete(true);
-        model.addAttribute("authenticates", authenticates);
-        return "user/userList";
+        model.addAttribute(AUTHENTICATIES, authenticates);
+        return USER_LIST;
     }
 
-    //удаление юзера из таблицы всех пользователей
-    @GetMapping("/userDeleteId/{id}")
-    public String deleteUser(@PathVariable("id") Long id) {
-        Authenticate authenticate = authenticateRepository.findByAId(id);
+    @GetMapping("admin/userDeleteId/{id}")
+    public String deleteUser(@PathVariable(ID) Long id) {
+        Authenticate authenticate = authenticateRepository.findById(id).orElse(null);
         authenticate.setProfileRemote(false);
         authenticateRepository.saveAndFlush(authenticate);
-        return "redirect:/users";
+        return REDIRECT_USER_LIST;
     }
 
-    //блокировка пользователя из таблицы юзера
-    @GetMapping("/userBlockId/{id}")
-    public String findBlockUser(@PathVariable("id") Long id) {
-        Authenticate authenticate = authenticateRepository.findByAId(id);
+    @GetMapping("admin/userBlockId/{id}")
+    public String findBlockUser(@PathVariable(ID) Long id) {
+        Authenticate authenticate = authenticateRepository.findById(id).orElse(null);
         authenticate.setProfileClose(false);
         authenticateRepository.saveAndFlush(authenticate);
-        return "redirect:/users";
+        return REDIRECT_USER_LIST;
     }
 
-    //разблокировка пользователя из таблицы юзера
-    @GetMapping("userUnBlockId/{id}")
-    public String userUnBlockId(@PathVariable("id") Long id) {
-        Authenticate authenticate = authenticateRepository.findByAId(id);
+    @GetMapping("admin/userUnBlockId/{id}")
+    public String userUnBlockId(@PathVariable(ID) Long id) {
+        Authenticate authenticate = authenticateRepository.findById(id).orElse(null);
         authenticate.setProfileClose(true);
         authenticateRepository.saveAndFlush(authenticate);
-        return "redirect:/users";
+        return REDIRECT_USER_LIST;
     }
 
-    //переход на страницу со списком писем заблокированых пользователей
-    @GetMapping("/letterAdminList")
-    public String letterAdmin(Model model) {
+    @GetMapping("admin/letterAdminList")
+    public String letterAdmin(Model model, BindingResult bindingResult) {
         List<Letter> letters = letterRepository.findByLetterList(true);
-        model.addAttribute("letters", letters);
-        return "user/letterList";
+        model.addAttribute(LETTERS, letters);
+        return LETTER_LIST;
     }
 
-    //разблакировка юзера со страницы списка писем
-    @GetMapping("userUnBlockLetterId/{id}")
-    public String userLetterUnblock(@PathVariable("id") Long id) {
-        Authenticate authenticate = authenticateRepository.findByAId(id);
+    @GetMapping("admin/userUnBlockLetterId/{id}")
+    public String userLetterUnblock(@PathVariable(ID) Long id) {
+        Authenticate authenticate = authenticateRepository.findById(id).orElse(null);
         authenticate.setProfileClose(true);
         authenticateRepository.saveAndFlush(authenticate);
-        return "redirect:/letterAdminList";
+        return REDIRECT_LETTER_LIST;
     }
 
-    //удалить письмо из страницы списка писем
-    @GetMapping("/deleteLetter/{id}")
-    public String deleteLetter(@PathVariable("id") Long id) {
-        Letter letter = letterRepository.findByIdLetter(id);
+    @GetMapping("admin/deleteLetter/{id}")
+    public String deleteLetter(@PathVariable(ID) Long id) {
+        Letter letter = letterRepository.findById(id).orElse(null);
         letter.setLetterRemote(false);
         letterRepository.saveAndFlush(letter);
-        return "redirect:/letterAdminList";
+        return REDIRECT_LETTER_LIST;
     }
 
-    //список блокированных юзеров
-    @GetMapping("/userBlockList")
+    @GetMapping("admin/userBlockList")
     public String userBanList(Model model) {
         List<Authenticate> authenticate = authenticateRepository.findByProfileClose(false);
-        model.addAttribute("authenticate", authenticate);
-        return "user/userBlockList";
+        model.addAttribute(AUTHENTICATE, authenticate);
+        return USER_BLOCK_LIST;
     }
 
-    //разблакировка юзера и переход на страницу лист блок юзера
-    @GetMapping("userBlock/{id}")
-    public String userBlockList(@PathVariable("id") Long id) {
-        Authenticate authenticate = authenticateRepository.findByAId(id);
+    @GetMapping("admin/userBlock/{id}")
+    public String userBlockList(@PathVariable(ID) Long id) {
+        Authenticate authenticate = authenticateRepository.findById(id).orElse(null);
         authenticate.setProfileClose(true);
         authenticateRepository.saveAndFlush(authenticate);
-        return "redirect:/userBlockList";
-    }
-    //переход на страницу регистрации админа
-    @GetMapping("/userUpdate")
-    public String updateUser(Authenticate authenticate, HttpSession session) {
-        return "user/userUpdateInfo";
+        return REDIRECT_USER_BLOCK_LIST;
     }
 
-    //создания админа и переход на index
-    @PostMapping("/userUpdate")
-    public String updateUserForm(@Valid Authenticate authenticate, HttpSession session) {
-        Authenticate authenticateSession = (Authenticate) session.getAttribute("authenticate");
-        Authenticate authenticateResult = authenticateRepository.findByAId(authenticateSession.getId());
+    @GetMapping("user/userUpdate")
+    public String updateUser(Authenticate authenticate, HttpSession session) {
+        return USER_UPDATE;
+    }
+
+    @PostMapping("user/userUpdate")
+    public String updateUserForm(@Valid Authenticate authenticate, BindingResult bindingResult, HttpSession session) {
+        if (bindingResult.hasErrors()) {
+            return USER_UPDATE;
+        }
+        Authenticate authenticateSession = (Authenticate) session.getAttribute(AUTHENTICATE);
+        Authenticate authenticateResult = authenticateRepository.findById(authenticateSession.getId()).orElse(null);
         authenticateResult.setLogin(authenticate.getLogin());
         authenticateResult.setPassword(authenticate.getPassword());
         authenticateResult.setEmail(authenticate.getEmail());
         authenticateRepository.saveAndFlush(authenticateResult);
         session.invalidate();
-        session.setAttribute("authenticate", authenticateResult);
-        return "redirect:/userUpdate";
+        session.setAttribute(AUTHENTICATE, authenticateResult);
+        return REDIRECT_USER_UPDATE;
     }
 }

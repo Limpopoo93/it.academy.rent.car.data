@@ -9,7 +9,7 @@
 <div class="login-page">
     <div class="form">
         <%--@elvariable id="car" type="it.academy.rent.car.bean.Car"--%>
-        <form:form class="register-form" action="${pageContext.request.contextPath}/createPrice"
+        <form:form class="register-form" action="${pageContext.request.contextPath}company/createPrice"
                    modelAttribute="car" method="post">
 
             <form:errors path="nameCar" cssStyle="color: red"/>
@@ -21,11 +21,11 @@
             <form:errors path="company.nameCompany" cssStyle="color: red"/>
             <form:input path="company.nameCompany" type="text" placeholder="nameCompany"/>
 
-            <form:errors path="company.town.town" cssStyle="color: red"/>
-            <form:input path="company.town.town" type="text" placeholder="town"/>
+            <form:errors path="company.town.nameTown" cssStyle="color: red"/>
+            <form:input path="company.town.nameTown" type="text" placeholder="town"/>
 
-            <form:errors path="company.town.country.country" cssStyle="color: red"/>
-            <form:input path="company.town.country.country" type="text" placeholder="country"/>
+            <form:errors path="company.town.country.nameCountry" cssStyle="color: red"/>
+            <form:input path="company.town.country.nameCountry" type="text" placeholder="country"/>
 
             <button>Registration</button>
         </form:form>

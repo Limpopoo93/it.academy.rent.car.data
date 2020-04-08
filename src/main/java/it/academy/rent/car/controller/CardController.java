@@ -6,6 +6,7 @@ import it.academy.rent.car.repository.CardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -16,6 +17,8 @@ import javax.validation.Valid;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+
+import static it.academy.rent.car.util.InitConstant.AUTHENTICATE;
 
 @Controller
 public class CardController {
@@ -29,32 +32,39 @@ public class CardController {
     }
 
     //создание кредитной карточки для оплаты
-    @GetMapping("/createCreditCard")
+    @GetMapping("user/createCreditCard")
     public String createCard(Card card) {
         return "card/createCreditCard";
     }
 
-    @PostMapping("/createCreditCard")
-    public String createCreditCard(@Valid Card card, HttpSession session) {
-        Authenticate authenticate = (Authenticate) session.getAttribute("authenticate");
+    @PostMapping("user/createCreditCard")
+    public String createCreditCard(@Valid Card card, BindingResult bindingResult, HttpSession session) {
+        if (bindingResult.hasErrors()) {
+            return "user/userUpdateInfo";
+        }
+        Authenticate authenticate = (Authenticate) session.getAttribute(AUTHENTICATE);
         card.setAuthenticate(authenticate);
         cardRepository.save(card);
         return "redirect:/createCreditCard";
     }
-    @GetMapping("/cardDelete")
+
+    @GetMapping("user/cardDelete")
     public String deleteCard(Card card) {
         return "card/createCreditCard";
     }
 
-    @PostMapping("/cardDelete")
-    public String deleteCardForm(@Valid Card card, HttpSession session) {
-        Authenticate authenticate = (Authenticate) session.getAttribute("authenticate");
-        if(card.getAuthenticate().getLogin().equals(authenticate.getLogin()) && card.getAuthenticate().getPassword().equals(authenticate.getPassword())){
-            Card cardResult = cardRepository.findByNameUserAndKeyCardAndAuthenticateLoginAndAuthenticatePassword(card.getNameUser(), card.getKeyCard(),authenticate.getLogin(), authenticate.getPassword());
-        cardResult.setCardRemote(false);
-        cardRepository.saveAndFlush(cardResult);
-       return "cardDelete";
-        }else {
+    @PostMapping("user/cardDelete")
+    public String deleteCardForm(@Valid Card card, BindingResult bindingResult, HttpSession session) {
+        if (bindingResult.hasErrors()) {
+            return "card/createCreditCard";
+        }
+        Authenticate authenticate = (Authenticate) session.getAttribute(AUTHENTICATE);
+        if (card.getAuthenticate().getLogin().equals(authenticate.getLogin()) && card.getAuthenticate().getPassword().equals(authenticate.getPassword())) {
+            Card cardResult = cardRepository.findByNameUserAndKeyCardAndAuthenticateLoginAndAuthenticatePassword(card.getNameUser(), card.getKeyCard(), authenticate.getLogin(), authenticate.getPassword());
+            cardResult.setCardRemote(false);
+            cardRepository.saveAndFlush(cardResult);
+            return "cardDelete";
+        } else {
             return "redirect:/cardDelete";
         }
     }

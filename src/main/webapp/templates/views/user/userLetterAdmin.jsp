@@ -46,7 +46,7 @@
                                 <h3>Letter Form</h3>
                             </div>
                             <%--@elvariable id="letter" type="it.academy.rent.car.bean.Letter"--%>
-                            <form:form class="register-form" action="${pageContext.request.contextPath}/pushLetter"
+                            <form:form class="register-form" action="${pageContext.request.contextPath}user/pushLetter"
                                        modelAttribute="letter" method="post">
                                 <div class="form">
                                     <form:errors path="textLetter" cssStyle="color: red"/>

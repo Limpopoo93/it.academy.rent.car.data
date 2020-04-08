@@ -4,7 +4,11 @@ import lombok.*;
 
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.Size;
 import java.util.Date;
+
+import static it.academy.rent.car.util.ErrorConstant.NAME_COUNTRY_INVALID;
+import static it.academy.rent.car.util.ErrorConstant.NAME_TOWN_INVALID;
 
 @Data
 @NoArgsConstructor
@@ -14,11 +18,13 @@ import java.util.Date;
 
 public class CarSearch {
     private Long id;
+    @Size(min = 3, message = NAME_COUNTRY_INVALID)
     private String country;
     @Temporal(TemporalType.DATE)
     private Date dateCheck;
     @Temporal(TemporalType.DATE)
     private Date dateReturn;
+    @Size(min = 3, message = NAME_TOWN_INVALID)
     private String town;
     private String typeCar;
     private Long priceCar;

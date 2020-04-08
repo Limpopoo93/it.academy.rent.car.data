@@ -53,15 +53,15 @@
         <td>${authenticate.getEmail()}</td>
         <td>${authenticate.isProfileClose()}</td>
         <td>${authenticate.getRole()}</td>
-        <td> <form action="<c:url value="/userDeleteId/${authenticate.id}"/>" method="get">
+        <td> <form action="<c:url value="admin/userDeleteId/${authenticate.id}"/>" method="get">
             <button class="button block"><i class="fa fa-lock">Delete</i>
             </button>
         </form></td>
-        <td><form action="<c:url value="/userBlockId/${authenticate.id}"/>" method="get">
+        <td><form action="<c:url value="admin/userBlockId/${authenticate.id}"/>" method="get">
             <button class="button block"><i class="fa fa-lock">Block User</i>
             </button>
         </form></td>
-        <td> <form action="<c:url value="/userUnBlockId/${authenticate.id}"/>" method="get">
+        <td> <form action="<c:url value="admin/userUnBlockId/${authenticate.id}"/>" method="get">
             <button class="button block"><i class="fa fa-lock">Unblock User</i>
             </button>
         </form></td>

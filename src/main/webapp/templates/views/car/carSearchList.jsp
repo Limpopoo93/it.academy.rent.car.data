@@ -181,7 +181,7 @@
                                     <span>Mileage:${car.getMileage()}</span>
                                     <span>Type:${car.getTypeCar()}</span>
                                 </div>
-                                <form action="<c:url value="/bookCarId/${car.getId()}"/>" method="get">
+                                <form action="<c:url value="user/bookCarId/${car.getId()}"/>" method="get">
                                     <button class="more markered"><i>Book Car</i></button>
                                 </form>
                             </div>

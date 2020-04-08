@@ -8,7 +8,7 @@
 <div class="login-page">
     <div class="form">
         <%--@elvariable id="country" type="it.academy.rent.bean.Country"--%>
-        <form:form class="register-form" action="${pageContext.request.contextPath}/countryRegistration"
+        <form:form class="register-form" action="${pageContext.request.contextPath}admin/countryRegistration"
                    modelAttribute="country" method="post">
 
             <form:errors path="nameCountry" cssStyle="color: red"/>

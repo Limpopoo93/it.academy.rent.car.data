@@ -47,7 +47,7 @@
 
                             <%--@elvariable id="car" type="it.academy.rent.car.bean.Car"--%>
                             <form:form class="register-form"
-                                       action="${pageContext.request.contextPath}/updatePriceCar"
+                                       action="${pageContext.request.contextPath}company/updatePriceCar"
                                        modelAttribute="car" method="post">
                                 <div class="form">
                                     <form:errors path="nameCar" cssStyle="color: red"/>

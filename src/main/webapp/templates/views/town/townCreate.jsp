@@ -46,7 +46,7 @@
                                 <h3>Registration Form</h3>
                             </div>
                             <%--@elvariable id="town" type="it.academy.rent.bean.Town"--%>
-                            <form:form class="register-form" action="${pageContext.request.contextPath}/createTown"
+                            <form:form class="register-form" action="${pageContext.request.contextPath}admin/createTown"
                                        modelAttribute="town" method="post">
                                 <div class="form">
                                     <form:errors path="nameTown" cssStyle="color: red"/>

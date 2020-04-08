@@ -1,11 +1,13 @@
 package it.academy.rent.car.bean;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.Size;
 import java.util.Collection;
 import java.util.Set;
@@ -13,13 +15,13 @@ import java.util.Set;
 import static it.academy.rent.car.util.DBConstant.DB_AUTHENTICATE;
 import static it.academy.rent.car.util.DBConstant.DB_PROFILE_CLOSE;
 import static it.academy.rent.car.util.ErrorConstant.*;
-import static it.academy.rent.car.util.InitConstant.*;
+import static it.academy.rent.car.util.InitConstant.PROFILE_REMOTE;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(exclude = {PROFILE_CLOSE, ROLE})
-@ToString(exclude = {PROFILE_CLOSE, ROLE})
+//@EqualsAndHashCode(exclude = {"profile_close", "roles"})
+//@ToString(exclude = {"profile_close", "roles"})
 
 @Entity
 @Table(name = DB_AUTHENTICATE)
@@ -29,13 +31,11 @@ public class Authenticate implements UserDetails {
     private Long id;
 
     @Column
-    @Size(min = 1, max = 20, message = LOGIN_INVALID)
-    @NotEmpty(message = LOGIN_EMPTY)
+    @Size(min = 5, message = LOGIN_INVALID)
     private String login;
 
     @Column
-    @Size(min = 1, max = 150, message = PASSWORD_INVALID)
-    @NotEmpty(message = PASSWORD_EMPTY)
+    @Size(min = 5, message = PASSWORD_INVALID)
     private String password;
 
     @Transient
@@ -43,6 +43,7 @@ public class Authenticate implements UserDetails {
 
     @Column
     @Size(min = 1, max = 15)
+    @Email(message = EMAIL_INVALID)
     private String email;
 
     @Column(name = DB_PROFILE_CLOSE)
@@ -147,5 +148,19 @@ public class Authenticate implements UserDetails {
 
     public void setPasswordConfirm(String passwordConfirm) {
         this.passwordConfirm = passwordConfirm;
+    }
+
+    @Override
+    public String toString() {
+        return "Authenticate{" +
+                "id=" + id +
+                ", login='" + login + '\'' +
+                ", password='" + password + '\'' +
+                ", passwordConfirm='" + passwordConfirm + '\'' +
+                ", email='" + email + '\'' +
+                ", profileClose=" + profileClose +
+                ", roles=" + roles +
+                ", profileRemote=" + profileRemote +
+                '}';
     }
 }

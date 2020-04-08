@@ -57,7 +57,7 @@
             <td>${car.getMakeCar()}</td>
             <td>${car.getTypeCar()}</td>
             <td>${car.company.getNameCompany()}</td>
-            <td> <form action="<c:url value="/carDeleteId/${car.id}"/>" method="get">
+            <td> <form action="<c:url value="admin/carDeleteId/${car.id}"/>" method="get">
                 <button class="button block"><i class="fa fa-lock">Delete</i>
                 </button>
             </form></td>

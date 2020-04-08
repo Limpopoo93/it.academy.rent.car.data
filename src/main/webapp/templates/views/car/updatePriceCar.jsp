@@ -31,7 +31,7 @@
 
 <%--@elvariable id="priceCar" type="it.academy.rent.car.bean.PriceCar"--%>
 <form:form class="register-form"
-           action="${pageContext.request.contextPath}/updatePrice"
+           action="${pageContext.request.contextPath}company/updatePrice"
            modelAttribute="priceCar" method="post">
     <div class="form">
         <form:errors path="namePrice" cssStyle="color: red"/>

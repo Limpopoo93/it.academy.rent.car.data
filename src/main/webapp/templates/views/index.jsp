@@ -33,13 +33,25 @@
                             <li><a href="#">Home</a></li>
                             <li><a href="#">User</a>
                                 <ul>
-                                    <li><a href="${pageContext.request.contextPath}/adminCreate">Create Admin</a></li>
-                                    <li><a href="${pageContext.request.contextPath}/companyRegistration">Create User Company</a></li>
-                                    <li><a href="${pageContext.request.contextPath}/userDelete">Delete User</a></li>
+
+                                        <li><a href="${pageContext.request.contextPath}admin/adminCreate">Create Admin</a>
+                                        </li>
+
+                                        <li><a href="${pageContext.request.contextPath}company/companyRegistration">Create User
+                                            Company</a></li>
+
+
+                                        <li><a href="${pageContext.request.contextPath}user/userDelete">Delete User</a></li>
+
                                     <li><a href="${pageContext.request.contextPath}/userUpdate">Update User</a></li>
-                                    <li><a href="${pageContext.request.contextPath}/users">List User</a></li>
-                                    <li><a href="${pageContext.request.contextPath}/letterAdminList">List Letter to Admin</a></li>
-                                    <li><a href="${pageContext.request.contextPath}/userBlockList">List Block User</a></li>
+
+                                        <li><a href="${pageContext.request.contextPath}admin/users">List User</a></li>
+
+                                        <li><a href="${pageContext.request.contextPath}admin/letterAdminList">List Letter to
+                                            Admin</a></li>
+                                        <li><a href="${pageContext.request.contextPath}admin/userBlockList">List Block
+                                            User</a></li>
+
                                 </ul>
                             </li>
 

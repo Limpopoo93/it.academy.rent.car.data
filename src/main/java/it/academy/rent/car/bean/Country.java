@@ -3,12 +3,10 @@ package it.academy.rent.car.bean;
 import lombok.*;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
 import static it.academy.rent.car.util.DBConstant.DB_COUNTRY;
 import static it.academy.rent.car.util.DBConstant.DB_COUNTRY_REMOTE;
-import static it.academy.rent.car.util.ErrorConstant.NAME_COUNTRY_EMPTY;
 import static it.academy.rent.car.util.ErrorConstant.NAME_COUNTRY_INVALID;
 import static it.academy.rent.car.util.InitConstant.COUNTRY;
 
@@ -25,8 +23,7 @@ public class Country {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name = COUNTRY)
-    @Size(min = 1, max = 15, message = NAME_COUNTRY_INVALID)
-    @NotEmpty(message = NAME_COUNTRY_EMPTY)
+    @Size(min = 3, message = NAME_COUNTRY_INVALID)
     private String nameCountry;
     @Column(name = DB_COUNTRY_REMOTE)
     private Boolean countryRemote;

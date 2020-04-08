@@ -10,8 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository
 @Transactional
 public interface CompanyRepository extends JpaRepository<Company, Long> {
-    @Query("select cm from Company cm where cm.id = :id")
-    Company findByLId(@Param("id") Long id);
 
     @Query("select cm from Company cm where cm.authenticate.id = :id")
     Company findByIdAndAuthenticate(@Param("id") Long id);

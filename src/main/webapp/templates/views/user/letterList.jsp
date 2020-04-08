@@ -50,11 +50,11 @@
         <td>${letter.authenticate.getPassword()}</td>
         <td>${letter.authenticate.getEmail()}</td>
         <td>${letter.getTextLetter()}</td>
-            <td><form action="<c:url value="/userUnBlockLetterId/${letter.authenticate.getId()}"/>" method="get">
+            <td><form action="<c:url value="admin/userUnBlockLetterId/${letter.authenticate.getId()}"/>" method="get">
             <button class="button block"><i class="fa fa-lock">UnBlock</i>
             </button>
         </form></td>
-            <td> <form action="<c:url value="/deleteLetter/${letter.getId()}"/>" method="get">
+            <td> <form action="<c:url value="admin/deleteLetter/${letter.getId()}"/>" method="get">
             <button class="button block"><i class="fa fa-lock">DeleteLetter</i>
             </button>
         </form></td>

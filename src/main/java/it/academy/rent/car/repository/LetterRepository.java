@@ -12,8 +12,6 @@ import java.util.List;
 @Repository
 @Transactional
 public interface LetterRepository extends JpaRepository<Letter, Long> {
-    @Query(nativeQuery = true, value = "select text_letter from m_letter  where id = ?")
-    Letter findByLId(long id);
 
     @Query("select l from Letter l where l.id = :id")
     Letter findByIdLetter(long id);

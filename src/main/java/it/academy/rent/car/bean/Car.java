@@ -3,19 +3,16 @@ package it.academy.rent.car.bean;
 import lombok.*;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
 import static it.academy.rent.car.util.DBConstant.*;
 import static it.academy.rent.car.util.ErrorConstant.*;
-import static it.academy.rent.car.util.InitConstant.COMPANY;
-import static it.academy.rent.car.util.InitConstant.PRICE_CAR;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(exclude = {COMPANY, PRICE_CAR})
-@ToString(exclude = {COMPANY, PRICE_CAR})
+@EqualsAndHashCode(exclude = {"company", "price"})
+@ToString(exclude = {"company", "price"})
 
 @Entity
 @Table(name = DB_CAR)
@@ -24,36 +21,28 @@ public class Car {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name = DB_NAME_CAR)
-    @Size(min = 1, max = 15 , message = NAME_CAR_INVALID)
-    @NotEmpty(message = NAME_CAR_EMPTY)
+    @Size(min = 2, message = NAME_CAR_INVALID)
     private String nameCar;
     @Column(name = DB_TYPE_FUEL)
-    @Size(min = 1, max = 10, message = TYPE_FUEL_INVALID)
-    @NotEmpty(message = TYPE_FUEL_EMPTY)
+    @Size(min = 2, message = TYPE_FUEL_INVALID)
     private String typeFuel;
     @Column(name = DB_COL_DOORS)
-    @Size(min = 1, max = 7, message = COL_DOOR_INVALID)
-    @NotEmpty(message = COL_DOOR_EMPTY)
+    @Size(min = 2, message = COL_DOOR_INVALID)
     private Long colDoors;
     @Column(name = DB_COL_PEOPLE)
-    @Size(min = 1, max = 10, message = COL_PEOPLE_INVALID)
-    @NotEmpty(message = COL_PEOPLE_EMPTY)
+    @Size(min = 1, message = COL_PEOPLE_INVALID)
     private Long colPeople;
     @Column
-    @Size(min = 1, max = 30, message = MILEAGE_INVALID)
-    @NotEmpty(message = MILEAGE_EMPTY)
+    @Size(min = 1, message = MILEAGE_INVALID)
     private Long mileage;
     @Column(name = DB_MAKE_CAR)
-    @Size(min = 1, max = 15, message = MAKE_CAR_INVALID)
-    @NotEmpty(message = MAKE_CAR_EMPTY)
+    @Size(min = 2, message = MAKE_CAR_INVALID)
     private String makeCar;
     @Column(name = DB_TYPE_CAR)
-    @Size(min = 1, max = 15, message = TYPE_CAR_INVALID)
-    @NotEmpty(message = TYPE_CAR_EMPTY)
+    @Size(min = 1, message = TYPE_CAR_INVALID)
     private String typeCar;
     @Column
-    @Size(min = 1, max = 15, message = PRICE_INVALID)
-    @NotEmpty(message = PRICE_CAR_EMPTY)
+    @Size(min = 1, message = PRICE_INVALID)
     private Long price;
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = DB_ID_COMPANY, nullable = false)

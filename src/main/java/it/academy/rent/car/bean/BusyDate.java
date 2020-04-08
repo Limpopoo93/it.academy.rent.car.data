@@ -1,6 +1,7 @@
 package it.academy.rent.car.bean;
 
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
@@ -15,8 +16,8 @@ import static it.academy.rent.car.util.InitConstant.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(exclude = {AUTHENTICATE, CAR})
-@ToString(exclude = {AUTHENTICATE, CAR})
+@EqualsAndHashCode(exclude = {"authenticate", "car"})
+@ToString(exclude = {"authenticate", "car"})
 
 @Entity
 @Table(name = DB_BUSY_DATE)
@@ -26,12 +27,14 @@ public class BusyDate {
     private Long id;
     @Column(name = DATE_CHECK)
     @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern="yyyy.MM.dd")
     private Date dateCheck;
     @Column(name = DATE_RETURN)
     @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern="yyyy.MM.dd")
     private Date dateReturn;
     @Column(name = PRICE_CAR)
-    @Size(min = 1, max = 15 , message = PRICE_INVALID)
+    @Size(min = 1, message = PRICE_INVALID)
     @NotEmpty(message = PRICE_CAR_EMPTY)
     private Long priceCar;
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})

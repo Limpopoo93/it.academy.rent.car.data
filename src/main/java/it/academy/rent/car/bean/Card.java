@@ -3,19 +3,17 @@ package it.academy.rent.car.bean;
 import lombok.*;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import java.util.Date;
 
 import static it.academy.rent.car.util.DBConstant.*;
 import static it.academy.rent.car.util.ErrorConstant.*;
-import static it.academy.rent.car.util.InitConstant.AUTHENTICATE;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(exclude = {AUTHENTICATE})
-@ToString(exclude = {AUTHENTICATE})
+@EqualsAndHashCode(exclude = {"authenticate"})
+@ToString(exclude = {"authenticate"})
 
 @Entity
 @Table(name = DB_CARD)
@@ -24,23 +22,19 @@ public class Card {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name = DB_NAME_USER)
-    @Size(min = 1, max = 15, message = NAME_USER_INVALID)
-    @NotEmpty(message = NAME_USER_EMPTY)
+    @Size(min = 2, message = NAME_USER_INVALID)
     private String nameUser;
     @Column(name = DB_KEY_CARD)
-    @Size(min = 1, max = 15, message = KEY_CARD_INVALID)
-    @NotEmpty(message = KEY_CARD_EMPTY)
+    @Size(min = 3, message = KEY_CARD_INVALID)
     private Long keyCard;
     @Column(name = DB_CAR_DATE)
     @Temporal(TemporalType.TIMESTAMP)
     private Date carDate;
     @Column(name = DB_KEY_SECURITY)
-    @Size(min = 1, max = 15, message = KEY_SECURITY_INVALID)
-    @NotEmpty(message = KEY_SECURITY_EMPTY)
+    @Size(min = 4, message = KEY_SECURITY_INVALID)
     private Long keySecurity;
     @Column
-    @Size(min = 1, max = 15, message = KEYS_INVALID)
-    @NotEmpty(message = KEYS_EMPTY)
+    @Size(min = 1, message = KEYS_INVALID)
     private Long keys;
     @OneToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = DB_ID_AUTHENTICATE, nullable = false)

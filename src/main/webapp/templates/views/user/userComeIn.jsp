@@ -50,15 +50,15 @@
                             <form:form class="register-form" action="${pageContext.request.contextPath}/userComeIn"
                                        modelAttribute="authenticate" method="post">
                                 <div class="form">
-                                    <form:errors path="login" cssStyle="color: red"/>
                                     <form:input path="login" type="text" placeholder="login"/>
+                                    <form:errors path="login" cssStyle="color: red"/>
 
-                                    <form:errors path="password" cssStyle="color: red"/>
                                     <form:input path="password" type="text" placeholder="password"/>
-
+                                    <form:errors path="password" cssStyle="color: red"/>
                                     <div class="send-button">
                                         <input type="submit" value="Come In">
                                     </div>
+                                        ${authenticateError}
                                 </div>
                             </form:form>
                         </div>

@@ -47,7 +47,7 @@
                             
                             <%--@elvariable id="country" type="it.academy.rent.car.bean.Country"--%>
                             <form:form class="register-form"
-                                       action="${pageContext.request.contextPath}/listTown"
+                                       action="${pageContext.request.contextPath}admin/listTown"
                                        modelAttribute="country" method="post">
                                 Country:
 

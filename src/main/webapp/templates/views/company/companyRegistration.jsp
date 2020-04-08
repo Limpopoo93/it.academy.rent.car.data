@@ -10,7 +10,7 @@
 <div class="login-page">
     <div class="form">
         <%--@elvariable id="company" type="it.academy.rent.bean.Company"--%>
-        <form:form class="register-form" action="${pageContext.request.contextPath}/createCompany"
+        <form:form class="register-form" action="${pageContext.request.contextPath}company/createCompany"
                    modelAttribute="company" method="post">
 
             <form:errors path="nameCompany" cssStyle="color: red"/>
@@ -51,6 +51,7 @@
             </select>
 
             <button>Registration</button>
+            ${companyError}
         </form:form>
     </div>
 </div>

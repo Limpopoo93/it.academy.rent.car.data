@@ -50,7 +50,7 @@
         <td>${authenticate.getPassword()}</td>
         <td>${authenticate.getEmail()}</td>
         <td>${authenticate.isProfileClose()}</td>
-        <td><form action="<c:url value="/userBlock/${authenticate.id}"/>" method="get">
+        <td><form action="<c:url value="admin/userBlock/${authenticate.id}"/>" method="get">
             <button class="button block"><i class="fa fa-lock">UnBlock User</i>
             </button>
         </form></td>
