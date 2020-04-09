@@ -15,4 +15,5 @@ import java.util.List;
 public interface BusyDateRepository extends JpaRepository<BusyDate, Long> {
     @Query("select bd from BusyDate bd where :dateCheck between bd.dateCheck and bd.dateReturn or :dateReturn between bd.dateCheck and bd.dateReturn")
     List<BusyDate> findByBusyDate(@Param("dateCheck") Date dateCheck, @Param("dateReturn") Date dateReturn);
+    List<BusyDate> findByAuthenticateIdAndBusyDateRemote(Long id, Boolean busyDateRemote);
 }

@@ -41,7 +41,7 @@ public class Car {
     @Column(name = DB_TYPE_CAR)
     @Size(min = 1, message = TYPE_CAR_INVALID)
     private String typeCar;
-    @Column
+    @Column(name = "price")
     @Size(min = 1, message = PRICE_INVALID)
     private Long price;
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})

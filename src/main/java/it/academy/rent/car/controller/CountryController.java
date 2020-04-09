@@ -1,7 +1,7 @@
 package it.academy.rent.car.controller;
 
 import it.academy.rent.car.bean.Country;
-import it.academy.rent.car.repository.CountryRepository;
+import it.academy.rent.car.service.CountryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,7 +18,7 @@ import static it.academy.rent.car.util.InitConstant.ID;
 @Controller
 public class CountryController {
     @Autowired
-    private CountryRepository countryRepository;
+    private CountryService countryService;
 
     //создание страны
     @GetMapping("admin/countryRegistration")
@@ -32,22 +32,22 @@ public class CountryController {
             return "country/countryCreate";
         }
         country.setCountryRemote(true);
-        countryRepository.save(country);
+        countryService.save(country);
         return "redirect:/countryRegistration";
     }
 
     @GetMapping("admin/listCountry")
     public String listCountry(Model model) {
-        List<Country> countries = countryRepository.findByDelete(true);
+        List<Country> countries = countryService.findByDelete(true);
         model.addAttribute("countries", countries);
         return "country/countryList";
     }
 
     @GetMapping("admin/countryDelete/{id}")
     public String listCountry(@PathVariable(ID) Long id) {
-        Country countryResult = countryRepository.findById(id).orElse(null);
+        Country countryResult = countryService.findById(id);
         countryResult.setCountryRemote(false);
-        countryRepository.saveAndFlush(countryResult);
+        countryService.saveAndFlush(countryResult);
         return "redirect:/listCountry";
     }
 }

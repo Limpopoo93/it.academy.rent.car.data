@@ -4,9 +4,8 @@ import it.academy.rent.car.bean.Authenticate;
 import it.academy.rent.car.bean.CarSearch;
 import it.academy.rent.car.bean.Letter;
 import it.academy.rent.car.bean.Role;
-import it.academy.rent.car.repository.AuthenticateRepository;
-import it.academy.rent.car.repository.LetterRepository;
 import it.academy.rent.car.service.AuthenticateService;
+import it.academy.rent.car.service.LetterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -29,9 +28,7 @@ import static it.academy.rent.car.util.PageConstant.*;
 @Controller
 public class AuthenticateController {
     @Autowired
-    private AuthenticateRepository authenticateRepository;
-    @Autowired
-    private LetterRepository letterRepository;
+    private LetterService letterService;
     @Autowired
     private AuthenticateService authenticateService;
     @Autowired
@@ -56,7 +53,7 @@ public class AuthenticateController {
             model.addAttribute("passwordError", "password dont match");
             return USER_REGISTRATION;
         }
-        Authenticate authenticateResult = authenticateRepository.findByLoginAndPassword(authenticate.getLogin(), authenticate.getPassword());
+        Authenticate authenticateResult = authenticateService.findByLoginAndPassword(authenticate.getLogin(), authenticate.getPassword());
         if (authenticateResult == null) {
             authenticate.setRoles(Collections.singleton(new Role(1L, "ROLE_USER")));
             authenticateService.saveAuthenticate(authenticate);
@@ -77,7 +74,7 @@ public class AuthenticateController {
         if (bindingResult.hasErrors()) {
             return COMPANY_USER_REGISTRATION;
         }
-        Authenticate authenticateResult = authenticateRepository.findByLoginAndPassword(authenticate.getLogin(), authenticate.getPassword());
+        Authenticate authenticateResult = authenticateService.findByLoginAndPassword(authenticate.getLogin(), authenticate.getPassword());
         if (authenticateResult == null) {
             authenticate.setRoles(Collections.singleton(new Role(1L, "ROLE_COMPANY")));
             authenticateService.saveAuthenticate(authenticate);
@@ -97,7 +94,7 @@ public class AuthenticateController {
         if (bindingResult.hasErrors()) {
             return USER_COME;
         }
-        Authenticate authenticateResult = authenticateRepository.findByLogin(authenticate.getLogin());
+        Authenticate authenticateResult = authenticateService.findByLogin(authenticate.getLogin());
         if (authenticateResult.getLogin().equals(authenticate.getLogin()) && bCryptPasswordEncoder.matches(authenticate.getPassword(), authenticateResult.getPassword())) {
             if (authenticateResult.getProfileRemote().equals(true)) {
                 session.setAttribute(AUTHENTICATE, authenticateResult);
@@ -125,7 +122,7 @@ public class AuthenticateController {
         if (bindingResult.hasErrors()) {
             return USER_DELETE;
         }
-        Authenticate authenticateResult = authenticateRepository.findByLoginAndPassword(authenticate.getLogin(), authenticate.getPassword());
+        Authenticate authenticateResult = authenticateService.findByLoginAndPassword(authenticate.getLogin(), authenticate.getPassword());
         if (authenticateResult == null) {
             model.addAttribute("authenticateError", "user empty");
             return REDIRECT_USER_COME;
@@ -135,9 +132,9 @@ public class AuthenticateController {
             model.addAttribute("authenticateError", "user dont deleted");
             return REDIRECT_USER_DELETE;
         } else {
-            Authenticate authenticateBase = authenticateRepository.findByLoginAndPassword(authenticateResult.getLogin(), authenticateResult.getPassword());
+            Authenticate authenticateBase = authenticateService.findByLoginAndPassword(authenticateResult.getLogin(), authenticateResult.getPassword());
             authenticateBase.setProfileRemote(false);
-            authenticateRepository.saveAndFlush(authenticateBase);
+            authenticateService.saveAndFlush(authenticateBase);
             session.invalidate();
             return INDEX;
         }
@@ -151,7 +148,7 @@ public class AuthenticateController {
         Authenticate authenticate = (Authenticate) session.getAttribute(AUTHENTICATE);
         letter.setAuthenticate(authenticate);
         //не работает сохранение письма, проверить почему
-        letterRepository.save(letter);
+        letterService.save(letter);
         return REDIRECT_MAIN;
     }
 
@@ -165,7 +162,7 @@ public class AuthenticateController {
         if (bindingResult.hasErrors()) {
             return ADMIN_REGISTRATION;
         }
-        Authenticate authenticateResult = authenticateRepository.findByLoginAndPassword(authenticate.getLogin(), authenticate.getPassword());
+        Authenticate authenticateResult = authenticateService.findByLoginAndPassword(authenticate.getLogin(), authenticate.getPassword());
         if (authenticateResult == null) {
             authenticate.setRoles(Collections.singleton(new Role(1L, "ROLE_ADMIN")));
             authenticateService.saveAuthenticate(authenticate);
@@ -177,70 +174,70 @@ public class AuthenticateController {
 
     @GetMapping("admin/users")
     public String findAll(Model model) {
-        List<Authenticate> authenticates = authenticateRepository.findByDelete(true);
+        List<Authenticate> authenticates = authenticateService.findByDelete(true);
         model.addAttribute(AUTHENTICATIES, authenticates);
         return USER_LIST;
     }
 
     @GetMapping("admin/userDeleteId/{id}")
     public String deleteUser(@PathVariable(ID) Long id) {
-        Authenticate authenticate = authenticateRepository.findById(id).orElse(null);
+        Authenticate authenticate = authenticateService.findById(id);
         authenticate.setProfileRemote(false);
-        authenticateRepository.saveAndFlush(authenticate);
+        authenticateService.saveAndFlush(authenticate);
         return REDIRECT_USER_LIST;
     }
 
     @GetMapping("admin/userBlockId/{id}")
     public String findBlockUser(@PathVariable(ID) Long id) {
-        Authenticate authenticate = authenticateRepository.findById(id).orElse(null);
+        Authenticate authenticate = authenticateService.findById(id);
         authenticate.setProfileClose(false);
-        authenticateRepository.saveAndFlush(authenticate);
+        authenticateService.saveAndFlush(authenticate);
         return REDIRECT_USER_LIST;
     }
 
     @GetMapping("admin/userUnBlockId/{id}")
     public String userUnBlockId(@PathVariable(ID) Long id) {
-        Authenticate authenticate = authenticateRepository.findById(id).orElse(null);
+        Authenticate authenticate = authenticateService.findById(id);
         authenticate.setProfileClose(true);
-        authenticateRepository.saveAndFlush(authenticate);
+        authenticateService.saveAndFlush(authenticate);
         return REDIRECT_USER_LIST;
     }
 
     @GetMapping("admin/letterAdminList")
     public String letterAdmin(Model model, BindingResult bindingResult) {
-        List<Letter> letters = letterRepository.findByLetterList(true);
+        List<Letter> letters = letterService.findByLetterList(true);
         model.addAttribute(LETTERS, letters);
         return LETTER_LIST;
     }
 
     @GetMapping("admin/userUnBlockLetterId/{id}")
     public String userLetterUnblock(@PathVariable(ID) Long id) {
-        Authenticate authenticate = authenticateRepository.findById(id).orElse(null);
+        Authenticate authenticate = authenticateService.findById(id);
         authenticate.setProfileClose(true);
-        authenticateRepository.saveAndFlush(authenticate);
+        authenticateService.saveAndFlush(authenticate);
         return REDIRECT_LETTER_LIST;
     }
 
     @GetMapping("admin/deleteLetter/{id}")
     public String deleteLetter(@PathVariable(ID) Long id) {
-        Letter letter = letterRepository.findById(id).orElse(null);
+        Letter letter = letterService.findById(id);
         letter.setLetterRemote(false);
-        letterRepository.saveAndFlush(letter);
+        letterService.saveAndFlush(letter);
         return REDIRECT_LETTER_LIST;
     }
 
     @GetMapping("admin/userBlockList")
     public String userBanList(Model model) {
-        List<Authenticate> authenticate = authenticateRepository.findByProfileClose(false);
+        List<Authenticate> authenticate = authenticateService.findByProfileClose(false);
         model.addAttribute(AUTHENTICATE, authenticate);
         return USER_BLOCK_LIST;
     }
 
     @GetMapping("admin/userBlock/{id}")
     public String userBlockList(@PathVariable(ID) Long id) {
-        Authenticate authenticate = authenticateRepository.findById(id).orElse(null);
+        Authenticate authenticate = authenticateService.findById(id);
         authenticate.setProfileClose(true);
-        authenticateRepository.saveAndFlush(authenticate);
+        authenticateService.saveAndFlush(authenticate);
         return REDIRECT_USER_BLOCK_LIST;
     }
 
@@ -255,11 +252,11 @@ public class AuthenticateController {
             return USER_UPDATE;
         }
         Authenticate authenticateSession = (Authenticate) session.getAttribute(AUTHENTICATE);
-        Authenticate authenticateResult = authenticateRepository.findById(authenticateSession.getId()).orElse(null);
+        Authenticate authenticateResult = authenticateService.findById(authenticateSession.getId());
         authenticateResult.setLogin(authenticate.getLogin());
         authenticateResult.setPassword(authenticate.getPassword());
         authenticateResult.setEmail(authenticate.getEmail());
-        authenticateRepository.saveAndFlush(authenticateResult);
+        authenticateService.saveAndFlush(authenticateResult);
         session.invalidate();
         session.setAttribute(AUTHENTICATE, authenticateResult);
         return REDIRECT_USER_UPDATE;

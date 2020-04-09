@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.List;
 
 @Service
 public class AuthenticateService implements UserDetailsService {
@@ -43,5 +44,27 @@ public class AuthenticateService implements UserDetailsService {
         return authenticate;
     }
 
+    public Authenticate findByLoginAndPassword(String login, String password) {
+        return authenticateRepository.findByLoginAndPassword(login, password);
+    }
 
+    public Authenticate findByLogin(String login) {
+        return authenticateRepository.findByLogin(login);
+    }
+
+    public Authenticate saveAndFlush(Authenticate authenticate) {
+        return authenticateRepository.saveAndFlush(authenticate);
+    }
+
+    public List<Authenticate> findByDelete(Boolean isDelete) {
+        return authenticateRepository.findByDelete(isDelete);
+    }
+
+    public Authenticate findById(Long id) {
+        return authenticateRepository.findById(id).orElse(null);
+    }
+
+    public List<Authenticate> findByProfileClose(Boolean isDelete) {
+        return authenticateRepository.findByProfileClose(isDelete);
+    }
 }

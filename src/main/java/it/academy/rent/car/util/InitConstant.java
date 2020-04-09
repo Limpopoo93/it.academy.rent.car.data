@@ -53,7 +53,7 @@ public interface InitConstant {
     String NAME_PHOTO = "namePhoto";
     String TYPE_PHOTO = "typePhoto";
 
-    String PRICE_CAR = "priceCar";
+    String PRICE_CAR = "price_car";
     String NAME_PRICE = "namePrice";
 
     String TOWN = "town";

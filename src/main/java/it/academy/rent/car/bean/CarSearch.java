@@ -1,6 +1,7 @@
 package it.academy.rent.car.bean;
 
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -21,8 +22,10 @@ public class CarSearch {
     @Size(min = 3, message = NAME_COUNTRY_INVALID)
     private String country;
     @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern="yyyy.MM.dd")
     private Date dateCheck;
     @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern="yyyy.MM.dd")
     private Date dateReturn;
     @Size(min = 3, message = NAME_TOWN_INVALID)
     private String town;

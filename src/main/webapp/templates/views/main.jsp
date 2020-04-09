@@ -19,7 +19,7 @@
                             <p></p>
                             <a href="${pageContext.request.contextPath}/userComeIn" class="hvr-rectangle-out button">Come
                                 In</a>
-                            <a href="${pageContext.request.contextPath}user/userRegistration"
+                            <a href="${pageContext.request.contextPath}/user/userRegistration"
                                class="hvr-rectangle-in button red">Registration</a>
                         </div>
                     </li>

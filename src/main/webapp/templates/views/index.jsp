@@ -52,6 +52,8 @@
                                         <li><a href="${pageContext.request.contextPath}admin/userBlockList">List Block
                                             User</a></li>
 
+                                    <li><a href="${pageContext.request.contextPath}/user/listBookCar">List Book Car</a></li>
+
                                 </ul>
                             </li>
 
@@ -110,7 +112,7 @@
             <div class="col-lg-12">
                 <div class="booka-car-content">
 <%--@elvariable id="carSearch" type="it.academy.rent.car.bean.CarSearch"--%>
-<form:form class="register-form" name="address" action="${pageContext.request.contextPath}/searchFormCountry"
+<form:form class="register-form" name="address" action="${pageContext.request.contextPath}user/searchFormCountry"
            method="post" modelAttribute="carSearch">
                         <div class="pick-location bookinput-item">
     <select class="custom-select" name="country" onChange="MkHouseValues(this.selectedIndex)">

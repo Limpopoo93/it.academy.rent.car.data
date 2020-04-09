@@ -49,7 +49,6 @@ public class Authenticate implements UserDetails {
     @Column(name = DB_PROFILE_CLOSE)
     private boolean profileClose;
 
-    @Enumerated(EnumType.STRING)
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Role> roles;
 

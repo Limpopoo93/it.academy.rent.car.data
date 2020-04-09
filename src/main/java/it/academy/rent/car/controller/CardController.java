@@ -2,7 +2,7 @@ package it.academy.rent.car.controller;
 
 import it.academy.rent.car.bean.Authenticate;
 import it.academy.rent.car.bean.Card;
-import it.academy.rent.car.repository.CardRepository;
+import it.academy.rent.car.service.CardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
@@ -23,7 +23,7 @@ import static it.academy.rent.car.util.InitConstant.AUTHENTICATE;
 @Controller
 public class CardController {
     @Autowired
-    private CardRepository cardRepository;
+    private CardService cardService;
 
     @InitBinder
     public final void initBinderUsuariosFormValidator(final WebDataBinder binder, final Locale locale) {
@@ -44,7 +44,7 @@ public class CardController {
         }
         Authenticate authenticate = (Authenticate) session.getAttribute(AUTHENTICATE);
         card.setAuthenticate(authenticate);
-        cardRepository.save(card);
+        cardService.save(card);
         return "redirect:/createCreditCard";
     }
 
@@ -60,9 +60,9 @@ public class CardController {
         }
         Authenticate authenticate = (Authenticate) session.getAttribute(AUTHENTICATE);
         if (card.getAuthenticate().getLogin().equals(authenticate.getLogin()) && card.getAuthenticate().getPassword().equals(authenticate.getPassword())) {
-            Card cardResult = cardRepository.findByNameUserAndKeyCardAndAuthenticateLoginAndAuthenticatePassword(card.getNameUser(), card.getKeyCard(), authenticate.getLogin(), authenticate.getPassword());
+            Card cardResult = cardService.findByNameUserAndKeyCardAndAuthenticateLoginAndAuthenticatePassword(card.getNameUser(), card.getKeyCard(), authenticate.getLogin(), authenticate.getPassword());
             cardResult.setCardRemote(false);
-            cardRepository.saveAndFlush(cardResult);
+            cardService.saveAndFlush(cardResult);
             return "cardDelete";
         } else {
             return "redirect:/cardDelete";

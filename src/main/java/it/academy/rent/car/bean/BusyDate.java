@@ -1,23 +1,21 @@
 package it.academy.rent.car.bean;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
 import java.util.Date;
 
 import static it.academy.rent.car.util.DBConstant.*;
-import static it.academy.rent.car.util.ErrorConstant.PRICE_CAR_EMPTY;
-import static it.academy.rent.car.util.ErrorConstant.PRICE_INVALID;
 import static it.academy.rent.car.util.InitConstant.*;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(exclude = {"authenticate", "car"})
-@ToString(exclude = {"authenticate", "car"})
+//@EqualsAndHashCode(exclude = {"authenticate", "car"})
+//@ToString(exclude = {"authenticate", "car"})
 
 @Entity
 @Table(name = DB_BUSY_DATE)
@@ -34,13 +32,12 @@ public class BusyDate {
     @DateTimeFormat(pattern="yyyy.MM.dd")
     private Date dateReturn;
     @Column(name = PRICE_CAR)
-    @Size(min = 1, message = PRICE_INVALID)
-    @NotEmpty(message = PRICE_CAR_EMPTY)
+
     private Long priceCar;
-    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE})
     @JoinColumn(name = DB_ID_CAR, nullable = false)
     private Car car;
-    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE})
     @JoinColumn(name = DB_ID_AUTHENTICATE, nullable = false)
     private Authenticate authenticate;
     @Column(name = BUSY_DATE_REMOTE)
@@ -100,5 +97,18 @@ public class BusyDate {
 
     public void setPriceCar(Long priceCar) {
         this.priceCar = priceCar;
+    }
+
+    @Override
+    public String toString() {
+        return "BusyDate{" +
+                "id=" + id +
+                ", dateCheck=" + dateCheck +
+                ", dateReturn=" + dateReturn +
+                ", priceCar=" + priceCar +
+                ", car=" + car +
+                ", authenticate=" + authenticate +
+                ", busyDateRemote=" + busyDateRemote +
+                '}';
     }
 }

@@ -1,9 +1,9 @@
 package it.academy.rent.car.controller;
 
 import it.academy.rent.car.bean.*;
-import it.academy.rent.car.repository.BusyDateRepository;
-import it.academy.rent.car.repository.CarRepository;
-import it.academy.rent.car.repository.CompanyRepository;
+import it.academy.rent.car.service.BusyDateService;
+import it.academy.rent.car.service.CarService;
+import it.academy.rent.car.service.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
@@ -29,11 +29,11 @@ import static it.academy.rent.car.util.InitConstant.ID;
 @Controller
 public class CarController {
     @Autowired
-    private CarRepository carRepository;
+    private CompanyService companyService;
     @Autowired
-    private BusyDateRepository busyDateRepository;
+    private BusyDateService busyDateService;
     @Autowired
-    private CompanyRepository companyRepository;
+    private CarService carService;
 
     @InitBinder
     public final void initBinderUsuariosFormValidator(final WebDataBinder binder, final Locale locale) {
@@ -51,53 +51,45 @@ public class CarController {
         if (bindingResult.hasErrors()) {
             return "user/userUpdateInfo";
         }
-        Company company = companyRepository.findByNameCompany(car.getCompany().getNameCompany());
+        Company company = companyService.findByNameCompany(car.getCompany().getNameCompany());
         if (company != null) {
             car.setCompany(company);
-            carRepository.save(car);
+            carService.save(car);
         }
         model.addAttribute("carError", "company empty");
         return "redirect:/createCar";
     }
 
     //методы для поиска машины
-    @PostMapping("admin/searchFormCountry")
+    @PostMapping("user/searchFormCountry")
     public String searchCar(@Valid CarSearch carSearch, BindingResult bindingResult, HttpSession session, Model model) {
         if (bindingResult.hasErrors()) {
             return "car/carSearchTown";
         }
-        List<Car> cars = carRepository.findByTownByAndByCountry(carSearch.getTown(), carSearch.getCountry());
-        for (Car car : cars) {
-            Long price = car.getPrice();
-            Date dateCheck = carSearch.getDateCheck();
-            Date dateReturn = carSearch.getDateReturn();
-            int colDay = daysBetween(dateCheck, dateReturn);
-            Long finalPrice = price * colDay;
-            car.setPrice(finalPrice);
-        }
-        model.addAttribute("cars", cars);
+        model.addAttribute("cars", carService.list(carSearch));
         session.setAttribute("carSearch", carSearch);
         return "car/carSearchList";
     }
 
-    public int daysBetween(Date d1, Date d2) {
-        return (int) ((d2.getTime() - d1.getTime()) / (1000 * 60 * 60 * 24));
-    }
 
-    @GetMapping("user/bookCarId/{id}")
+    @GetMapping("/bookCarId/{id}")
     public String searchBookCar(@PathVariable(ID) Long id, HttpSession session, Model model) {
-        Car carResult = carRepository.findById(id).orElse(null);
+        Car carResult = carService.findById(id);
         CarSearch carSearch = (CarSearch) session.getAttribute("carSearch");
-        List<BusyDate> busyDateResult = busyDateRepository.findByBusyDate(carSearch.getDateCheck(), carSearch.getDateReturn());
+        Authenticate authenticate = (Authenticate) session.getAttribute(AUTHENTICATE);
+        List<BusyDate> busyDateResult = busyDateService.findByBusyDate(carSearch.getDateCheck(), carSearch.getDateReturn());
         if (busyDateResult.isEmpty()) {
-            Authenticate authenticate = (Authenticate) session.getAttribute(AUTHENTICATE);
             BusyDate busyDate = new BusyDate();
             busyDate.setDateCheck(carSearch.getDateCheck());
             busyDate.setDateReturn(carSearch.getDateReturn());
             busyDate.setAuthenticate(authenticate);
             busyDate.setCar(carResult);
-            busyDateRepository.save(busyDate);
-            //тут ошибка при сохранении, скорей всего с датами что то не то, формат даты настроить
+            busyDate.setBusyDateRemote(true);
+            Long colDay = carService.daysBetween(carSearch.getDateCheck(), carSearch.getDateReturn());
+            Long price = carResult.getPrice();
+            Long finalPrice = price * colDay;
+            busyDate.setPriceCar(finalPrice);
+            busyDateService.save(busyDate);
             return "redirect:/searchFormCountry";
         }
         model.addAttribute("carError", "date busy");
@@ -107,13 +99,13 @@ public class CarController {
     @GetMapping("company/listCar")
     public String listCar(HttpSession session, Model model) {
         Authenticate authenticate = (Authenticate) session.getAttribute(AUTHENTICATE);
-        Company company = companyRepository.findByIdAndAuthenticate(authenticate.getId());
+        Company company = companyService.findByIdAndAuthenticate(authenticate.getId());
         if (company.getAuthenticate().getId() != null) {
-            List<Car> cars = carRepository.findByIdCompany(company.getId(), true);
+            List<Car> cars = carService.findByIdCompany(company.getId(), true);
             model.addAttribute("cars", cars);
             return "car/carList";
         } else {
-            List<Car> cars = carRepository.findAll();
+            List<Car> cars = carService.findAll();
             model.addAttribute("cars", cars);
             return "car/carList";
         }
@@ -122,12 +114,27 @@ public class CarController {
 
     @GetMapping("company/carDeleteId/{id}")
     public String deleteCar(@PathVariable(ID) Long id) {
-        Car car = carRepository.findById(id).orElse(null);
+        Car car = carService.findById(id);
         car.setCarRemote(false);
-        carRepository.saveAndFlush(car);
+        carService.saveAndFlush(car);
         return "redirect:/listCar";
     }
 
+    @GetMapping("user/listBookCar")
+    public String listBookCar(HttpSession session, Model model) {
+        Authenticate authenticate = (Authenticate) session.getAttribute("authenticate");
+        List<BusyDate> busyDateList = busyDateService.findByAuthenticateIdAndBusyDateRemote(authenticate.getId(), true);
+        model.addAttribute("busyDateList", busyDateList);
+        return "car/carBasketUser";
+    }
+
+    @GetMapping("user/userDeleteCheck/{id}")
+    public String basketCarUser(@PathVariable(ID) Long id) {
+        BusyDate busyDate = busyDateService.findById(id);
+        busyDate.setBusyDateRemote(false);
+        busyDateService.saveAndFlush(busyDate);
+        return "redirect:/user/listBookCar";
+    }
 }
 
 
