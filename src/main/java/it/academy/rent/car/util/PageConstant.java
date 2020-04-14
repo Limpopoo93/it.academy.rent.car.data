@@ -11,7 +11,9 @@ public interface PageConstant {
     String LETTER_ADMIN = "user/userLetterAdmin";
     String REDIRECT_USER_COME = "redirect:/userComeIn";
     String USER_DELETE = "user/userDelete";
+    String USER_DELETE_USER = "user/userDeleteByUser";
     String REDIRECT_USER_DELETE = "redirect:/userDelete";
+    String REDIRECT_USER_DELETE_USER = "redirect:/userDeleteByUser";
     String REDIRECT_MAIN = "redirect:/";
     String ADMIN_REGISTRATION = "user/adminRegistration";
     String REDIRECT_ADMIN_CREATE = "redirect:/adminCreate";

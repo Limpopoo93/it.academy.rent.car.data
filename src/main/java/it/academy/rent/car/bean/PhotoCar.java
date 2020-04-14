@@ -1,5 +1,6 @@
 package it.academy.rent.car.bean;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -27,6 +28,7 @@ public class PhotoCar {
     @Column(name = DB_TYPE_PHOTO)
     @Basic(fetch = FetchType.LAZY)
     private byte[] typePhoto;
+    @JsonManagedReference
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = DB_ID_CAR, nullable = false)
     private Car car;

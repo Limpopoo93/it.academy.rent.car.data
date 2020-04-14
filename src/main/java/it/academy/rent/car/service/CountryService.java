@@ -16,8 +16,8 @@ public class CountryService {
         return countryRepository.save(country);
     }
 
-    public List<Country> findByDelete(Boolean isDelete) {
-        return countryRepository.findByDelete(isDelete);
+    public List<Country> findByCountryRemote(Boolean isDelete) {
+        return countryRepository.findByCountryRemote(isDelete);
     }
 
     public Country findById(Long id) {

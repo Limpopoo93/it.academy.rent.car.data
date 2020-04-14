@@ -15,15 +15,11 @@
                         <nav>
                             <span class="fa fa-times close-menu"></span>
                             <div class="link">
-                                <a href="${pageContext.request.contextPath}/" class="active">Home</a>
+                                <a href="${pageContext.request.contextPath}/index">Home</a>
                                 <div class="line"></div>
                             </div>
                             <div class="link">
-                                <a href="${pageContext.request.contextPath}/userComeIn">Come In</a>
-                                <div class="line"></div>
-                            </div>
-                            <div class="link">
-                                <a href="${pageContext.request.contextPath}/userRegistration">Registration</a>
+                                <a href="${pageContext.request.contextPath}/logout">Out</a>
                                 <div class="line"></div>
                             </div>
                         </nav>

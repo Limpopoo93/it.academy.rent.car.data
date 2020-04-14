@@ -63,6 +63,7 @@ public interface InitConstant {
     String AGE = "age";
 
     String AUTHENTICATE = "authenticate";
+    String AUTHENTICATE_DETAILS = "authenticateDetails";
     String CAR = "car";
     String COMPANY = "company";
     String CAR_SEARCH = "carSearch";

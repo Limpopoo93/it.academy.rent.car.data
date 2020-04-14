@@ -1,4 +1,5 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -14,15 +15,11 @@
                         <nav>
                             <span class="fa fa-times close-menu"></span>
                             <div class="link">
-                                <a href="${pageContext.request.contextPath}/" class="active">Home</a>
+                                <a href="${pageContext.request.contextPath}/index">Home</a>
                                 <div class="line"></div>
                             </div>
                             <div class="link">
-                                <a href="${pageContext.request.contextPath}/userComeIn">Come In</a>
-                                <div class="line"></div>
-                            </div>
-                            <div class="link">
-                                <a href="${pageContext.request.contextPath}/userRegistration">Registration</a>
+                                <a href="${pageContext.request.contextPath}/logout">Out</a>
                                 <div class="line"></div>
                             </div>
                         </nav>
@@ -46,17 +43,29 @@
                             </div>
                             <%--@elvariable id="authenticate" type="it.academy.rent.bean.Authenticate"--%>
                             <form:form class="register-form"
-                                       action="${pageContext.request.contextPath}/userUpdate"
+                                       action="${pageContext.request.contextPath}userUpdate"
                                        modelAttribute="authenticate" method="post">
+
                                 <div class="form">
-                                    <form:input path="${sessionScope.authenticate.login}" type="text" placeholder="login"/>
-
-                                    <form:input path="${sessionScope.authenticate.password}" type="password" placeholder="password"/>
-
-                                    <form:input path="${sessionScope.authenticate.email}" type="text" placeholder="email"/>
+                                    <form:errors path="login" cssStyle="color: red"/>
+                                    <form:input path="login" type="text" placeholder="login"/>
+                                    <td>
+                                            ${sessionScope.authenticate.getLogin()}
+                                    </td>
+                                    <form:errors path="password" cssStyle="color: red"/>
+                                    <form:input path="password" type="text" placeholder="password"/>
+                                    <td>
+                                            ${sessionScope.authenticate.getPassword()}
+                                    </td>
+                                    <form:errors path="email" cssStyle="color: red"/>
+                                    <form:input path="email" type="text" placeholder="email"/>
+                                    <td>
+                                            ${sessionScope.authenticate.getEmail()}
+                                    </td>
                                     <div class="send-button">
-                                        <input type="submit" value="Update">
+                                        <input type="submit" value="Registration">
                                     </div>
+                                        ${authenticateError}
                                 </div>
                             </form:form>
                         </div>

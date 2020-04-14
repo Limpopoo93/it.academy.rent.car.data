@@ -18,19 +18,20 @@ import java.util.List;
 import static it.academy.rent.car.util.InitConstant.ID;
 
 @Controller
+//@RequestMapping("/admin")
 public class TownController {
     @Autowired
     private CountryService countryService;
     @Autowired
     private TownService townService;
 
-    @GetMapping("admin/createTown")
-    public String createByTown(Town town) {
+    @GetMapping("/createTown")
+    public String saveTown(Town town) {
         return "town/townCreate";
     }
 
-    @PostMapping("admin/createTown")
-    public String createTown(@Valid Town town, BindingResult bindingResult) {
+    @PostMapping("/createTown")
+    public String saveTown(@Valid Town town, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "town/townCreate";
         }
@@ -41,19 +42,19 @@ public class TownController {
         return "redirect:/createTown";
     }
 
-    @GetMapping("admin/searchListTown")
-    public String searchListTown(Country Country) {
+    @GetMapping("/searchListTown")
+    public String searchAllByTown(Country Country) {
         return "town/townSearchList";
     }
 
-    @PostMapping("admin/listTown")
+    @PostMapping("/listTown")
     public String listTown(Country country, Model model) {
         List<Town> towns = townService.findByCountry(country.getNameCountry(), true);
         model.addAttribute("towns", towns);
         return "town/townList";
     }
 
-    @GetMapping("admin/townDelete/{id}")
+    @GetMapping("/townDelete/{id}")
     public String deleteTown(@PathVariable(ID) Long id) {
         Town town = townService.findById(id);
         town.setTownRemote(false);

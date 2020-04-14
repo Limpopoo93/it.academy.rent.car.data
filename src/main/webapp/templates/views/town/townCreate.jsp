@@ -15,15 +15,11 @@
                         <nav>
                             <span class="fa fa-times close-menu"></span>
                             <div class="link">
-                                <a href="${pageContext.request.contextPath}/" class="active">Home</a>
+                                <a href="${pageContext.request.contextPath}/index">Home</a>
                                 <div class="line"></div>
                             </div>
                             <div class="link">
-                                <a href="${pageContext.request.contextPath}/userComeIn">Come In</a>
-                                <div class="line"></div>
-                            </div>
-                            <div class="link">
-                                <a href="${pageContext.request.contextPath}/userRegistration">Registration</a>
+                                <a href="${pageContext.request.contextPath}/logout">Out</a>
                                 <div class="line"></div>
                             </div>
                         </nav>
@@ -46,7 +42,7 @@
                                 <h3>Registration Form</h3>
                             </div>
                             <%--@elvariable id="town" type="it.academy.rent.bean.Town"--%>
-                            <form:form class="register-form" action="${pageContext.request.contextPath}admin/createTown"
+                            <form:form class="register-form" action="${pageContext.request.contextPath}createTown"
                                        modelAttribute="town" method="post">
                                 <div class="form">
                                     <form:errors path="nameTown" cssStyle="color: red"/>

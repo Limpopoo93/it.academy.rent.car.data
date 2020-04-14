@@ -1,5 +1,6 @@
 package it.academy.rent.car.bean;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -23,6 +24,7 @@ public class Letter {
     @Column(name = DB_TEXT_LETTER)
     @Size(min = 5, message = TEXT_INVALID)
     private String textLetter;
+    @JsonManagedReference
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = DB_ID_AUTHENTICATE, nullable = false)
     private Authenticate authenticate;

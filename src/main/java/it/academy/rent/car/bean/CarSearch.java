@@ -16,7 +16,6 @@ import static it.academy.rent.car.util.ErrorConstant.NAME_TOWN_INVALID;
 @AllArgsConstructor
 @EqualsAndHashCode
 @ToString
-
 public class CarSearch {
     private Long id;
     @Size(min = 3, message = NAME_COUNTRY_INVALID)

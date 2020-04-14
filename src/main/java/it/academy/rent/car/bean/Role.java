@@ -1,32 +1,27 @@
 package it.academy.rent.car.bean;
 
-import org.springframework.security.core.GrantedAuthority;
-
 import javax.persistence.*;
-import java.util.Set;
-
-import static it.academy.rent.car.util.DBConstant.*;
 
 @Entity
-@Table(name = DB_ROLE)
-public class Role implements GrantedAuthority {
+@Table(name = "m_roles")
+public class Role {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = DB_TYPE_ROLE)
-    private String name;
-    @Transient
-    @ManyToMany(mappedBy = DB_ROLES)
-    private Set<Authenticate> authenticates;
+
+    @Column(name = "user_id")
+    private Long userId;
+
+    @Column(name = "type_role")
+    private String role;
+
     public Role() {
     }
 
-    public Role(Long id) {
-        this.id = id;
-    }
+    public Role(Long userId,String role) {
+        this.userId = userId;
+        this.role = role;
 
-    public Role(Long id, String name) {
-        this.id = id;
-        this.name = name;
     }
 
     public Long getId() {
@@ -37,24 +32,28 @@ public class Role implements GrantedAuthority {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
-    public Set<Authenticate> getAuthenticates() {
-        return authenticates;
+    public String getRole() {
+        return role;
     }
 
-    public void setAuthenticates(Set<Authenticate> authenticates) {
-        this.authenticates = authenticates;
+    public void setRole(String role) {
+        this.role = role;
     }
 
     @Override
-    public String getAuthority() {
-        return getName();
+    public String toString() {
+        return "Role{" +
+                "id=" + id +
+                ", userId=" + userId +
+                ", role='" + role + '\'' +
+                '}';
     }
 }

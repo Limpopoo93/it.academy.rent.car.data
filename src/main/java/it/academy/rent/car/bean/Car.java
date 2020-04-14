@@ -1,5 +1,6 @@
 package it.academy.rent.car.bean;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -44,6 +45,7 @@ public class Car {
     @Column(name = "price")
     @Size(min = 1, message = PRICE_INVALID)
     private Long price;
+    @JsonManagedReference
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = DB_ID_COMPANY, nullable = false)
     private Company company;

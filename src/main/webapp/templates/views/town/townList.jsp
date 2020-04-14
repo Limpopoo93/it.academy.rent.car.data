@@ -14,15 +14,11 @@
                         <nav>
                             <span class="fa fa-times close-menu"></span>
                             <div class="link">
-                                <a href="${pageContext.request.contextPath}/" class="active">Home</a>
+                                <a href="${pageContext.request.contextPath}/index">Home</a>
                                 <div class="line"></div>
                             </div>
                             <div class="link">
-                                <a href="${pageContext.request.contextPath}/userComeIn">Come In</a>
-                                <div class="line"></div>
-                            </div>
-                            <div class="link">
-                                <a href="${pageContext.request.contextPath}/userRegistration">Registration</a>
+                                <a href="${pageContext.request.contextPath}/logout">Out</a>
                                 <div class="line"></div>
                             </div>
                         </nav>
@@ -43,7 +39,7 @@
     <c:forEach items="${towns}" var="town">
         <tr>
             <td>${town.getNameTown()}</td>
-            <td> <form action="<c:url value="admin/townDelete/${town.id}"/>" method="get">
+            <td> <form action="<c:url value="townDelete/${town.id}"/>" method="get">
                 <button class="button block"><i class="fa fa-lock">Delete</i>
                 </button>
             </form></td>

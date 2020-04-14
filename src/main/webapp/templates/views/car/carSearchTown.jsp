@@ -23,7 +23,7 @@
 <div class="form">
 
     <%--@elvariable id="carSearch" type="it.academy.rent.car.bean.CarSearch"--%>
-    <form:form class="register-form" action="${pageContext.request.contextPath}user/searchFormCountry"
+    <form:form class="register-form" action="${pageContext.request.contextPath}searchFormCountry"
                modelAttribute="carSearch" method="post">
 
         <form:errors path="country" cssStyle="color: red"/>

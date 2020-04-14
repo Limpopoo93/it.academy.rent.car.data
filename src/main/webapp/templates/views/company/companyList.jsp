@@ -14,15 +14,11 @@
                         <nav>
                             <span class="fa fa-times close-menu"></span>
                             <div class="link">
-                                <a href="${pageContext.request.contextPath}/" class="active">Home</a>
+                                <a href="${pageContext.request.contextPath}/index">Home</a>
                                 <div class="line"></div>
                             </div>
                             <div class="link">
-                                <a href="${pageContext.request.contextPath}/userComeIn">Come In</a>
-                                <div class="line"></div>
-                            </div>
-                            <div class="link">
-                                <a href="${pageContext.request.contextPath}/userRegistration">Registration</a>
+                                <a href="${pageContext.request.contextPath}/logout">Out</a>
                                 <div class="line"></div>
                             </div>
                         </nav>
@@ -53,7 +49,7 @@
             <td>${company.getEmail()}</td>
             <td>${company.town.getTown()}</td>
             <td>${company.town.country.getCountry()}</td>
-            <td> <form action="<c:url value="admin/listCompanyForm/${company.id}"/>" method="get">
+            <td> <form action="<c:url value="listCompanyForm/${company.id}"/>" method="get">
                 <button class="button block"><i class="fa fa-lock">Delete</i>
                 </button>
             </form></td>

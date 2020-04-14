@@ -33,7 +33,7 @@
             <td>${car.getTypeCar()}</td>
             <td>${car.company.getNameCompany()}</td>
             <td>
-                <form action="<c:url value="company/createPriceCar/${car.id}"/>" method="get" modelAttribute="priceCar">
+                <form action="<c:url value="createPriceCar/${car.id}"/>" method="get" modelAttribute="priceCar">
                     <form:errors path="namePrice" cssStyle="color: red"/>
                     <form:input path="namePrice" type="text" placeholder="namePrice"/>
 

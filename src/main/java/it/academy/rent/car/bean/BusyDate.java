@@ -1,5 +1,6 @@
 package it.academy.rent.car.bean;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -32,11 +33,12 @@ public class BusyDate {
     @DateTimeFormat(pattern="yyyy.MM.dd")
     private Date dateReturn;
     @Column(name = PRICE_CAR)
-
     private Long priceCar;
+    @JsonManagedReference
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE})
     @JoinColumn(name = DB_ID_CAR, nullable = false)
     private Car car;
+    @JsonManagedReference
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE})
     @JoinColumn(name = DB_ID_AUTHENTICATE, nullable = false)
     private Authenticate authenticate;

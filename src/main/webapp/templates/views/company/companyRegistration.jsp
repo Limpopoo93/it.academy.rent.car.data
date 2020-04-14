@@ -10,7 +10,7 @@
 <div class="login-page">
     <div class="form">
         <%--@elvariable id="company" type="it.academy.rent.bean.Company"--%>
-        <form:form class="register-form" action="${pageContext.request.contextPath}company/createCompany"
+        <form:form class="register-form" action="${pageContext.request.contextPath}createCompany"
                    modelAttribute="company" method="post">
 
             <form:errors path="nameCompany" cssStyle="color: red"/>
@@ -24,31 +24,34 @@
 
             Country:
 
-            <select name="town.country.country" onChange="MkHouseValues(this.selectedIndex)">
-                <option value="Russia" >Russia</option>
-                <option value="England">England</option>
-                <option value="Italy">Italy</option>
-                <option value="France">France</option>
-                <option value="Ukraine">Ukraine</option>
-                <option value="Finland" >Finland</option>
-                <option value="Sweden">Sweden</option>
-                <option value="Norway">Norway</option>
-                <option value="Denmark">Denmark</option>
-                <option value="Poland" >Poland</option>
-                <option value="Germany">Germany</option>
-                <option value="Spain">Spain</option>
-                <option value="Portugal">Portugal</option>
-                <option value="Austria">Austria</option>
-                <option value="Czech Republic" >Czech Republic</option>
-                <option value="Slovakia">Slovakia</option>
-                <option value="Bulgaria">Bulgaria</option>
-                <option value="Turkey">Turkey</option>
-            </select>
+            <div class="pick-location bookinput-item">
+                <select class="custom-select" name="country" onChange="MkHouseValues(this.selectedIndex)">
+                    <option value="Russia" >Russia</option>
+                    <option value="England">England</option>
+                    <option value="Italy">Italy</option>
+                    <option value="France">France</option>
+                    <option value="Ukraine">Ukraine</option>
+                    <option value="Finland" >Finland</option>
+                    <option value="Sweden">Sweden</option>
+                    <option value="Norway">Norway</option>
+                    <option value="Denmark">Denmark</option>
+                    <option value="Poland" >Poland</option>
+                    <option value="Germany">Germany</option>
+                    <option value="Spain">Spain</option>
+                    <option value="Portugal">Portugal</option>
+                    <option value="Austria">Austria</option>
+                    <option value="Czech Republic" >Czech Republic</option>
+                    <option value="Slovakia">Slovakia</option>
+                    <option value="Bulgaria">Bulgaria</option>
+                    <option value="Turkey">Turkey</option>
+                </select>
+            </div>
 
-            &nbsp;Town:
-            <select name="town.town">
-                <option value="N/A">N/A</option>
-            </select>
+            <div class="car-choose bookinput-item">
+                <select class="custom-select" name="town">
+                    <option value="N/A">N/A</option>
+                </select>
+            </div>
 
             <button>Registration</button>
             ${companyError}

@@ -14,15 +14,11 @@
                         <nav>
                             <span class="fa fa-times close-menu"></span>
                             <div class="link">
-                                <a href="${pageContext.request.contextPath}/" class="active">Home</a>
+                                <a href="${pageContext.request.contextPath}/index">Home</a>
                                 <div class="line"></div>
                             </div>
                             <div class="link">
-                                <a href="${pageContext.request.contextPath}/userComeIn">Come In</a>
-                                <div class="line"></div>
-                            </div>
-                            <div class="link">
-                                <a href="${pageContext.request.contextPath}/userRegistration">Registration</a>
+                                <a href="${pageContext.request.contextPath}/logout">Out</a>
                                 <div class="line"></div>
                             </div>
                         </nav>
@@ -50,7 +46,7 @@
         <td>${authenticate.getPassword()}</td>
         <td>${authenticate.getEmail()}</td>
         <td>${authenticate.isProfileClose()}</td>
-        <td><form action="<c:url value="admin/userBlock/${authenticate.id}"/>" method="get">
+        <td><form action="<c:url value="userBlock/${authenticate.id}"/>" method="get">
             <button class="button block"><i class="fa fa-lock">UnBlock User</i>
             </button>
         </form></td>

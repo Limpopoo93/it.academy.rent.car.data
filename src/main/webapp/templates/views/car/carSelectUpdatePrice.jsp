@@ -14,15 +14,11 @@
                         <nav>
                             <span class="fa fa-times close-menu"></span>
                             <div class="link">
-                                <a href="${pageContext.request.contextPath}/" class="active">Home</a>
+                                <a href="${pageContext.request.contextPath}/index">Home</a>
                                 <div class="line"></div>
                             </div>
                             <div class="link">
-                                <a href="${pageContext.request.contextPath}/userComeIn">Come In</a>
-                                <div class="line"></div>
-                            </div>
-                            <div class="link">
-                                <a href="${pageContext.request.contextPath}/userRegistration">Registration</a>
+                                <a href="${pageContext.request.contextPath}/logout">Out</a>
                                 <div class="line"></div>
                             </div>
                         </nav>
@@ -47,7 +43,7 @@
 
                             <%--@elvariable id="car" type="it.academy.rent.car.bean.Car"--%>
                             <form:form class="register-form"
-                                       action="${pageContext.request.contextPath}company/updatePriceCar"
+                                       action="${pageContext.request.contextPath}updatePriceCar"
                                        modelAttribute="car" method="post">
                                 <div class="form">
                                     <form:errors path="nameCar" cssStyle="color: red"/>

@@ -16,8 +16,8 @@ public class LetterService {
         return letterRepository.save(letter);
     }
 
-    public List<Letter> findByLetterList(Boolean isDelete) {
-        return letterRepository.findByLetterList(isDelete);
+    public List<Letter> findByLetterRemote(Boolean isDelete) {
+        return letterRepository.findByLetterRemote(isDelete);
     }
 
     public Letter findById(Long id) {

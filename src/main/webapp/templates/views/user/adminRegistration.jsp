@@ -12,20 +12,16 @@
                 <div class="col-md-12">
                     <div class="navigation">
                         <nav>
-                            <span class="fa fa-times close-menu"></span>
-                            <div class="link">
-                                <a href="${pageContext.request.contextPath}/" class="active">Home</a>
-                                <div class="line"></div>
-                            </div>
-                            <div class="link">
-                                <a href="${pageContext.request.contextPath}/userComeIn">Come In</a>
-                                <div class="line"></div>
-                            </div>
-                            <div class="link">
-                                <a href="${pageContext.request.contextPath}/userRegistration">Registration</a>
-                                <div class="line"></div>
-                            </div>
-                        </nav>
+                        <span class="fa fa-times close-menu"></span>
+                        <div class="link">
+                            <a href="${pageContext.request.contextPath}/index">Home</a>
+                            <div class="line"></div>
+                        </div>
+                        <div class="link">
+                            <a href="${pageContext.request.contextPath}/logout">Out</a>
+                            <div class="line"></div>
+                        </div>
+                    </nav>
                     </div>
                 </div>
             </div>
@@ -45,7 +41,7 @@
                                 <h3>Registration Form</h3>
                             </div>
                             <%--@elvariable id="authenticate" type="it.academy.rent.bean.Authenticate"--%>
-                            <form:form class="register-form" action="${pageContext.request.contextPath}admin/adminCreate"
+                            <form:form class="register-form" action="${pageContext.request.contextPath}adminRegistration"
                                        modelAttribute="authenticate" method="post">
                                 <div class="form">
                                     <form:errors path="login" cssStyle="color: red"/>

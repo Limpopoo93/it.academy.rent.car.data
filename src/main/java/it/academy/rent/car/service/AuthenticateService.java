@@ -1,9 +1,11 @@
 package it.academy.rent.car.service;
 
 import it.academy.rent.car.bean.Authenticate;
+import it.academy.rent.car.bean.Role;
 import it.academy.rent.car.repository.AuthenticateRepository;
 import it.academy.rent.car.repository.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -19,21 +21,28 @@ public class AuthenticateService implements UserDetailsService {
     @PersistenceContext
     private EntityManager em;
     @Autowired
-    AuthenticateRepository authenticateRepository;
+    private AuthenticateRepository authenticateRepository;
+
     @Autowired
-    RoleRepository roleRepository;
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
     @Autowired
-    BCryptPasswordEncoder bCryptPasswordEncoder;
+    private RoleRepository roleRepository;
 
     @Override
     public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
         Authenticate authenticate = authenticateRepository.findByLogin(login);
+        List<Role> roles = roleRepository.getRoleByUserId(authenticate.getId());
+
 
         if (authenticate == null) {
             throw new UsernameNotFoundException("User not found");
         }
-
-        return authenticate;
+    UserDetails userDetails = new org.springframework.security.core.userdetails.User(
+            authenticate.getLogin(),
+            authenticate.getPassword(),
+            AuthorityUtils.commaSeparatedStringToAuthorityList(roles.get(0).getRole())
+    );
+        return userDetails;
     }
 
     public Authenticate saveAuthenticate(Authenticate authenticate) {
@@ -56,8 +65,8 @@ public class AuthenticateService implements UserDetailsService {
         return authenticateRepository.saveAndFlush(authenticate);
     }
 
-    public List<Authenticate> findByDelete(Boolean isDelete) {
-        return authenticateRepository.findByDelete(isDelete);
+    public List<Authenticate> findByProfileRemote(Boolean isDelete) {
+        return authenticateRepository.findByProfileRemote(isDelete);
     }
 
     public Authenticate findById(Long id) {

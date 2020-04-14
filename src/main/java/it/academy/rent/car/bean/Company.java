@@ -1,5 +1,6 @@
 package it.academy.rent.car.bean;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -32,9 +33,11 @@ public class Company {
     @Column
     @Email(message = EMAIL_INVALID)
     private String email;
+    @JsonManagedReference
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = DB_ID_TOWN, nullable = false)
     private Town town;
+    @JsonManagedReference
     @OneToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = DB_ID_AUTHENTICATE, nullable = false)
     private Authenticate authenticate;

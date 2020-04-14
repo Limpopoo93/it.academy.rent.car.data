@@ -16,15 +16,11 @@
                         <nav>
                             <span class="fa fa-times close-menu"></span>
                             <div class="link">
-                                <a href="${pageContext.request.contextPath}/" class="active">Home</a>
+                                <a href="${pageContext.request.contextPath}userComeIn">Come In</a>
                                 <div class="line"></div>
                             </div>
                             <div class="link">
-                                <a href="${pageContext.request.contextPath}/userComeIn">Come In</a>
-                                <div class="line"></div>
-                            </div>
-                            <div class="link">
-                                <a href="${pageContext.request.contextPath}/userRegistration">Registration</a>
+                                <a href="${pageContext.request.contextPath}userRegistration">Registration</a>
                                 <div class="line"></div>
                             </div>
                         </nav>
@@ -46,8 +42,8 @@
                             <div class="form-header">
                                 <h3>Come In Form</h3>
                             </div>
-                            <%--@elvariable id="authenticate" type="it.academy.rent.bean.Authenticate"--%>
-                            <form:form class="register-form" action="${pageContext.request.contextPath}/userComeIn"
+                            <%--@elvariable id="authenticate" type="it.academy.rent.car.bean.Authenticate"--%>
+                            <form:form class="register-form" action="${pageContext.request.contextPath}userComeIn"
                                        modelAttribute="authenticate" method="post">
                                 <div class="form">
                                     <form:input path="login" type="text" placeholder="login"/>
@@ -58,7 +54,6 @@
                                     <div class="send-button">
                                         <input type="submit" value="Come In">
                                     </div>
-                                        ${authenticateError}
                                 </div>
                             </form:form>
                         </div>

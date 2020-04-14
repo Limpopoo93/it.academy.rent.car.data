@@ -1,7 +1,9 @@
 <%@ taglib prefix="th" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <html>
 <head>
     <meta charset="utf-8">
@@ -33,59 +35,50 @@
                             <li><a href="#">Home</a></li>
                             <li><a href="#">User</a>
                                 <ul>
+                                    <li><a href="${pageContext.request.contextPath}adminRegistration">Create Admin</a>
+                                    </li>
+                                    <li><a href="${pageContext.request.contextPath}companyRegistration">Create User
+                                        Company</a></li>
 
-                                        <li><a href="${pageContext.request.contextPath}admin/adminCreate">Create Admin</a>
-                                        </li>
+                                    <li><a href="${pageContext.request.contextPath}userDeleteByUser">Delete User</a></li>
 
-                                        <li><a href="${pageContext.request.contextPath}company/companyRegistration">Create User
-                                            Company</a></li>
+                                    <li><a href="${pageContext.request.contextPath}userUpdate">Update User</a></li>
 
+                                    <li><a href="${pageContext.request.contextPath}users">List User</a></li>
 
-                                        <li><a href="${pageContext.request.contextPath}user/userDelete">Delete User</a></li>
+                                    <li><a href="${pageContext.request.contextPath}letterAdminList">List Letter to
+                                        Admin</a></li>
+                                    <li><a href="${pageContext.request.contextPath}userBlockList">List Block
+                                        User</a></li>
 
-                                    <li><a href="${pageContext.request.contextPath}/userUpdate">Update User</a></li>
-
-                                        <li><a href="${pageContext.request.contextPath}admin/users">List User</a></li>
-
-                                        <li><a href="${pageContext.request.contextPath}admin/letterAdminList">List Letter to
-                                            Admin</a></li>
-                                        <li><a href="${pageContext.request.contextPath}admin/userBlockList">List Block
-                                            User</a></li>
-
-                                    <li><a href="${pageContext.request.contextPath}/user/listBookCar">List Book Car</a></li>
+                                    <li><a href="${pageContext.request.contextPath}listBookCar">List Book Car</a></li>
 
                                 </ul>
                             </li>
 
                             <li><a>Car</a>
                                 <ul>
-                                    <li><a href="${pageContext.request.contextPath}/createCar">Create Car</a></li>
-                                    <li><a href="${pageContext.request.contextPath}/listCar">List Car</a></li>
-                                </ul>
-                            </li>
-                            <li><a>Credit Car</a>
-                                <ul>
-                                    <li><a href="${pageContext.request.contextPath}/createCreditCard">Create Credit Card</a></li>
-                                    <li><a href="${pageContext.request.contextPath}/cardDelete">Card Delete</a></li>public
+                                    <li><a href="${pageContext.request.contextPath}createCar">Create Car</a></li>
+                                    <li><a href="${pageContext.request.contextPath}listCar">List Car</a></li>
                                 </ul>
                             </li>
                             <li><a>Company</a>
                                 <ul>
-                                    <li><a href="${pageContext.request.contextPath}/createCompany">Create Company</a></li>
-                                    <li><a href="${pageContext.request.contextPath}/listCompany">List Company</a></li>
-                                    <li><a href="${pageContext.request.contextPath}/deleteCompany">Delete Company</a></li>
+                                    <li><a href="${pageContext.request.contextPath}createCompany">Create Company</a></li>
+                                    <li><a href="${pageContext.request.contextPath}listCompany">List Company</a></li>
+                                    <li><a href="${pageContext.request.contextPath}deleteCompany">Delete Company</a></li>
                                 </ul>
                             </li>
                             <li><a>Country</a>
                                 <ul>
-                                    <li><a href="${pageContext.request.contextPath}/countryRegistration">Create Country</a></li>
-                                    <li><a href="${pageContext.request.contextPath}/listCountry">List Country</a></li>
+                                    <li><a href="${pageContext.request.contextPath}countryRegistration">Create Country</a></li>
+                                    <li><a href="${pageContext.request.contextPath}listCountry">List Country</a></li>
                                 </ul>
                             </li>
                             <li><a>Town</a>
                                 <ul>
-                                    <li><a href="${pageContext.request.contextPath}/createTown">Create Town</a></li>
-                                    <li><a href="${pageContext.request.contextPath}/searchListTown">List Town</a></li>
+                                    <li><a href="${pageContext.request.contextPath}createTown">Create Town</a></li>
+                                    <li><a href="${pageContext.request.contextPath}searchListTown">List Town</a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -111,42 +104,42 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="booka-car-content">
-<%--@elvariable id="carSearch" type="it.academy.rent.car.bean.CarSearch"--%>
-<form:form class="register-form" name="address" action="${pageContext.request.contextPath}user/searchFormCountry"
-           method="post" modelAttribute="carSearch">
+                    <%--@elvariable id="carSearch" type="it.academy.rent.car.bean.CarSearch"--%>
+                    <form:form class="register-form" name="address" action="${pageContext.request.contextPath}user/searchFormCountry"
+                               method="post" modelAttribute="carSearch">
                         <div class="pick-location bookinput-item">
-    <select class="custom-select" name="country" onChange="MkHouseValues(this.selectedIndex)">
-    <option value="Russia" >Russia</option>
-    <option value="England">England</option>
-    <option value="Italy">Italy</option>
-    <option value="France">France</option>
-    <option value="Ukraine">Ukraine</option>
-    <option value="Finland" >Finland</option>
-    <option value="Sweden">Sweden</option>
-    <option value="Norway">Norway</option>
-    <option value="Denmark">Denmark</option>
-    <option value="Poland" >Poland</option>
-    <option value="Germany">Germany</option>
-    <option value="Spain">Spain</option>
-    <option value="Portugal">Portugal</option>
-    <option value="Austria">Austria</option>
-    <option value="Czech Republic" >Czech Republic</option>
-    <option value="Slovakia">Slovakia</option>
-    <option value="Bulgaria">Bulgaria</option>
-    <option value="Turkey">Turkey</option>
-    </select>
+                            <select class="custom-select" name="country" onChange="MkHouseValues(this.selectedIndex)">
+                                <option value="Russia" >Russia</option>
+                                <option value="England">England</option>
+                                <option value="Italy">Italy</option>
+                                <option value="France">France</option>
+                                <option value="Ukraine">Ukraine</option>
+                                <option value="Finland" >Finland</option>
+                                <option value="Sweden">Sweden</option>
+                                <option value="Norway">Norway</option>
+                                <option value="Denmark">Denmark</option>
+                                <option value="Poland" >Poland</option>
+                                <option value="Germany">Germany</option>
+                                <option value="Spain">Spain</option>
+                                <option value="Portugal">Portugal</option>
+                                <option value="Austria">Austria</option>
+                                <option value="Czech Republic" >Czech Republic</option>
+                                <option value="Slovakia">Slovakia</option>
+                                <option value="Bulgaria">Bulgaria</option>
+                                <option value="Turkey">Turkey</option>
+                            </select>
                         </div>
 
                         <div class="pick-date bookinput-item">
-    <form:input path="dateCheck" type="date" value="2017-06-01"/>
+                            <form:input path="dateCheck" type="date" value="2017-06-01"/>
                         </div>
 
                         <div class="retern-date bookinput-item">
-    <form:input path="dateReturn" type="date" value="2017-06-01"/>
+                            <form:input path="dateReturn" type="date" value="2017-06-01"/>
                         </div>
                         <div class="car-choose bookinput-item">
                             <select class="custom-select" name="town">
-    <option value="N/A">N/A</option>
+                                <option value="N/A">N/A</option>
                             </select>
                         </div>
 

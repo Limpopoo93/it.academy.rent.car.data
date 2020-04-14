@@ -14,15 +14,11 @@
                         <nav>
                             <span class="fa fa-times close-menu"></span>
                             <div class="link">
-                                <a href="${pageContext.request.contextPath}/" class="active">Home</a>
+                                <a href="${pageContext.request.contextPath}/index">Home</a>
                                 <div class="line"></div>
                             </div>
                             <div class="link">
-                                <a href="${pageContext.request.contextPath}/userComeIn">Come In</a>
-                                <div class="line"></div>
-                            </div>
-                            <div class="link">
-                                <a href="${pageContext.request.contextPath}/userRegistration">Registration</a>
+                                <a href="${pageContext.request.contextPath}/logout">Out</a>
                                 <div class="line"></div>
                             </div>
                         </nav>
@@ -52,16 +48,16 @@
         <td>${authenticate.getPassword()}</td>
         <td>${authenticate.getEmail()}</td>
         <td>${authenticate.isProfileClose()}</td>
-        <td>${authenticate.getRole()}</td>
-        <td> <form action="<c:url value="admin/userDeleteId/${authenticate.id}"/>" method="get">
+        <td>${authenticate.getRoles()}</td>
+        <td> <form action="<c:url value="userDeleteId/${authenticate.id}"/>" method="get">
             <button class="button block"><i class="fa fa-lock">Delete</i>
             </button>
         </form></td>
-        <td><form action="<c:url value="admin/userBlockId/${authenticate.id}"/>" method="get">
+        <td><form action="<c:url value="userBlockId/${authenticate.id}"/>" method="get">
             <button class="button block"><i class="fa fa-lock">Block User</i>
             </button>
         </form></td>
-        <td> <form action="<c:url value="admin/userUnBlockId/${authenticate.id}"/>" method="get">
+        <td> <form action="<c:url value="userUnBlockId/${authenticate.id}"/>" method="get">
             <button class="button block"><i class="fa fa-lock">Unblock User</i>
             </button>
         </form></td>

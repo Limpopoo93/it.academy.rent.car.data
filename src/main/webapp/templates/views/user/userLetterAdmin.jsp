@@ -15,15 +15,11 @@
                         <nav>
                             <span class="fa fa-times close-menu"></span>
                             <div class="link">
-                                <a href="${pageContext.request.contextPath}/" class="active">Home</a>
+                                <a href="${pageContext.request.contextPath}/index">Home</a>
                                 <div class="line"></div>
                             </div>
                             <div class="link">
-                                <a href="${pageContext.request.contextPath}/userComeIn">Come In</a>
-                                <div class="line"></div>
-                            </div>
-                            <div class="link">
-                                <a href="${pageContext.request.contextPath}/userRegistration">Registration</a>
+                                <a href="${pageContext.request.contextPath}/logout">Out</a>
                                 <div class="line"></div>
                             </div>
                         </nav>
@@ -46,7 +42,7 @@
                                 <h3>Letter Form</h3>
                             </div>
                             <%--@elvariable id="letter" type="it.academy.rent.car.bean.Letter"--%>
-                            <form:form class="register-form" action="${pageContext.request.contextPath}user/pushLetter"
+                            <form:form class="register-form" action="${pageContext.request.contextPath}pushLetter"
                                        modelAttribute="letter" method="post">
                                 <div class="form">
                                     <form:errors path="textLetter" cssStyle="color: red"/>

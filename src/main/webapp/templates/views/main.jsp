@@ -17,9 +17,9 @@
                         <div class="banner-text">
                             <h3>Welcom to Arent Car</h3>
                             <p></p>
-                            <a href="${pageContext.request.contextPath}/userComeIn" class="hvr-rectangle-out button">Come
+                            <a href="${pageContext.request.contextPath}userComeIn" class="hvr-rectangle-out button">Come
                                 In</a>
-                            <a href="${pageContext.request.contextPath}/user/userRegistration"
+                            <a href="${pageContext.request.contextPath}userRegistration"
                                class="hvr-rectangle-in button red">Registration</a>
                         </div>
                     </li>

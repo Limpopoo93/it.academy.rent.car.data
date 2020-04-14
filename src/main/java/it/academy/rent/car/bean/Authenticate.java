@@ -1,15 +1,14 @@
 package it.academy.rent.car.bean;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Size;
-import java.util.Collection;
+import java.util.Collections;
 import java.util.Set;
 
 import static it.academy.rent.car.util.DBConstant.DB_AUTHENTICATE;
@@ -25,7 +24,7 @@ import static it.academy.rent.car.util.InitConstant.PROFILE_REMOTE;
 
 @Entity
 @Table(name = DB_AUTHENTICATE)
-public class Authenticate implements UserDetails {
+public class Authenticate {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -35,7 +34,7 @@ public class Authenticate implements UserDetails {
     private String login;
 
     @Column
-    @Size(min = 5, message = PASSWORD_INVALID)
+    @Size(min = 1, message = PASSWORD_INVALID)
     private String password;
 
     @Transient
@@ -49,11 +48,13 @@ public class Authenticate implements UserDetails {
     @Column(name = DB_PROFILE_CLOSE)
     private boolean profileClose;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    private Set<Role> roles;
+    @JsonManagedReference
+    @OneToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST}, mappedBy = "id")
+    private Set<Role> roles = Collections.emptySet();
 
     @Column(name = PROFILE_REMOTE)
     private Boolean profileRemote;
+
 
     public Long getId() {
         return id;
@@ -69,40 +70,6 @@ public class Authenticate implements UserDetails {
 
     public void setLogin(String login) {
         this.login = login;
-    }
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return getRoles();
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    @Override
-    public String getUsername() {
-        return login;
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return true;
     }
 
     public void setPassword(String password) {
