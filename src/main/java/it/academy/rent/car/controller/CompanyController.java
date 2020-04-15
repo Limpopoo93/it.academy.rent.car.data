@@ -4,7 +4,7 @@ import it.academy.rent.car.bean.Authenticate;
 import it.academy.rent.car.bean.CarSearch;
 import it.academy.rent.car.bean.Company;
 import it.academy.rent.car.bean.Role;
-import it.academy.rent.car.service.impl.AuthenticateServiceImpl;
+import it.academy.rent.car.service.impl.AuthenticateService;
 import it.academy.rent.car.service.impl.CompanyServiceImpl;
 import it.academy.rent.car.service.impl.RoleServiceImpl;
 import lombok.RequiredArgsConstructor;
@@ -23,7 +23,7 @@ import static it.academy.rent.car.util.PageConstant.*;
 @Controller
 @RequiredArgsConstructor
 public class CompanyController {
-    private final AuthenticateServiceImpl authenticateService;
+    private final AuthenticateService authenticateService;
     private final CompanyServiceImpl companyService;
     private final RoleServiceImpl roleService;
 

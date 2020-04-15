@@ -1,7 +1,7 @@
 package it.academy.rent.car.controller;
 
 import it.academy.rent.car.bean.*;
-import it.academy.rent.car.service.impl.AuthenticateServiceImpl;
+import it.academy.rent.car.service.impl.AuthenticateService;
 import it.academy.rent.car.service.impl.BusyDateServiceImpl;
 import it.academy.rent.car.service.impl.CarServiceImpl;
 import it.academy.rent.car.service.impl.LetterServiceImpl;
@@ -26,7 +26,7 @@ import static it.academy.rent.car.util.PageConstant.*;
 @RequiredArgsConstructor
 public class UserController {
     private final LetterServiceImpl letterService;
-    private final AuthenticateServiceImpl authenticateService;
+    private final AuthenticateService authenticateService;
     private final CarServiceImpl carService;
     private final BusyDateServiceImpl busyDateService;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;

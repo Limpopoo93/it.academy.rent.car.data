@@ -4,7 +4,7 @@ import it.academy.rent.car.bean.Authenticate;
 import it.academy.rent.car.bean.CarSearch;
 import it.academy.rent.car.bean.Letter;
 import it.academy.rent.car.bean.Role;
-import it.academy.rent.car.service.impl.AuthenticateServiceImpl;
+import it.academy.rent.car.service.impl.AuthenticateService;
 import it.academy.rent.car.service.impl.RoleServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -25,7 +25,7 @@ import static it.academy.rent.car.util.PageConstant.*;
 @Controller
 @RequiredArgsConstructor
 public class LoginController {
-    private final AuthenticateServiceImpl authenticateService;
+    private final AuthenticateService authenticateService;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final RoleServiceImpl roleService;
 
@@ -52,7 +52,7 @@ public class LoginController {
         if (authenticateResult == null) {
             authenticate.setProfileRemote(true);
             authenticate.setProfileClose(true);
-            authenticate.setPassword(bCryptPasswordEncoder.encode(authenticate.getPassword()));
+            authenticate.setPassword(authenticate.getPassword());
             authenticateService.saveAuthenticate(authenticate);
             roleService.save(new Role(authenticate.getId(), "ROLE_USER"));
             session.setAttribute(AUTHENTICATE, authenticate);
