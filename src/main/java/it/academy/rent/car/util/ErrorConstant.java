@@ -2,7 +2,7 @@ package it.academy.rent.car.util;
 
 public interface ErrorConstant {
     String LOGIN_INVALID = "login at least 5 characters";
-    String PASSWORD_INVALID ="password at least 5 characters";
+    String PASSWORD_INVALID = "password at least 5 characters";
     String PRICE_INVALID = "price at least 1 characters";
     String NAME_CAR_INVALID = "name car at least 2 characters";
     String TYPE_FUEL_INVALID = "type fuel at least 2 characters";

@@ -12,16 +12,16 @@
                 <div class="col-md-12">
                     <div class="navigation">
                         <nav>
-                        <span class="fa fa-times close-menu"></span>
-                        <div class="link">
-                            <a href="${pageContext.request.contextPath}/index">Home</a>
-                            <div class="line"></div>
-                        </div>
-                        <div class="link">
-                            <a href="${pageContext.request.contextPath}/logout">Out</a>
-                            <div class="line"></div>
-                        </div>
-                    </nav>
+                            <span class="fa fa-times close-menu"></span>
+                            <div class="link">
+                                <a href="${pageContext.request.contextPath}/index">Home</a>
+                                <div class="line"></div>
+                            </div>
+                            <div class="link">
+                                <a href="${pageContext.request.contextPath}/logout">Out</a>
+                                <div class="line"></div>
+                            </div>
+                        </nav>
                     </div>
                 </div>
             </div>
@@ -41,7 +41,8 @@
                                 <h3>Registration Form</h3>
                             </div>
                             <%--@elvariable id="authenticate" type="it.academy.rent.bean.Authenticate"--%>
-                            <form:form class="register-form" action="${pageContext.request.contextPath}adminRegistration"
+                            <form:form class="register-form"
+                                       action="${pageContext.request.contextPath}adminRegistration"
                                        modelAttribute="authenticate" method="post">
                                 <div class="form">
                                     <form:errors path="login" cssStyle="color: red"/>
@@ -69,13 +70,13 @@
         <div class="swiper-wrapper">
             <div class="swiper-slide">
                 <div class="home-img">
-                    <div class="bg-bg" >
+                    <div class="bg-bg">
                     </div>
                 </div>
             </div>
             <div class="swiper-slide">
                 <div class="home-img">
-                    <div class="bg-bg" >
+                    <div class="bg-bg">
                     </div>
                 </div>
             </div>
@@ -1083,7 +1084,7 @@
         border-top: 1px solid #ddd;
     }
 
-    table th+th,table td+td,table th+td {
+    table th + th, table td + td, table th + td {
         border-left: 1px solid #ddd;
     }
 

@@ -4,11 +4,10 @@ import it.academy.rent.car.bean.Authenticate;
 import it.academy.rent.car.bean.CarSearch;
 import it.academy.rent.car.bean.Company;
 import it.academy.rent.car.bean.Role;
-import it.academy.rent.car.service.AuthenticateService;
-import it.academy.rent.car.service.CarService;
-import it.academy.rent.car.service.CompanyService;
-import it.academy.rent.car.service.RoleService;
-import org.springframework.beans.factory.annotation.Autowired;
+import it.academy.rent.car.service.impl.AuthenticateServiceImpl;
+import it.academy.rent.car.service.impl.CompanyServiceImpl;
+import it.academy.rent.car.service.impl.RoleServiceImpl;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -22,16 +21,11 @@ import static it.academy.rent.car.util.InitConstant.AUTHENTICATE;
 import static it.academy.rent.car.util.PageConstant.*;
 
 @Controller
-//@RequestMapping("/company")
+@RequiredArgsConstructor
 public class CompanyController {
-    @Autowired
-    private AuthenticateService authenticateService;
-    @Autowired
-    private CompanyService companyService;
-    @Autowired
-    private CarService carService;
-    @Autowired
-    private RoleService roleService;
+    private final AuthenticateServiceImpl authenticateService;
+    private final CompanyServiceImpl companyService;
+    private final RoleServiceImpl roleService;
 
     @GetMapping("/companyRegistration")
     public String saveUserByCompany(Authenticate authenticate) {
@@ -46,7 +40,7 @@ public class CompanyController {
         Authenticate authenticateResult = authenticateService.findByLoginAndPassword(authenticate.getLogin(), authenticate.getPassword());
         if (authenticateResult == null) {
             authenticateService.saveAuthenticate(authenticate);
-            roleService.save(new Role(authenticate.getId(),"ROLE_COMPANY"));
+            roleService.save(new Role(authenticate.getId(), "ROLE_COMPANY"));
             return INDEX;
         }
         model.addAttribute("companyError", "company busy");

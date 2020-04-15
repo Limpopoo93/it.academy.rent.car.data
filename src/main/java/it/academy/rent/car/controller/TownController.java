@@ -2,9 +2,9 @@ package it.academy.rent.car.controller;
 
 import it.academy.rent.car.bean.Country;
 import it.academy.rent.car.bean.Town;
-import it.academy.rent.car.service.CountryService;
-import it.academy.rent.car.service.TownService;
-import org.springframework.beans.factory.annotation.Autowired;
+import it.academy.rent.car.service.impl.CountryServiceImpl;
+import it.academy.rent.car.service.impl.TownServiceImpl;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -18,12 +18,10 @@ import java.util.List;
 import static it.academy.rent.car.util.InitConstant.ID;
 
 @Controller
-//@RequestMapping("/admin")
+@RequiredArgsConstructor
 public class TownController {
-    @Autowired
-    private CountryService countryService;
-    @Autowired
-    private TownService townService;
+    private final CountryServiceImpl countryService;
+    private final TownServiceImpl townService;
 
     @GetMapping("/createTown")
     public String saveTown(Town town) {

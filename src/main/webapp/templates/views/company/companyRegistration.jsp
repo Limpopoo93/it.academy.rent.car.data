@@ -26,21 +26,21 @@
 
             <div class="pick-location bookinput-item">
                 <select class="custom-select" name="country" onChange="MkHouseValues(this.selectedIndex)">
-                    <option value="Russia" >Russia</option>
+                    <option value="Russia">Russia</option>
                     <option value="England">England</option>
                     <option value="Italy">Italy</option>
                     <option value="France">France</option>
                     <option value="Ukraine">Ukraine</option>
-                    <option value="Finland" >Finland</option>
+                    <option value="Finland">Finland</option>
                     <option value="Sweden">Sweden</option>
                     <option value="Norway">Norway</option>
                     <option value="Denmark">Denmark</option>
-                    <option value="Poland" >Poland</option>
+                    <option value="Poland">Poland</option>
                     <option value="Germany">Germany</option>
                     <option value="Spain">Spain</option>
                     <option value="Portugal">Portugal</option>
                     <option value="Austria">Austria</option>
-                    <option value="Czech Republic" >Czech Republic</option>
+                    <option value="Czech Republic">Czech Republic</option>
                     <option value="Slovakia">Slovakia</option>
                     <option value="Bulgaria">Bulgaria</option>
                     <option value="Turkey">Turkey</option>
@@ -83,24 +83,24 @@
         "Ankara, Kayseri, Antalya"
     );
 
-    function getHouseValuesByStreet(index){
+    function getHouseValuesByStreet(index) {
         var sHouseValues = aHouseValues[index];
         return sHouseValues.split(",");
     }
 
-    function MkHouseValues(index){
+    function MkHouseValues(index) {
         var aCurrHouseValues = getHouseValuesByStreet(index);
         var nCurrHouseValuesCnt = aCurrHouseValues.length;
         var oHouseList = document.forms["address"].elements["town"];
         var oHouseListOptionsCnt = oHouseList.options.length;
         oHouseList.length = 0;
-        for (i = 0; i < nCurrHouseValuesCnt; i++){
-            if (document.createElement){
+        for (i = 0; i < nCurrHouseValuesCnt; i++) {
+            if (document.createElement) {
                 var newHouseListOption = document.createElement("OPTION");
                 newHouseListOption.text = aCurrHouseValues[i];
                 newHouseListOption.value = aCurrHouseValues[i];
                 (oHouseList.options.add) ? oHouseList.options.add(newHouseListOption) : oHouseList.add(newHouseListOption, null);
-            }else{
+            } else {
                 oHouseList.options[i] = new Option(aCurrHouseValues[i], aCurrHouseValues[i], false, false);
             }
         }

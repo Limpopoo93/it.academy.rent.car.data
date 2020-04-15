@@ -10,11 +10,11 @@ import static it.academy.rent.car.util.DBConstant.*;
 import static it.academy.rent.car.util.ErrorConstant.*;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
-@EqualsAndHashCode(exclude = {"company", "price"})
-@ToString(exclude = {"company", "price"})
-
+@RequiredArgsConstructor
+@Setter
+@Getter
+@EqualsAndHashCode(exclude = {"company"})
+@ToString(exclude = {"company"})
 @Entity
 @Table(name = DB_CAR)
 public class Car {
@@ -52,91 +52,4 @@ public class Car {
     @Column(name = DB_CAR_REMOTE)
     private Boolean carRemote;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getNameCar() {
-        return nameCar;
-    }
-
-    public void setNameCar(String nameCar) {
-        this.nameCar = nameCar;
-    }
-
-    public String getTypeFuel() {
-        return typeFuel;
-    }
-
-    public void setTypeFuel(String typeFuel) {
-        this.typeFuel = typeFuel;
-    }
-
-    public Long getColDoors() {
-        return colDoors;
-    }
-
-    public void setColDoors(Long colDoors) {
-        this.colDoors = colDoors;
-    }
-
-    public Long getColPeople() {
-        return colPeople;
-    }
-
-    public void setColPeople(Long colPeople) {
-        this.colPeople = colPeople;
-    }
-
-    public Long getMileage() {
-        return mileage;
-    }
-
-    public void setMileage(Long mileage) {
-        this.mileage = mileage;
-    }
-
-    public String getMakeCar() {
-        return makeCar;
-    }
-
-    public void setMakeCar(String makeCar) {
-        this.makeCar = makeCar;
-    }
-
-    public String getTypeCar() {
-        return typeCar;
-    }
-
-    public void setTypeCar(String typeCar) {
-        this.typeCar = typeCar;
-    }
-
-    public Company getCompany() {
-        return company;
-    }
-
-    public void setCompany(Company company) {
-        this.company = company;
-    }
-
-    public Boolean getCarRemote() {
-        return carRemote;
-    }
-
-    public void setCarRemote(Boolean carRemote) {
-        this.carRemote = carRemote;
-    }
-
-    public Long getPrice() {
-        return price;
-    }
-
-    public void setPrice(Long price) {
-        this.price = price;
-    }
 }

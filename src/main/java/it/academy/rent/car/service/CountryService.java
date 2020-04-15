@@ -1,34 +1,18 @@
 package it.academy.rent.car.service;
 
 import it.academy.rent.car.bean.Country;
-import it.academy.rent.car.repository.CountryRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
-public class CountryService {
-    @Autowired
-    private CountryRepository countryRepository;
+public interface CountryService {
+    Country save(Country country);
 
-    public Country save(Country country) {
-        return countryRepository.save(country);
-    }
+    List<Country> findByCountryRemote(Boolean isDelete);
 
-    public List<Country> findByCountryRemote(Boolean isDelete) {
-        return countryRepository.findByCountryRemote(isDelete);
-    }
+    Country findById(Long id);
 
-    public Country findById(Long id) {
-        return countryRepository.findById(id).orElse(null);
-    }
+    Country saveAndFlush(Country country);
 
-    public Country saveAndFlush(Country country) {
-        return countryRepository.saveAndFlush(country);
-    }
+    Country findByNameCountry(String country);
 
-    public Country findByNameCountry(String country) {
-        return countryRepository.findByNameCountry(country);
-    }
 }

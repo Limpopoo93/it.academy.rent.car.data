@@ -15,9 +15,9 @@
     </thead>
     <tbody>
     <c:forEach items="${towns}" var="town">
-        <tr>
-            <td>${town.getTown()}</td>
-    </c:forEach>
+    <tr>
+        <td>${town.getTown()}</td>
+        </c:forEach>
     </tbody>
 </table>
 <div class="form">

@@ -3,10 +3,10 @@ package it.academy.rent.car.controller;
 import it.academy.rent.car.bean.Authenticate;
 import it.academy.rent.car.bean.Car;
 import it.academy.rent.car.bean.Company;
-import it.academy.rent.car.service.BusyDateService;
-import it.academy.rent.car.service.CarService;
-import it.academy.rent.car.service.CompanyService;
-import org.springframework.beans.factory.annotation.Autowired;
+import it.academy.rent.car.service.impl.BusyDateServiceImpl;
+import it.academy.rent.car.service.impl.CarServiceImpl;
+import it.academy.rent.car.service.impl.CompanyServiceImpl;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -24,14 +24,11 @@ import static it.academy.rent.car.util.InitConstant.ID;
 
 
 @Controller
-//@RequestMapping("/company")
+@RequiredArgsConstructor
 public class CarController {
-    @Autowired
-    private CompanyService companyService;
-    @Autowired
-    private BusyDateService busyDateService;
-    @Autowired
-    private CarService carService;
+    private final CompanyServiceImpl companyService;
+    private final BusyDateServiceImpl busyDateService;
+    private final CarServiceImpl carService;
 
     @GetMapping("/createCar")
     public String saveCar(Car car) {
@@ -59,15 +56,16 @@ public class CarController {
     public String carFindAllByCompany(HttpSession session, Model model) {
         Authenticate authenticate = (Authenticate) session.getAttribute(AUTHENTICATE);
         Company company = companyService.findByIdAndAuthenticate(authenticate.getId());
-        if(company == null){
+        if (company == null) {
             List<Car> cars = new ArrayList<>();
             model.addAttribute("cars", cars);
-        }else {
+        } else {
             List<Car> cars = carService.findByIdCompany(company.getId(), true);
             model.addAttribute("cars", cars);
         }
-            return "car/carList";
+        return "car/carList";
     }
+
     @GetMapping("/carDeleteId/{id}")
     public String deleteCar(@PathVariable(ID) Long id) {
         Car car = carService.findById(id);

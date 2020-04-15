@@ -1,46 +1,22 @@
 package it.academy.rent.car.service;
 
 import it.academy.rent.car.bean.Company;
-import it.academy.rent.car.repository.CompanyRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
-public class CompanyService {
-    @Autowired
-    private CompanyRepository companyRepository;
+public interface CompanyService {
+    Company findByNameCompany(String nameCompany);
 
-    public Company findByNameCompany(String nameCompany) {
-        return companyRepository.findByNameCompany(nameCompany);
-    }
+    Company save(Company company);
 
-    public Company save(Company company) {
-        return companyRepository.save(company);
-    }
+    Company findByIdAndAuthenticate(Long id);
 
-    public Company findByIdAndAuthenticate(Long id) {
-        return companyRepository.findByIdAndAuthenticate(id);
-    }
+    List<Company> findAll();
 
-    public List<Company> findAll() {
-        return companyRepository.findAll();
-    }
+    Company findById(Long id);
 
-    public Company findById(Long id) {
-        return companyRepository.findById(id).orElse(null);
-    }
+    Company findByNameCompanyAndEmail(String company, String email);
 
-    public void delete(Company company) {
-        companyRepository.delete(company);
-    }
+    Company saveAndFlush(Company company);
 
-    public Company findByNameCompanyAndEmail(String company, String email) {
-        return companyRepository.findByNameCompanyAndEmail(company, email);
-    }
-
-    public Company saveAndFlush(Company company) {
-        return companyRepository.saveAndFlush(company);
-    }
 }

@@ -1,7 +1,14 @@
 package it.academy.rent.car.bean;
 
+import lombok.*;
+
 import javax.persistence.*;
 
+@Data
+@Setter
+@Getter
+@EqualsAndHashCode
+@ToString
 @Entity
 @Table(name = "m_roles")
 public class Role {
@@ -18,42 +25,9 @@ public class Role {
     public Role() {
     }
 
-    public Role(Long userId,String role) {
+    public Role(Long userId, String role) {
         this.userId = userId;
         this.role = role;
 
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
-
-    @Override
-    public String toString() {
-        return "Role{" +
-                "id=" + id +
-                ", userId=" + userId +
-                ", role='" + role + '\'' +
-                '}';
     }
 }

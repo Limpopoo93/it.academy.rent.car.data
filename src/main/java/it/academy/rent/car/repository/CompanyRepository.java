@@ -5,10 +5,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 @Repository
-@Transactional
 public interface CompanyRepository extends JpaRepository<Company, Long> {
 
     @Query("select cm from Company cm where cm.authenticate.id = :id")
@@ -17,4 +15,5 @@ public interface CompanyRepository extends JpaRepository<Company, Long> {
     Company findByNameCompanyAndEmail(String nameCompany, String email);
 
     Company findByNameCompany(String nameCompany);
+
 }

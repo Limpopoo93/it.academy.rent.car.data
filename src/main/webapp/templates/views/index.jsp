@@ -40,7 +40,8 @@
                                     <li><a href="${pageContext.request.contextPath}companyRegistration">Create User
                                         Company</a></li>
 
-                                    <li><a href="${pageContext.request.contextPath}userDeleteByUser">Delete User</a></li>
+                                    <li><a href="${pageContext.request.contextPath}userDeleteByUser">Delete User</a>
+                                    </li>
 
                                     <li><a href="${pageContext.request.contextPath}userUpdate">Update User</a></li>
 
@@ -64,14 +65,17 @@
                             </li>
                             <li><a>Company</a>
                                 <ul>
-                                    <li><a href="${pageContext.request.contextPath}createCompany">Create Company</a></li>
+                                    <li><a href="${pageContext.request.contextPath}createCompany">Create Company</a>
+                                    </li>
                                     <li><a href="${pageContext.request.contextPath}listCompany">List Company</a></li>
-                                    <li><a href="${pageContext.request.contextPath}deleteCompany">Delete Company</a></li>
+                                    <li><a href="${pageContext.request.contextPath}deleteCompany">Delete Company</a>
+                                    </li>
                                 </ul>
                             </li>
                             <li><a>Country</a>
                                 <ul>
-                                    <li><a href="${pageContext.request.contextPath}countryRegistration">Create Country</a></li>
+                                    <li><a href="${pageContext.request.contextPath}countryRegistration">Create
+                                        Country</a></li>
                                     <li><a href="${pageContext.request.contextPath}listCountry">List Country</a></li>
                                 </ul>
                             </li>
@@ -105,25 +109,26 @@
             <div class="col-lg-12">
                 <div class="booka-car-content">
                     <%--@elvariable id="carSearch" type="it.academy.rent.car.bean.CarSearch"--%>
-                    <form:form class="register-form" name="address" action="${pageContext.request.contextPath}user/searchFormCountry"
+                    <form:form class="register-form" name="address"
+                               action="${pageContext.request.contextPath}searchFormCountry"
                                method="post" modelAttribute="carSearch">
                         <div class="pick-location bookinput-item">
                             <select class="custom-select" name="country" onChange="MkHouseValues(this.selectedIndex)">
-                                <option value="Russia" >Russia</option>
+                                <option value="Russia">Russia</option>
                                 <option value="England">England</option>
                                 <option value="Italy">Italy</option>
                                 <option value="France">France</option>
                                 <option value="Ukraine">Ukraine</option>
-                                <option value="Finland" >Finland</option>
+                                <option value="Finland">Finland</option>
                                 <option value="Sweden">Sweden</option>
                                 <option value="Norway">Norway</option>
                                 <option value="Denmark">Denmark</option>
-                                <option value="Poland" >Poland</option>
+                                <option value="Poland">Poland</option>
                                 <option value="Germany">Germany</option>
                                 <option value="Spain">Spain</option>
                                 <option value="Portugal">Portugal</option>
                                 <option value="Austria">Austria</option>
-                                <option value="Czech Republic" >Czech Republic</option>
+                                <option value="Czech Republic">Czech Republic</option>
                                 <option value="Slovakia">Slovakia</option>
                                 <option value="Bulgaria">Bulgaria</option>
                                 <option value="Turkey">Turkey</option>
@@ -193,7 +198,8 @@
                         </div>
                         <div class="media-body">
                             <h4>RENTAL CAR</h4>
-                            <p>You can be a celebrity for a full night and half days with a nice one of our amazing Limousines, Hummers.</p>
+                            <p>You can be a celebrity for a full night and half days with a nice one of our amazing
+                                Limousines, Hummers.</p>
                         </div>
                     </div>
                 </div>
@@ -207,7 +213,8 @@
                         </div>
                         <div class="media-body">
                             <h4>CAR REPAIR</h4>
-                            <p>You can be a celebrity for a full night and half days with a nice one of our amazing Limousines, Hummers.</p>
+                            <p>You can be a celebrity for a full night and half days with a nice one of our amazing
+                                Limousines, Hummers.</p>
                         </div>
                     </div>
                 </div>
@@ -221,7 +228,8 @@
                         </div>
                         <div class="media-body">
                             <h4>TAXI SERVICE</h4>
-                            <p>You can be a celebrity for a full night and half days with a nice one of our amazing Limousines, Hummers.</p>
+                            <p>You can be a celebrity for a full night and half days with a nice one of our amazing
+                                Limousines, Hummers.</p>
                         </div>
                     </div>
                 </div>
@@ -235,7 +243,8 @@
                         </div>
                         <div class="media-body">
                             <h4>life insurance</h4>
-                            <p>You can be a celebrity for a full night and half days with a nice one of our amazing Limousines, Hummers.</p>
+                            <p>You can be a celebrity for a full night and half days with a nice one of our amazing
+                                Limousines, Hummers.</p>
                         </div>
                     </div>
                 </div>
@@ -249,7 +258,8 @@
                         </div>
                         <div class="media-body">
                             <h4>car wash</h4>
-                            <p>You can be a celebrity for a full night and half days with a nice one of our amazing Limousines, Hummers.</p>
+                            <p>You can be a celebrity for a full night and half days with a nice one of our amazing
+                                Limousines, Hummers.</p>
                         </div>
                     </div>
                 </div>
@@ -263,7 +273,8 @@
                         </div>
                         <div class="media-body">
                             <h4>call driver</h4>
-                            <p>You can be a celebrity for a full night and half days with a nice one of our amazing Limousines, Hummers.</p>
+                            <p>You can be a celebrity for a full night and half days with a nice one of our amazing
+                                Limousines, Hummers.</p>
                         </div>
                     </div>
                 </div>
@@ -287,7 +298,10 @@
                     <div class="row">
                         <div class="col-lg-12 text-center">
                             <p>
-                                Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by Colorlib</a>
+                                Copyright &copy;<script>document.write(new Date().getFullYear());</script>
+                                All rights reserved | This template is made with <i class="fa fa-heart-o"
+                                                                                    aria-hidden="true"></i> by
+                                Colorlib</a>
                             </p>
                         </div>
                     </div>
@@ -296,7 +310,6 @@
         </div>
     </div>
 </section>
-
 
 
 </body>
@@ -324,24 +337,24 @@
         "Ankara, Kayseri, Antalya"
     );
 
-    function getHouseValuesByStreet(index){
+    function getHouseValuesByStreet(index) {
         var sHouseValues = aHouseValues[index];
         return sHouseValues.split(",");
     }
 
-    function MkHouseValues(index){
+    function MkHouseValues(index) {
         var aCurrHouseValues = getHouseValuesByStreet(index);
         var nCurrHouseValuesCnt = aCurrHouseValues.length;
         var oHouseList = document.forms["address"].elements["town"];
         var oHouseListOptionsCnt = oHouseList.options.length;
         oHouseList.length = 0;
-        for (i = 0; i < nCurrHouseValuesCnt; i++){
-            if (document.createElement){
+        for (i = 0; i < nCurrHouseValuesCnt; i++) {
+            if (document.createElement) {
                 var newHouseListOption = document.createElement("OPTION");
                 newHouseListOption.text = aCurrHouseValues[i];
                 newHouseListOption.value = aCurrHouseValues[i];
                 (oHouseList.options.add) ? oHouseList.options.add(newHouseListOption) : oHouseList.add(newHouseListOption, null);
-            }else{
+            } else {
                 oHouseList.options[i] = new Option(aCurrHouseValues[i], aCurrHouseValues[i], false, false);
             }
         }
@@ -894,6 +907,7 @@
     a.bg-light:focus, a.bg-light:hover {
         background-color: #dae0e5 !important
     }
+
     a.bg-dark:focus, a.bg-dark:hover {
         background-color: #1d2124 !important
     }
@@ -922,7 +936,6 @@
             display: none !important
         }
     }
-
 
 
     .embed-responsive .embed-responsive-item, .embed-responsive embed, .embed-responsive iframe, .embed-responsive object, .embed-responsive video {
@@ -1184,14 +1197,17 @@
         margin: 0 auto;
         width: 680px;
     }
+
     .nav a {
         display: block;
         text-decoration: none;
     }
+
     .nav > li {
         float: left;
         margin-right: 3px;
     }
+
     .nav > li > a {
         height: 34px;
         line-height: 34px;
@@ -1209,6 +1225,7 @@
         -webkit-box-shadow: inset 0 1px rgba(255, 255, 255, 0.3), inset 0 -2px 2px rgba(0, 0, 0, 0.03), 0 2px white, 0 0 2px rgba(0, 0, 0, 0.2);
         box-shadow: inset 0 1px rgba(255, 255, 255, 0.3), inset 0 -2px 2px rgba(0, 0, 0, 0.03), 0 2px white, 0 0 2px rgba(0, 0, 0, 0.2);
     }
+
     .nav > li > a:hover {
         text-decoration: none;
         background: #85a6b8;
@@ -1217,6 +1234,7 @@
         background-image: -o-linear-gradient(top, #afc5d1, #85a6b8);
         background-image: linear-gradient(to bottom, #afc5d1, #85a6b8);
     }
+
     .nav > li.active > a, .nav > li > a:active, .nav > .dropdown:hover > a {
         background: white;
         color: #404040;
@@ -1224,11 +1242,13 @@
         -webkit-box-shadow: 0 2px white, 0 0 2px rgba(0, 0, 0, 0.2);
         box-shadow: 0 2px white, 0 0 2px rgba(0, 0, 0, 0.2);
     }
+
     .nav a.icon {
         position: relative;
         width: 40.8px;
         padding: 0;
     }
+
     .nav a.icon > span {
         display: block;
         position: absolute;
@@ -1242,6 +1262,7 @@
         text-shadow: none;
         color: transparent;
     }
+
     .nav .active a.icon > span, .nav a.icon:active > span {
         background-position: 0 -16px;
     }
@@ -1250,9 +1271,11 @@
         position: relative;
         border-bottom: 5px solid white;
     }
+
     .dropdown:hover ul {
         display: block;
     }
+
     .dropdown ul {
         display: none;
         position: absolute;
@@ -1267,29 +1290,35 @@
         -webkit-box-shadow: 0 0 1px rgba(0, 0, 0, 0.04);
         box-shadow: 0 0 1px rgba(0, 0, 0, 0.04);
     }
+
     .dropdown ul.large {
         min-width: 200px;
     }
+
     .dropdown li {
         display: block;
         margin: 0 18px;
         overflow: visible;
     }
+
     .dropdown li + li {
         border-top: 1px solid #eee;
     }
+
     .dropdown li a {
         color: #555;
         padding: 8px 18px;
         margin: 0 -18px;
     }
+
     .dropdown li a:hover {
         color: black;
     }
 
-    .footer-bottom-area{
+    .footer-bottom-area {
         background: lime;
     }
+
     .overlay {
         position: relative;
         z-index: 1;
@@ -1600,7 +1629,6 @@
     }
 
 
-
     .bookinput-item {
         border: 1px solid #fff;
         display: block;
@@ -1736,11 +1764,13 @@
     .booka-car-content .bookcar-btn:hover {
         border: medium none;
     }
+
     @media only screen and (min-width: 992px) {
 
         .slider-right-text h1 {
             font-size: 45px;
         }
+
         .about-btn a {
             padding: 6px 30px;
         }
@@ -1761,14 +1791,17 @@
         .mobile-app-content h2 {
             font-size: 70px;
         }
+
         .app-btns a {
             font-size: 16px;
             margin-right: 40px;
             padding: 10px 20px;
         }
+
         .single-article .article-thumb {
             margin-right: 0;
         }
+
         .single-article.middle .article-thumb {
             margin-left: 0;
         }
@@ -1783,6 +1816,7 @@
             font-size: 13px;
             margin-bottom: 0;
         }
+
         .single-testimonial p,
         .single-testimonial h3 {
             text-align: left;
@@ -1796,15 +1830,16 @@
         #book-a-car {
             padding-top: 0;
         }
+
         .booka-car-content {
             margin-top: -120px;
         }
 
 
-
-        .car-list-content .col-lg-6:nth-child(3)  {
+        .car-list-content .col-lg-6:nth-child(3) {
             margin-bottom: 0;
         }
+
         .pricing-details-content .col-lg-6:nth-child(3)
 
     }
@@ -1815,6 +1850,7 @@
         .slideshowcontent h1 {
             font-size: 45px;
         }
+
         .about-btn a {
             padding: 6px 30px;
         }
@@ -1822,6 +1858,7 @@
         .funfact-content-wrap .col-lg-4:last-child .single-funfact {
             margin-bottom: 0;
         }
+
         .choose-content-wrap ul.nav-tabs .nav-item {
             margin-bottom: 0 !important;
         }
@@ -1829,6 +1866,7 @@
         .single-footer-widget {
             margin-bottom: 50px;
         }
+
         #footer-area .col-lg-4:last-child .single-footer-widget,
         #pricing-area .col-lg-4:last-child .single-pricing-table {
             margin-bottom: 0;
@@ -1837,11 +1875,13 @@
         .mobile-app-content h2 {
             font-size: 40px;
         }
+
         .app-btns a {
             font-size: 16px;
             margin-right: 40px;
             padding: 10px 20px;
         }
+
         .app-btns a i {
             font-size: 20px;
         }
@@ -1859,6 +1899,7 @@
             font-size: 13px;
             margin-bottom: 0;
         }
+
         .single-testimonial p,
         .single-testimonial h3 {
             text-align: left;
@@ -1869,12 +1910,15 @@
             margin-bottom: 15px;
             width: 49.5%;
         }
+
         .bookinput-item:nth-child(2) {
             margin-right: 0
         }
+
         .bookinput-item:nth-child(4) {
             margin-right: 0
         }
+
         .bookinput-item:last-child {
             margin-bottom: 0
         }
@@ -1882,7 +1926,6 @@
         .service-content .col-lg-6:nth-child(5) .single-service {
             margin-bottom: 0;
         }
-
 
 
         .car-list-content .col-lg-6:nth-child(3) .single-car-wrap {
@@ -1907,6 +1950,7 @@
         .slideshowcontent h1 {
             font-size: 30px;
         }
+
         .about-btn a {
             padding: 5px 25px;
         }
@@ -1914,6 +1958,7 @@
         .funfact-content-wrap .col-lg-4:last-child .single-funfact {
             margin-bottom: 0;
         }
+
         .choose-content-wrap ul.nav-tabs li.nav-item {
             margin-bottom: 10px !important;
         }
@@ -1921,6 +1966,7 @@
         .single-footer-widget {
             margin-bottom: 50px;
         }
+
         #footer-area .col-lg-4:last-child .single-footer-widget,
         #pricing-area .col-lg-4:last-child .single-pricing-table {
             margin-bottom: 0;
@@ -1929,11 +1975,13 @@
         .mobile-app-content h2 {
             font-size: 26px;
         }
+
         .app-btns a {
             font-size: 13px;
             margin-right: 10px;
             padding: 8px 15px;
         }
+
         .app-btns a i {
             font-size: 13px;
         }
@@ -1951,6 +1999,7 @@
             font-size: 12px;
             margin-bottom: 150px;
         }
+
         .single-testimonial p,
         .single-testimonial h3 {
             text-align: center;
@@ -1971,6 +2020,7 @@
 
 
     }
+
     @import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700');
     @import url('https://fonts.googleapis.com/css?family=Monoton');
 
@@ -1981,7 +2031,7 @@
     }
 
     * {
-        outline: none!important
+        outline: none !important
     }
 
     .alignright {
@@ -2028,6 +2078,7 @@
     a:hover {
         text-decoration: none
     }
+
     input:-webkit-autofill,
     input:-webkit-autofill:hover,
     input:-webkit-autofill:focus {
@@ -2053,11 +2104,13 @@
         background-color: #fff;
         color: #fab702;
     }
+
     @font-face {
         font-family: 'FontAwesome';
         font-weight: normal;
         font-style: normal;
     }
+
     .fa {
         display: inline-block;
         font: normal normal normal 14px/1 FontAwesome;
@@ -2075,6 +2128,7 @@
         width: 100%;
         text-align: center;
     }
+
     .gj-datepicker-md [role="right-icon"] {
         cursor: pointer;
         position: absolute;
@@ -2130,6 +2184,7 @@
         -webkit-box-shadow: none;
         box-shadow: none;
     }
+
     .gj-calendar-bootstrap table tr td div,
     .gj-calendar-bootstrap table tr th div {
         display: block;
@@ -2162,7 +2217,7 @@
         font-weight: bold;
     }
 
-    .gj-calendar-bootstrap table tr td.selected div  {
+    .gj-calendar-bootstrap table tr td.selected div {
         color: #fff;
         background-color: #204d74;
         border-color: #122b40;
@@ -2173,6 +2228,7 @@
     .gj-calendar-bootstrap table tr td.disabled div {
         color: #777;
     }
+
     .gj-datepicker-bootstrap span[role="right-icon"].input-group-addon {
         border-top-left-radius: 0px;
         border-bottom-left-radius: 0px;
@@ -2189,6 +2245,7 @@
         top: 7px;
         left: 7px;
     }
+
     .gj-datepicker-bootstrap span[role="right-icon"].input-group-append,
     .gj-datepicker-bootstrap span[role="right-icon"].input-group-prepend {
         width: 38px;
@@ -2212,10 +2269,12 @@
         top: 7px;
         font-size: 21px;
     }
+
     .owl-carousel .owl-stage {
         position: relative;
         -ms-touch-action: pan-Y;
     }
+
     .owl-carousel .owl-stage:after {
         content: ".";
         display: block;
@@ -2224,9 +2283,11 @@
         line-height: 0;
         height: 0;
     }
+
     .owl-carousel .owl-refresh .owl-item {
         display: none;
     }
+
     .owl-carousel .owl-item {
         position: relative;
         min-height: 1px;

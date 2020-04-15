@@ -1,30 +1,16 @@
 package it.academy.rent.car.service;
 
 import it.academy.rent.car.bean.Letter;
-import it.academy.rent.car.repository.LetterRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
-public class LetterService {
-    @Autowired
-    private LetterRepository letterRepository;
+public interface LetterService {
+    Letter save(Letter letter);
 
-    public Letter save(Letter letter) {
-        return letterRepository.save(letter);
-    }
+    List<Letter> findByLetterRemote(Boolean isDelete);
 
-    public List<Letter> findByLetterRemote(Boolean isDelete) {
-        return letterRepository.findByLetterRemote(isDelete);
-    }
+    Letter findById(Long id);
 
-    public Letter findById(Long id) {
-        return letterRepository.findById(id).orElse(null);
-    }
+    Letter saveAndFlush(Letter letter);
 
-    public Letter saveAndFlush(Letter letter) {
-        return letterRepository.saveAndFlush(letter);
-    }
 }

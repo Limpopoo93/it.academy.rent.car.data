@@ -10,11 +10,11 @@ import static it.academy.rent.car.util.DBConstant.*;
 import static it.academy.rent.car.util.ErrorConstant.TEXT_INVALID;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
+@RequiredArgsConstructor
+@Setter
+@Getter
 @EqualsAndHashCode(exclude = {"authenticate"})
 @ToString(exclude = {"authenticate"})
-
 @Entity
 @Table(name = DB_LETTER)
 public class Letter {
@@ -31,35 +31,4 @@ public class Letter {
     @Column(name = DB_LETTER_REMOTE)
     private Boolean letterRemote;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getTextLetter() {
-        return textLetter;
-    }
-
-    public void setTextLetter(String textLetter) {
-        this.textLetter = textLetter;
-    }
-
-    public Authenticate getAuthenticate() {
-        return authenticate;
-    }
-
-    public void setAuthenticate(Authenticate authenticate) {
-        this.authenticate = authenticate;
-    }
-
-    public Boolean getLetterRemote() {
-        return letterRemote;
-    }
-
-    public void setLetterRemote(Boolean letterRemote) {
-        this.letterRemote = letterRemote;
-    }
 }

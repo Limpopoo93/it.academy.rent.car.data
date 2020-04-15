@@ -10,11 +10,11 @@ import static it.academy.rent.car.util.DBConstant.*;
 import static it.academy.rent.car.util.ErrorConstant.NAME_PHOTO_INVALID;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
-@EqualsAndHashCode(exclude = {"typePhoto", "car"})
-@ToString(exclude = {"typePhoto", "car"})
-
+@RequiredArgsConstructor
+@Setter
+@Getter
+@EqualsAndHashCode(exclude = {"car", "typePhoto"})
+@ToString(exclude = {"car", "typePhoto"})
 @Entity
 @Table(name = DB_PHOTO_CAR)
 public class PhotoCar {
@@ -35,43 +35,4 @@ public class PhotoCar {
     @Column(name = DB_PHOTO_CAR_REMOTE)
     private Boolean photoCarRemote;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getNamePhoto() {
-        return namePhoto;
-    }
-
-    public void setNamePhoto(String namePhoto) {
-        this.namePhoto = namePhoto;
-    }
-
-    public byte[] getTypePhoto() {
-        return typePhoto;
-    }
-
-    public void setTypePhoto(byte[] typePhoto) {
-        this.typePhoto = typePhoto;
-    }
-
-    public Car getCar() {
-        return car;
-    }
-
-    public void setCar(Car car) {
-        this.car = car;
-    }
-
-    public Boolean getPhotoCarRemote() {
-        return photoCarRemote;
-    }
-
-    public void setPhotoCarRemote(Boolean photoCarRemote) {
-        this.photoCarRemote = photoCarRemote;
-    }
 }

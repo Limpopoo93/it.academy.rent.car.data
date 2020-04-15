@@ -40,7 +40,7 @@
                             <div class="form-header">
                                 <h3>Registration Form</h3>
                             </div>
-                            
+
                             <%--@elvariable id="country" type="it.academy.rent.car.bean.Country"--%>
                             <form:form class="register-form"
                                        action="${pageContext.request.contextPath}listTown"
@@ -48,21 +48,21 @@
                                 Country:
 
                                 <select name="nameCountry">
-                                    <option value="Russia" >Russia</option>
+                                    <option value="Russia">Russia</option>
                                     <option value="England">England</option>
                                     <option value="Italy">Italy</option>
                                     <option value="France">France</option>
                                     <option value="Ukraine">Ukraine</option>
-                                    <option value="Finland" >Finland</option>
+                                    <option value="Finland">Finland</option>
                                     <option value="Sweden">Sweden</option>
                                     <option value="Norway">Norway</option>
                                     <option value="Denmark">Denmark</option>
-                                    <option value="Poland" >Poland</option>
+                                    <option value="Poland">Poland</option>
                                     <option value="Germany">Germany</option>
                                     <option value="Spain">Spain</option>
                                     <option value="Portugal">Portugal</option>
                                     <option value="Austria">Austria</option>
-                                    <option value="Czech Republic" >Czech Republic</option>
+                                    <option value="Czech Republic">Czech Republic</option>
                                     <option value="Slovakia">Slovakia</option>
                                     <option value="Bulgaria">Bulgaria</option>
                                     <option value="Turkey">Turkey</option>
@@ -82,13 +82,13 @@
         <div class="swiper-wrapper">
             <div class="swiper-slide">
                 <div class="home-img">
-                    <div class="bg-bg" >
+                    <div class="bg-bg">
                     </div>
                 </div>
             </div>
             <div class="swiper-slide">
                 <div class="home-img">
-                    <div class="bg-bg" >
+                    <div class="bg-bg">
                     </div>
                 </div>
             </div>
@@ -1098,7 +1098,7 @@
         border-top: 1px solid #ddd;
     }
 
-    table th+th,table td+td,table th+td {
+    table th + th, table td + td, table th + td {
         border-left: 1px solid #ddd;
     }
 

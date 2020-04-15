@@ -43,25 +43,31 @@
     </thead>
     <tbody>
     <c:forEach items="${authenticates}" var="authenticate">
-    <tr>
-        <td>${authenticate.getLogin()}</td>
-        <td>${authenticate.getPassword()}</td>
-        <td>${authenticate.getEmail()}</td>
-        <td>${authenticate.isProfileClose()}</td>
-        <td>${authenticate.getRoles()}</td>
-        <td> <form action="<c:url value="userDeleteId/${authenticate.id}"/>" method="get">
-            <button class="button block"><i class="fa fa-lock">Delete</i>
-            </button>
-        </form></td>
-        <td><form action="<c:url value="userBlockId/${authenticate.id}"/>" method="get">
-            <button class="button block"><i class="fa fa-lock">Block User</i>
-            </button>
-        </form></td>
-        <td> <form action="<c:url value="userUnBlockId/${authenticate.id}"/>" method="get">
-            <button class="button block"><i class="fa fa-lock">Unblock User</i>
-            </button>
-        </form></td>
-    </tr>
+        <tr>
+            <td>${authenticate.getLogin()}</td>
+            <td>${authenticate.getPassword()}</td>
+            <td>${authenticate.getEmail()}</td>
+            <td>${authenticate.isProfileClose()}</td>
+            <td>${authenticate.getRoles()}</td>
+            <td>
+                <form action="<c:url value="userDeleteId/${authenticate.id}"/>" method="get">
+                    <button class="button block"><i class="fa fa-lock">Delete</i>
+                    </button>
+                </form>
+            </td>
+            <td>
+                <form action="<c:url value="userBlockId/${authenticate.id}"/>" method="get">
+                    <button class="button block"><i class="fa fa-lock">Block User</i>
+                    </button>
+                </form>
+            </td>
+            <td>
+                <form action="<c:url value="userUnBlockId/${authenticate.id}"/>" method="get">
+                    <button class="button block"><i class="fa fa-lock">Unblock User</i>
+                    </button>
+                </form>
+            </td>
+        </tr>
     </c:forEach>
     </tbody>
 </table>
@@ -1064,7 +1070,7 @@
         border-top: 1px solid #ddd;
     }
 
-    table th+th,table td+td,table th+td {
+    table th + th, table td + td, table th + td {
         border-left: 1px solid #ddd;
     }
 

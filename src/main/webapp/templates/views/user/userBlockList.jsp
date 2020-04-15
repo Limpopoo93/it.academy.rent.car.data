@@ -46,12 +46,14 @@
         <td>${authenticate.getPassword()}</td>
         <td>${authenticate.getEmail()}</td>
         <td>${authenticate.isProfileClose()}</td>
-        <td><form action="<c:url value="userBlock/${authenticate.id}"/>" method="get">
-            <button class="button block"><i class="fa fa-lock">UnBlock User</i>
-            </button>
-        </form></td>
+        <td>
+            <form action="<c:url value="userBlock/${authenticate.id}"/>" method="get">
+                <button class="button block"><i class="fa fa-lock">UnBlock User</i>
+                </button>
+            </form>
+        </td>
     <tr>
-    </c:forEach>
+        </c:forEach>
     </tbody>
 </table>
 </body>
@@ -1053,7 +1055,7 @@
         border-top: 1px solid #ddd;
     }
 
-    table th+th,table td+td,table th+td {
+    table th + th, table td + td, table th + td {
         border-left: 1px solid #ddd;
     }
 

@@ -63,13 +63,13 @@
         <div class="swiper-wrapper">
             <div class="swiper-slide">
                 <div class="home-img">
-                    <div class="bg-bg" >
+                    <div class="bg-bg">
                     </div>
                 </div>
             </div>
             <div class="swiper-slide">
                 <div class="home-img">
-                    <div class="bg-bg" >
+                    <div class="bg-bg">
                     </div>
                 </div>
             </div>

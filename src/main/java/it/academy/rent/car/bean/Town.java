@@ -11,11 +11,11 @@ import static it.academy.rent.car.util.ErrorConstant.NAME_TOWN_INVALID;
 import static it.academy.rent.car.util.InitConstant.TOWN;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
+@RequiredArgsConstructor
+@Setter
+@Getter
 @EqualsAndHashCode(exclude = {"country"})
 @ToString(exclude = {"country"})
-
 @Entity
 @Table(name = DB_TOWN)
 public class Town {
@@ -31,36 +31,4 @@ public class Town {
     private Country country;
     @Column(name = DB_TOWN_REMOTE)
     private Boolean townRemote;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getNameTown() {
-        return nameTown;
-    }
-
-    public void setNameTown(String nameTown) {
-        this.nameTown = nameTown;
-    }
-
-    public Country getCountry() {
-        return country;
-    }
-
-    public void setCountry(Country country) {
-        this.country = country;
-    }
-
-    public Boolean getTownRemote() {
-        return townRemote;
-    }
-
-    public void setTownRemote(Boolean townRemote) {
-        this.townRemote = townRemote;
-    }
 }

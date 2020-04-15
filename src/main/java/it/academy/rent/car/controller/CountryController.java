@@ -1,8 +1,8 @@
 package it.academy.rent.car.controller;
 
 import it.academy.rent.car.bean.Country;
-import it.academy.rent.car.service.CountryService;
-import org.springframework.beans.factory.annotation.Autowired;
+import it.academy.rent.car.service.impl.CountryServiceImpl;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -16,10 +16,9 @@ import java.util.List;
 import static it.academy.rent.car.util.InitConstant.ID;
 
 @Controller
-//@RequestMapping("/admin")
+@RequiredArgsConstructor
 public class CountryController {
-    @Autowired
-    private CountryService countryService;
+    private final CountryServiceImpl countryService;
 
     //создание страны
     @GetMapping("/countryRegistration")

@@ -39,10 +39,12 @@
     <c:forEach items="${towns}" var="town">
         <tr>
             <td>${town.getNameTown()}</td>
-            <td> <form action="<c:url value="townDelete/${town.id}"/>" method="get">
-                <button class="button block"><i class="fa fa-lock">Delete</i>
-                </button>
-            </form></td>
+            <td>
+                <form action="<c:url value="townDelete/${town.id}"/>" method="get">
+                    <button class="button block"><i class="fa fa-lock">Delete</i>
+                    </button>
+                </form>
+            </td>
         </tr>
     </c:forEach>
     </tbody>
@@ -1046,7 +1048,7 @@
         border-top: 1px solid #ddd;
     }
 
-    table th+th,table td+td,table th+td {
+    table th + th, table td + td, table th + td {
         border-left: 1px solid #ddd;
     }
 

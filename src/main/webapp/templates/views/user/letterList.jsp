@@ -42,18 +42,22 @@
     <tbody>
     <c:forEach items="${letters}" var="letter">
         <tr>
-        <td>${letter.authenticate.getLogin()}</td>
-        <td>${letter.authenticate.getPassword()}</td>
-        <td>${letter.authenticate.getEmail()}</td>
-        <td>${letter.getTextLetter()}</td>
-            <td><form action="<c:url value="userUnBlockLetterId/${letter.authenticate.getId()}"/>" method="get">
-            <button class="button block"><i class="fa fa-lock">UnBlock</i>
-            </button>
-        </form></td>
-            <td> <form action="<c:url value="deleteLetter/${letter.getId()}"/>" method="get">
-            <button class="button block"><i class="fa fa-lock">DeleteLetter</i>
-            </button>
-        </form></td>
+            <td>${letter.authenticate.getLogin()}</td>
+            <td>${letter.authenticate.getPassword()}</td>
+            <td>${letter.authenticate.getEmail()}</td>
+            <td>${letter.getTextLetter()}</td>
+            <td>
+                <form action="<c:url value="userUnBlockLetterId/${letter.authenticate.getId()}"/>" method="get">
+                    <button class="button block"><i class="fa fa-lock">UnBlock</i>
+                    </button>
+                </form>
+            </td>
+            <td>
+                <form action="<c:url value="deleteLetter/${letter.getId()}"/>" method="get">
+                    <button class="button block"><i class="fa fa-lock">DeleteLetter</i>
+                    </button>
+                </form>
+            </td>
         </tr>
     </c:forEach>
     </tbody>
@@ -1057,7 +1061,7 @@
         border-top: 1px solid #ddd;
     }
 
-    table th+th,table td+td,table th+td {
+    table th + th, table td + td, table th + td {
         border-left: 1px solid #ddd;
     }
 
