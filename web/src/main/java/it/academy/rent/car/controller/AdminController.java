@@ -1,6 +1,7 @@
 package it.academy.rent.car.controller;
 
 import it.academy.rent.car.bean.*;
+import it.academy.rent.car.exeption.EntityNotFoundException;
 import it.academy.rent.car.service.impl.AuthenticateService;
 import it.academy.rent.car.service.impl.CompanyServiceImpl;
 import it.academy.rent.car.service.impl.LetterServiceImpl;
@@ -18,6 +19,8 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.List;
 
+import static it.academy.rent.car.util.ErrorConstant.LOGIN_PASSWORD_NOT_WALID;
+import static it.academy.rent.car.util.ErrorConstant.USER_EMPTY;
 import static it.academy.rent.car.util.InitConstant.*;
 import static it.academy.rent.car.util.PageConstant.INDEX;
 import static it.academy.rent.car.util.PageConstant.*;
@@ -46,13 +49,11 @@ public class AdminController {
         }
         Authenticate authenticateResult = authenticateService.findByLoginAndPassword(authenticate.getLogin(), authenticate.getPassword());
         if (authenticateResult == null) {
-            model.addAttribute("authenticateError", "user empty");
-            return REDIRECT_USER_COME;
+            throw new EntityNotFoundException(USER_EMPTY);
         }
         Authenticate authenticateSession = (Authenticate) session.getAttribute(AUTHENTICATE);
         if (authenticateResult.getLogin().equals(authenticateSession.getLogin()) && authenticateResult.getPassword().equals(authenticateSession.getPassword()) && authenticateResult.getEmail().equals(authenticateSession.getEmail())) {
-            model.addAttribute("authenticateError", "user dont deleted");
-            return REDIRECT_USER_DELETE;
+            throw new EntityNotFoundException(LOGIN_PASSWORD_NOT_WALID);
         } else {
             Authenticate authenticateBase = authenticateService.findByLoginAndPassword(authenticateResult.getLogin(), authenticateResult.getPassword());
             authenticateBase.setProfileRemote(false);
@@ -75,11 +76,10 @@ public class AdminController {
         Authenticate authenticateResult = authenticateService.findByLoginAndPassword(authenticate.getLogin(), authenticate.getPassword());
         if (authenticateResult == null) {
             authenticateService.saveAuthenticate(authenticate);
-            roleService.save(new Role(authenticate.getId(), "ROLE_ADMIN"));
+            roleService.save(new Role(authenticate.getId(), ROLE_ADMIN));
             return INDEX;
         }
-        model.addAttribute("authenticateError", "user empty");
-        return REDIRECT_ADMIN_CREATE;
+        throw new EntityNotFoundException(USER_EMPTY);
     }
 
     @GetMapping("/users")
@@ -148,15 +148,14 @@ public class AdminController {
         Authenticate authenticate = authenticateService.findById(id);
         authenticate.setProfileClose(true);
         authenticateService.saveAndFlush(authenticate);
-        //тут исправить станицу возврата т.к. замкнутый цикл получается
         return REDIRECT_USER_BLOCK_LIST;
     }
 
     @GetMapping("/listCompany")
     public String listAllByCompany(Model model) {
         List<Company> companies = companyService.findAll();
-        model.addAttribute("companies", companies);
-        return "company/companyList";
+        model.addAttribute(COMPANYS, companies);
+        return COMPANY_LIST;
     }
 
     @GetMapping("/listCompanyForm/{id}")
@@ -164,18 +163,18 @@ public class AdminController {
         Company company = companyService.findById(id);
         company.setCompanyRemote(false);
         companyService.saveAndFlush(company);
-        return "redirect:/listCompany";
+        return REDIRECT_COMPANY_LIST;
     }
 
     @GetMapping("/deleteCompany")
     public String deleteCompany(Company company) {
-        return "company/deleteCompany";
+        return DELETE_COMPANY;
     }
 
     @PostMapping("/deleteCompany")
     public String deleteCompany(@Valid Company company, BindingResult bindingResult, HttpSession session) {
         if (bindingResult.hasErrors()) {
-            return "company/deleteCompany";
+            return DELETE_COMPANY;
         }
         Authenticate authenticate = (Authenticate) session.getAttribute(AUTHENTICATE);
         if (company.getAuthenticate().getLogin().equals(authenticate.getLogin()) && company.getAuthenticate().getPassword().equals(authenticate.getPassword())) {
@@ -183,11 +182,10 @@ public class AdminController {
             if (companyResult != null) {
                 companyResult.setCompanyRemote(false);
                 companyService.saveAndFlush(companyResult);
+                return REDIRECT_DELETE_COMPANY;
             }
-        } else {
-            return "redirect:/deleteCompany";
         }
-        return "redirect:/deleteCompany";
+        throw new EntityNotFoundException(USER_EMPTY);
     }
 
 }

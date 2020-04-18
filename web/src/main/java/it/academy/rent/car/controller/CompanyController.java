@@ -4,6 +4,7 @@ import it.academy.rent.car.bean.Authenticate;
 import it.academy.rent.car.bean.CarSearch;
 import it.academy.rent.car.bean.Company;
 import it.academy.rent.car.bean.Role;
+import it.academy.rent.car.exeption.EntityNotFoundException;
 import it.academy.rent.car.service.impl.AuthenticateService;
 import it.academy.rent.car.service.impl.CompanyServiceImpl;
 import it.academy.rent.car.service.impl.RoleServiceImpl;
@@ -18,7 +19,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import static it.academy.rent.car.util.ErrorConstant.USER_EMPTY;
 import static it.academy.rent.car.util.InitConstant.AUTHENTICATE;
+import static it.academy.rent.car.util.InitConstant.ROLE_COMPANY;
 import static it.academy.rent.car.util.PageConstant.*;
 
 @Controller
@@ -44,28 +47,26 @@ public class CompanyController {
         Authenticate authenticateResult = authenticateService.findByLoginAndPassword(authenticate.getLogin(), authenticate.getPassword());
         if (authenticateResult == null) {
             authenticateService.saveAuthenticate(authenticate);
-            roleService.save(new Role(authenticate.getId(), "ROLE_COMPANY"));
+            roleService.save(new Role(authenticate.getId(), ROLE_COMPANY));
             return INDEX;
         }
-        model.addAttribute("companyError", "company busy");
-        return REDIRECT_COMPANY_REGISTRATION;
+        throw new EntityNotFoundException(USER_EMPTY);
     }
 
     @GetMapping("/createCompany")
     public String createByCompany(Company company) {
-        return "company/companyRegistration";
+        return COMPANY_CREATE;
     }
 
     @PostMapping("/createCompany")
     public String saveCompany(@Valid Company company, BindingResult bindingResult, HttpSession session) {
-        // приходит норм request но я не вижу города. решить проблему надо
         if (bindingResult.hasErrors()) {
-            return "user/userUpdateInfo";
+            return USER_UPDATE;
         }
         Authenticate authenticate = (Authenticate) session.getAttribute(AUTHENTICATE);
         company.setReting(0L);
         company.setAuthenticate(authenticate);
         companyService.save(company);
-        return "redirect:/createCompany";
+        return REDIRECT_CREATE_COMPANY;
     }
 }

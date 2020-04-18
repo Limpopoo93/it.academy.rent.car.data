@@ -57,7 +57,8 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
-                <h1 style="text-align: center" th:text="${error}"> ERROR!</h1>
+                <h1 style="text-align: center"> ERROR!</h1>
+                <p th:text="'Error, ' + ${error} + '!'"></p>
             </div>
         </div>
     </div>
@@ -78,9 +79,7 @@
             <!-- Section Title Start -->
             <div class="col-lg-12">
                 <div class="section-title  text-center">
-                    <h2>Our Services</h2>
-                    <span class="title-line"><i class="fa fa-car"></i></span>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+
                 </div>
             </div>
         </div>
@@ -93,11 +92,7 @@
                             <span></span>
 
                         </div>
-                        <div class="media-body">
-                            <h4>RENTAL CAR</h4>
-                            <p>You can be a celebrity for a full night and half days with a nice one of our amazing
-                                Limousines, Hummers.</p>
-                        </div>
+
                     </div>
                 </div>
             </div>
@@ -108,11 +103,7 @@
                             <span></span>
 
                         </div>
-                        <div class="media-body">
-                            <h4>CAR REPAIR</h4>
-                            <p>You can be a celebrity for a full night and half days with a nice one of our amazing
-                                Limousines, Hummers.</p>
-                        </div>
+
                     </div>
                 </div>
             </div>
@@ -123,11 +114,7 @@
                             <span></span>
 
                         </div>
-                        <div class="media-body">
-                            <h4>TAXI SERVICE</h4>
-                            <p>You can be a celebrity for a full night and half days with a nice one of our amazing
-                                Limousines, Hummers.</p>
-                        </div>
+
                     </div>
                 </div>
             </div>
@@ -138,11 +125,7 @@
                             <span></span>
 
                         </div>
-                        <div class="media-body">
-                            <h4>life insurance</h4>
-                            <p>You can be a celebrity for a full night and half days with a nice one of our amazing
-                                Limousines, Hummers.</p>
-                        </div>
+
                     </div>
                 </div>
             </div>
@@ -153,11 +136,7 @@
                             <span></span>
 
                         </div>
-                        <div class="media-body">
-                            <h4>car wash</h4>
-                            <p>You can be a celebrity for a full night and half days with a nice one of our amazing
-                                Limousines, Hummers.</p>
-                        </div>
+
                     </div>
                 </div>
             </div>
@@ -168,11 +147,7 @@
                             <span></span>
 
                         </div>
-                        <div class="media-body">
-                            <h4>call driver</h4>
-                            <p>You can be a celebrity for a full night and half days with a nice one of our amazing
-                                Limousines, Hummers.</p>
-                        </div>
+
                     </div>
                 </div>
             </div>

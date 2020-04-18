@@ -3,6 +3,7 @@ package it.academy.rent.car.controller;
 import it.academy.rent.car.bean.Authenticate;
 import it.academy.rent.car.bean.Car;
 import it.academy.rent.car.bean.Company;
+import it.academy.rent.car.exeption.EntityNotFoundException;
 import it.academy.rent.car.service.impl.BusyDateServiceImpl;
 import it.academy.rent.car.service.impl.CarServiceImpl;
 import it.academy.rent.car.service.impl.CompanyServiceImpl;
@@ -20,8 +21,9 @@ import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
-import static it.academy.rent.car.util.InitConstant.AUTHENTICATE;
-import static it.academy.rent.car.util.InitConstant.ID;
+import static it.academy.rent.car.util.ErrorConstant.USER_EMPTY;
+import static it.academy.rent.car.util.InitConstant.*;
+import static it.academy.rent.car.util.PageConstant.*;
 
 
 @Controller
@@ -36,25 +38,22 @@ public class CarController {
 
     @GetMapping("/createCar")
     public String saveCar(Car car) {
-        return "car/carCreate";
+        return CAR_CREATE;
     }
 
     @PostMapping("/createCar")
     public String saveCar(@Valid Car car, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
-            return "user/userUpdateInfo";
+            return USER_UPDATE;
         }
         Company company = companyService.findByNameCompany(car.getCompany().getNameCompany());
         if (company != null) {
             car.setCompany(company);
             carService.save(car);
+            return REDIRECT_CREATE_CAR;
         }
-        model.addAttribute("carError", "company empty");
-        return "redirect:/createCar";
+        throw new EntityNotFoundException(USER_EMPTY);
     }
-
-    //методы для поиска машины
-
 
     @GetMapping("/listCar")
     public String carFindAllByCompany(HttpSession session, Model model) {
@@ -62,12 +61,12 @@ public class CarController {
         Company company = companyService.findByIdAndAuthenticate(authenticate.getId());
         if (company == null) {
             List<Car> cars = new ArrayList<>();
-            model.addAttribute("cars", cars);
+            model.addAttribute(CARS, cars);
         } else {
             List<Car> cars = carService.findByIdCompany(company.getId(), true);
-            model.addAttribute("cars", cars);
+            model.addAttribute(CARS, cars);
         }
-        return "car/carList";
+        return CAR_LIST;
     }
 
     @GetMapping("/carDeleteId/{id}")
@@ -75,7 +74,7 @@ public class CarController {
         Car car = carService.findById(id);
         car.setCarRemote(false);
         carService.saveAndFlush(car);
-        return "redirect:/listCar";
+        return REDIRECT_LIST_CAR;
     }
 
 }

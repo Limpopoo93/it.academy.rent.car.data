@@ -1,6 +1,7 @@
 package it.academy.rent.car.controller;
 
 import it.academy.rent.car.bean.*;
+import it.academy.rent.car.exeption.EntityNotFoundException;
 import it.academy.rent.car.service.impl.AuthenticateService;
 import it.academy.rent.car.service.impl.BusyDateServiceImpl;
 import it.academy.rent.car.service.impl.CarServiceImpl;
@@ -19,8 +20,8 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.List;
 
-import static it.academy.rent.car.util.InitConstant.AUTHENTICATE;
-import static it.academy.rent.car.util.InitConstant.ID;
+import static it.academy.rent.car.util.ErrorConstant.USER_EMPTY;
+import static it.academy.rent.car.util.InitConstant.*;
 import static it.academy.rent.car.util.PageConstant.*;
 
 @Controller
@@ -45,7 +46,6 @@ public class UserController {
         }
         Authenticate authenticate = (Authenticate) session.getAttribute(AUTHENTICATE);
         letter.setAuthenticate(authenticate);
-        //не работает сохранение письма, проверить почему
         letterService.save(letter);
         return REDIRECT_MAIN;
     }
@@ -72,21 +72,20 @@ public class UserController {
         }
         authenticateService.saveAndFlush(authenticateSession);
         session.setAttribute(AUTHENTICATE, authenticate);
-        return "index";
+        return INDEX;
     }
 
     @PostMapping("/searchFormCountry")
     public String carFindAll(@Valid CarSearch carSearch, BindingResult bindingResult, HttpSession session, Model model) {
-
-        model.addAttribute("cars", carService.list(carSearch));
-        session.setAttribute("carSearch", carSearch);
-        return "car/carSearchList";
+        model.addAttribute(CARS, carService.list(carSearch));
+        session.setAttribute(CAR_SEARCH, carSearch);
+        return CAR_SEARCH_LIST;
     }
 
     @GetMapping("/bookCarId/{id}")
     public String carByBook(@PathVariable(ID) Long id, HttpSession session, Model model) {
         Car carResult = carService.findById(id);
-        CarSearch carSearch = (CarSearch) session.getAttribute("carSearch");
+        CarSearch carSearch = (CarSearch) session.getAttribute(CAR_SEARCH);
         Authenticate authenticate = (Authenticate) session.getAttribute(AUTHENTICATE);
         List<BusyDate> busyDateResult = busyDateService.findByBusyDate(carSearch.getDateCheck(), carSearch.getDateReturn());
         if (busyDateResult.isEmpty()) {
@@ -101,18 +100,17 @@ public class UserController {
             Long finalPrice = price * colDay;
             busyDate.setPriceCar(finalPrice);
             busyDateService.save(busyDate);
-            return "redirect:/searchFormCountry";
+            return REDIRECT_SEARCH_FROM_COUNTRY;
         }
-        model.addAttribute("carError", "date busy");
-        return "car/carSearchTown";
+        throw new EntityNotFoundException(USER_EMPTY);
     }
 
     @GetMapping("/listBookCar")
     public String carFindAllByUser(HttpSession session, Model model) {
-        Authenticate authenticate = (Authenticate) session.getAttribute("authenticate");
+        Authenticate authenticate = (Authenticate) session.getAttribute(AUTHENTICATE);
         List<BusyDate> busyDateList = busyDateService.findByAuthenticateIdAndBusyDateRemote(authenticate.getId(), true);
-        model.addAttribute("busyDateList", busyDateList);
-        return "car/carBasketUser";
+        model.addAttribute(BUSY_DATE_LIST, busyDateList);
+        return CAR_BASKET;
     }
 
     @GetMapping("/userDeleteCheck/{id}")
@@ -120,7 +118,7 @@ public class UserController {
         BusyDate busyDate = busyDateService.findById(id);
         busyDate.setBusyDateRemote(false);
         busyDateService.saveAndFlush(busyDate);
-        return "redirect:/user/listBookCar";
+        return LIST_BOOK_CAR;
     }
 
     @GetMapping("/userDeleteByUser")
@@ -135,8 +133,7 @@ public class UserController {
         }
         Authenticate authenticateResult = authenticateService.findByLoginAndPassword(authenticate.getLogin(), authenticate.getPassword());
         if (authenticateResult == null) {
-            model.addAttribute("authenticateError", "user empty");
-            return REDIRECT_USER_COME;
+            throw new EntityNotFoundException(USER_EMPTY);
         }
         Authenticate authenticateSession = (Authenticate) session.getAttribute(AUTHENTICATE);
         if (authenticateResult.getLogin().equals(authenticateSession.getLogin()) && authenticateResult.getPassword().equals(authenticateSession.getPassword()) && authenticateResult.getEmail().equals(authenticateSession.getEmail())) {
@@ -146,8 +143,7 @@ public class UserController {
             session.invalidate();
             return INDEX;
         } else {
-            model.addAttribute("authenticateError", "user dont deleted");
-            return REDIRECT_USER_DELETE_USER;
+            throw new EntityNotFoundException(USER_EMPTY);
         }
     }
 }

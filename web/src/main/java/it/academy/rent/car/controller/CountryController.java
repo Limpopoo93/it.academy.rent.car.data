@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import javax.validation.Valid;
 import java.util.List;
 
+import static it.academy.rent.car.util.InitConstant.COUNTRYS;
 import static it.academy.rent.car.util.InitConstant.ID;
+import static it.academy.rent.car.util.PageConstant.*;
 
 @Controller
 @RequiredArgsConstructor
@@ -25,24 +27,24 @@ public class CountryController {
     //создание страны
     @GetMapping("/countryRegistration")
     public String saveCountry(Country country) {
-        return "country/countryCreate";
+        return COUNTRY_CREATE;
     }
 
     @PostMapping("/countryRegistration")
     public String saveCountry(@Valid Country country, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            return "country/countryCreate";
+            return COUNTRY_CREATE;
         }
         country.setCountryRemote(true);
         countryService.save(country);
-        return "redirect:/countryRegistration";
+        return REDIRECT_COUNTRY_CREATE;
     }
 
     @GetMapping("/listCountry")
     public String listAllByCountry(Model model) {
         List<Country> countries = countryService.findByCountryRemote(true);
-        model.addAttribute("countries", countries);
-        return "country/countryList";
+        model.addAttribute(COUNTRYS, countries);
+        return COUNTRY_LIST;
     }
 
     @GetMapping("/countryDelete/{id}")

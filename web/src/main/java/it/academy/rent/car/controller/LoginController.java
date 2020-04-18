@@ -23,8 +23,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
-import static it.academy.rent.car.util.InitConstant.AUTHENTICATE;
-import static it.academy.rent.car.util.InitConstant.AUTHENTICATE_DETAILS;
+import static it.academy.rent.car.util.ErrorConstant.*;
+import static it.academy.rent.car.util.InitConstant.*;
 import static it.academy.rent.car.util.PageConstant.*;
 
 @Controller
@@ -53,8 +53,7 @@ public class LoginController {
             return USER_REGISTRATION;
         }
         if (!authenticate.getPassword().equals(authenticate.getPasswordConfirm())) {
-            model.addAttribute("passwordError", "password dont match");
-            return USER_REGISTRATION;
+           throw new EntityNotFoundException(PASSWORD_ERROR);
         }
         Authenticate authenticateResult = authenticateService.findByLoginAndPassword(authenticate.getLogin(), authenticate.getPassword());
         if (authenticateResult == null) {
@@ -62,17 +61,16 @@ public class LoginController {
             authenticate.setProfileClose(true);
             authenticate.setPassword(authenticate.getPassword());
             authenticateService.saveAuthenticate(authenticate);
-            roleService.save(new Role(authenticate.getId(), "ROLE_USER"));
+            roleService.save(new Role(authenticate.getId(), ROLE_USER));
             session.setAttribute(AUTHENTICATE, authenticate);
             return INDEX;
         }
-        model.addAttribute("authenticateError", "user busy");
-        return REDIRECT_REGISTRATION;
+        throw new EntityNotFoundException(USER_BUSY);
     }
 
     @GetMapping("/index")
     public String index(HttpSession session, CarSearch carSearch, Model model) {
-        return "index";
+        return INDEX;
     }
 
     @GetMapping("/userComeIn")
@@ -95,8 +93,7 @@ public class LoginController {
                 }
             }
         }
-        throw new EntityNotFoundException("User empty");
-
+        throw new EntityNotFoundException(USER_EMPTY);
     }
 
 }

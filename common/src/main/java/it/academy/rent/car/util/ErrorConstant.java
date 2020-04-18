@@ -11,10 +11,6 @@ public interface ErrorConstant {
     String MILEAGE_INVALID = "mileage at least 1 characters";
     String MAKE_CAR_INVALID = "make car at least 2 characters";
     String TYPE_CAR_INVALID = "type car at least 2 characters";
-    String NAME_USER_INVALID = "name user at least 2 characters";
-    String KEY_CARD_INVALID = "key card at least 3 characters";
-    String KEY_SECURITY_INVALID = "key card at least 4 characters";
-    String KEYS_INVALID = "keys at least 1 characters";
     String NAME_COMPANY_INVALID = "name company at least 3 characters";
     String TELEPHONE_INVALID = "telephone at least 4 characters";
     String NAME_COUNTRY_INVALID = "country at least 3 characters";
@@ -22,5 +18,10 @@ public interface ErrorConstant {
     String NAME_PHOTO_INVALID = "name photo at least 3 characters";
     String NAME_TOWN_INVALID = "town at least 3 characters";
     String EMAIL_INVALID = "email invalid";
-    String PRICE_CAR_EMPTY = "price at least 1 characters";
+    String USER_EMPTY = "user empty";
+    String PASSWORD_ERROR = "password dont match";
+    String USER_BUSY = "user busy";
+    String LOGIN_PASSWORD_NOT_WALID = "login or password not walid";
+    String ERROR = "error";
+
 }

@@ -6,12 +6,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpSession;
 
+import static it.academy.rent.car.util.PageConstant.MAIN;
+
 @Controller
 @RequestMapping("/logout")
 public class LogoutController {
     @GetMapping
     public String logout(HttpSession session) {
         session.invalidate();
-        return "main";
+        return MAIN;
     }
 }
