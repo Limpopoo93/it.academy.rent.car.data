@@ -30,6 +30,7 @@
         <jsp.version>2.2</jsp.version>
         <jstl.version>1.2</jstl.version>
         <spring.version>5.2.3.RELEASE</spring.version>
+        <json>0.9.1</json>
     </properties>
 
     <dependencies>
@@ -126,6 +127,11 @@
         <dependency>
             <groupId>org.flywaydb</groupId>
             <artifactId>flyway-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt</artifactId>
+            <version>${json}</version>
         </dependency>
     </dependencies>
 

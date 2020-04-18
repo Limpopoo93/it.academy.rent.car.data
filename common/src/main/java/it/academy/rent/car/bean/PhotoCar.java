@@ -19,7 +19,8 @@ import static it.academy.rent.car.util.ErrorConstant.NAME_PHOTO_INVALID;
 @Table(name = DB_PHOTO_CAR)
 public class PhotoCar {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(name = "photoCarIdSeq", sequenceName = "m_photoCar_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "photoCarIdSeq")
     private Long id;
     @Column(name = DB_NAME_PHOTO)
     @Size(min = 3, message = NAME_PHOTO_INVALID)

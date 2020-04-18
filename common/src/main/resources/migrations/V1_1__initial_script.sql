@@ -1,3 +1,10 @@
+CREATE SEQUENCE public.m_authenticate_id_seq
+    INCREMENT 1
+    START 5
+    MINVALUE 1
+    MAXVALUE 9223372036854775807
+    CACHE 1;
+
 create table m_authenticate
 (
     id             bigserial            not null
@@ -12,6 +19,14 @@ create table m_authenticate
 
 alter table m_authenticate
     owner to postgres;
+
+CREATE SEQUENCE public.m_roles_id_seq
+    INCREMENT 1
+    START 5
+    MINVALUE 1
+    MAXVALUE 9223372036854775807
+    CACHE 1;
+
 create table m_roles
 (
     id        bigserial   not null
@@ -26,6 +41,13 @@ create table m_roles
 alter table m_roles
     owner to postgres;
 
+CREATE SEQUENCE public.m_country_id_seq
+    INCREMENT 1
+    START 19
+    MINVALUE 1
+    MAXVALUE 9223372036854775807
+    CACHE 1;
+
 create table m_country
 (
     id             bigserial            not null
@@ -37,6 +59,14 @@ create table m_country
 
 alter table m_country
     owner to postgres;
+
+CREATE SEQUENCE public.m_town_id_seq
+    INCREMENT 1
+    START 44
+    MINVALUE 1
+    MAXVALUE 9223372036854775807
+    CACHE 1;
+
 create table m_town
 (
     id          bigserial            not null
@@ -51,6 +81,13 @@ create table m_town
 
 alter table m_town
     owner to postgres;
+
+CREATE SEQUENCE public.m_company_id_seq
+    INCREMENT 1
+    START 11
+    MINVALUE 1
+    MAXVALUE 9223372036854775807
+    CACHE 1;
 
 create table m_company
 (
@@ -72,6 +109,14 @@ create table m_company
 
 alter table m_company
     owner to postgres;
+
+CREATE SEQUENCE public.m_car_id_seq
+    INCREMENT 1
+    START 17
+    MINVALUE 1
+    MAXVALUE 9223372036854775807
+    CACHE 1;
+
 create table m_car
 (
     id         bigserial            not null
@@ -93,6 +138,7 @@ create table m_car
 
 alter table m_car
     owner to postgres;
+
 
 create table m_busy_date
 (

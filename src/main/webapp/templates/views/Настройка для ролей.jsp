@@ -13,5 +13,6 @@
 <body>
 <sec:authorize access="hasRole('ROLE_ADMIN')">
 </sec:authorize>
+th:text="${error}"
 </body>
 </html>

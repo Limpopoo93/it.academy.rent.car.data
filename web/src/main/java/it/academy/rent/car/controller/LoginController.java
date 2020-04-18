@@ -4,10 +4,13 @@ import it.academy.rent.car.bean.Authenticate;
 import it.academy.rent.car.bean.CarSearch;
 import it.academy.rent.car.bean.Letter;
 import it.academy.rent.car.bean.Role;
+import it.academy.rent.car.exeption.EntityNotFoundException;
 import it.academy.rent.car.service.impl.AuthenticateService;
 import it.academy.rent.car.service.impl.RoleServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -15,6 +18,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -78,19 +82,20 @@ public class LoginController {
 
     @PostMapping("/userComeIn")
     public String comeInUserByForm(@Valid Authenticate authenticate, BindingResult bindingResult, HttpSession session, Letter letter, CarSearch carSearch, Model model) {
-        UserDetails authenticateDetails = (UserDetails) authenticateService.loadUserByUsername(authenticate.getLogin());
+        UserDetails authenticateDetails = authenticateService.loadUserByUsername(authenticate.getLogin());
         Authenticate authenticateResult = authenticateService.findByLoginAndPassword(authenticateDetails.getUsername(), authenticateDetails.getPassword());
-        if (authenticateResult.getProfileRemote().equals(true)) {
-            session.setAttribute(AUTHENTICATE_DETAILS, authenticateDetails);
-            session.setAttribute(AUTHENTICATE, authenticateResult);
-            if (authenticateResult.isProfileClose()) {
-                return INDEX;
-            } else {
-                return LETTER_ADMIN;
+        if(authenticate.getLogin().equals(authenticateResult.getLogin()) && bCryptPasswordEncoder.matches(authenticate.getPassword(), authenticateResult.getPassword())){
+            if (authenticateResult.getProfileRemote().equals(true)) {
+                session.setAttribute(AUTHENTICATE_DETAILS, authenticateDetails);
+                session.setAttribute(AUTHENTICATE, authenticateResult);
+                if (authenticateResult.isProfileClose()) {
+                    return INDEX;
+                } else {
+                    return LETTER_ADMIN;
+                }
             }
         }
-        model.addAttribute("authenticateError", "user dont registration");
-        return REDIRECT_USER_COME;
+        throw new EntityNotFoundException("User empty");
 
     }
 

@@ -19,7 +19,8 @@ import static it.academy.rent.car.util.ErrorConstant.TEXT_INVALID;
 @Table(name = DB_LETTER)
 public class Letter {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(name = "letterIdSeq", sequenceName = "m_letter_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "letterIdSeq")
     private Long id;
     @Column(name = DB_TEXT_LETTER)
     @Size(min = 5, message = TEXT_INVALID)

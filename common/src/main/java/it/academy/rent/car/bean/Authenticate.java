@@ -24,7 +24,8 @@ import static it.academy.rent.car.util.InitConstant.PROFILE_REMOTE;
 @Table(name = DB_AUTHENTICATE)
 public class Authenticate {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(name = "authenticateIdSeq", sequenceName = "m_authenticate_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "authenticateIdSeq")
     private Long id;
 
     @Column

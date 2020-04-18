@@ -20,7 +20,8 @@ import static it.academy.rent.car.util.InitConstant.TOWN;
 @Table(name = DB_TOWN)
 public class Town {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(name = "townIdSeq", sequenceName = "m_town_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "townIdSeq")
     private Long id;
     @Column(name = TOWN)
     @Size(min = 3, message = NAME_TOWN_INVALID)

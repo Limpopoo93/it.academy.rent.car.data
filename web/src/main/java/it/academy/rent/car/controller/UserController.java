@@ -77,9 +77,7 @@ public class UserController {
 
     @PostMapping("/searchFormCountry")
     public String carFindAll(@Valid CarSearch carSearch, BindingResult bindingResult, HttpSession session, Model model) {
-        if (bindingResult.hasErrors()) {
-            return "car/carSearchTown";
-        }
+
         model.addAttribute("cars", carService.list(carSearch));
         session.setAttribute("carSearch", carSearch);
         return "car/carSearchList";

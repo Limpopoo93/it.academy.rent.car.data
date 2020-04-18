@@ -20,7 +20,8 @@ import static it.academy.rent.car.util.InitConstant.COUNTRY;
 @Table(name = DB_COUNTRY)
 public class Country {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(name = "countryIdSeq", sequenceName = "m_country_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "countryIdSeq")
     private Long id;
     @Column(name = COUNTRY)
     @Size(min = 3, message = NAME_COUNTRY_INVALID)

@@ -19,7 +19,8 @@ import static it.academy.rent.car.util.ErrorConstant.*;
 @Table(name = DB_CAR)
 public class Car {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(name = "carIdSeq", sequenceName = "m_car_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "carIdSeq")
     private Long id;
     @Column(name = DB_NAME_CAR)
     @Size(min = 2, message = NAME_CAR_INVALID)

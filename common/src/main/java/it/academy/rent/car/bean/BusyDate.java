@@ -20,7 +20,8 @@ import static it.academy.rent.car.util.InitConstant.*;
 @Table(name = DB_BUSY_DATE)
 public class BusyDate {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(name = "busyDateIdSeq", sequenceName = "m_busyDate_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "busyDateIdSeq")
     private Long id;
     @Column(name = DATE_CHECK)
     @Temporal(TemporalType.DATE)

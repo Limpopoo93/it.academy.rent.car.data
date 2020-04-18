@@ -6,13 +6,16 @@ import it.academy.rent.car.repository.AuthenticateRepository;
 import it.academy.rent.car.repository.RoleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Service
@@ -22,6 +25,8 @@ public class AuthenticateService implements UserDetailsService{
     private AuthenticateRepository authenticateRepository;
     @Autowired
     private RoleRepository roleRepository;
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
         Authenticate authenticate = authenticateRepository.findByLogin(login);
@@ -43,7 +48,7 @@ public class AuthenticateService implements UserDetailsService{
     public Authenticate saveAuthenticate(Authenticate authenticate) {
         authenticate.setProfileRemote(true);
         authenticate.setProfileClose(true);
-        authenticate.setPassword(authenticate.getPassword());
+        authenticate.setPassword(bCryptPasswordEncoder.encode(authenticate.getPassword()));
         authenticateRepository.save(authenticate);
         return authenticate;
     }
@@ -68,4 +73,5 @@ public class AuthenticateService implements UserDetailsService{
     public List<Authenticate> findByProfileClose(Boolean isDelete) {
         return authenticateRepository.findByProfileClose(isDelete);
     }
+
 }
