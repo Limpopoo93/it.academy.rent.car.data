@@ -95,11 +95,12 @@ public class UserController {
         CarSearch carSearchResult = (CarSearch) session.getAttribute(CAR_SEARCH);
         Authenticate authenticate = (Authenticate) session.getAttribute(AUTHENTICATE);
         List<BusyDate> busyDateResult = busyDateService.findByBusyDate(carSearchResult.getDateCheck(), carSearchResult.getDateReturn());
-        if (busyDateResult.isEmpty()) {
+        if (busyDateResult != null) {
+            Authenticate authenticateResult = authenticateService.findByLogin(authenticate.getLogin());
             BusyDate busyDate = new BusyDate();
             busyDate.setDateCheck(carSearchResult.getDateCheck());
             busyDate.setDateReturn(carSearchResult.getDateReturn());
-            busyDate.setAuthenticate(authenticate);
+            busyDate.setAuthenticate(authenticateResult);
             busyDate.setCar(carResult);
             busyDate.setBusyDateRemote(true);
             Long colDay = carService.daysBetween(carSearchResult.getDateCheck(), carSearchResult.getDateReturn());
@@ -107,7 +108,7 @@ public class UserController {
             Long finalPrice = price * colDay;
             busyDate.setPriceCar(finalPrice);
             busyDateService.save(busyDate);
-            return INDEX;
+            return REDIRECT_INDEX;
         }
         throw new EntityNotFoundException(USER_EMPTY);
     }

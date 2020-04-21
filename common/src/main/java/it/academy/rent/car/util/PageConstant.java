@@ -4,6 +4,7 @@ public interface PageConstant {
     String USER_REGISTRATION = "user/userRegistration";
     String MAIN = "main";
     String INDEX = "index";
+    String REDIRECT_INDEX = "redirect:/index";
     String COMPANY_USER_REGISTRATION = "company/companyRegistrationUser";
     String USER_COME = "user/userComeIn";
     String LETTER_ADMIN = "user/userLetterAdmin";

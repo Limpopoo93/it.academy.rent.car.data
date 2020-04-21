@@ -17,6 +17,9 @@ public class CarServiceImpl implements CarService {
     private final CarRepository carRepository;
 
     public Long daysBetween(Date d1, Date d2) {
+        if(d1.equals(d2)){
+            return 1L;
+        }
         return ((d2.getTime() - d1.getTime()) / (1000 * 60 * 60 * 24));
     }
 

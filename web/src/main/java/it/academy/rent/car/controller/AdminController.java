@@ -182,5 +182,4 @@ public class AdminController {
         }
         throw new EntityNotFoundException(USER_EMPTY);
     }
-
 }
