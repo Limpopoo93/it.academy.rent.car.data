@@ -41,7 +41,6 @@
             <form:input path="price" type="text" placeholder="price"/>
 
             <button>Registration</button>
-            ${carError}
         </form:form>
     </div>
 </div>

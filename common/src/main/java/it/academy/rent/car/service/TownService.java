@@ -10,4 +10,6 @@ public interface TownService {
     List<Town> findByCountry(String country, Boolean isDelete);
 
     Town findById(Long id);
+
+    Town findByTownAndCountry(String town, String country);
 }

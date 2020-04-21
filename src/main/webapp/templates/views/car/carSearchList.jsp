@@ -22,20 +22,14 @@
             <div id="navigation">
                 <span>Home</span>
                 <ul>
-                    <li class="current"><a href="#">Home</a></li>
-                    <li><a href="#">About Us</a></li>
-                    <li><a href="#">Blog</a></li>
-                    <li><a href="#">News</a></li>
-                    <li><a href="#">For Salers</a></li>
-                    <li><a href="#">Contacts</a></li>
+                    <li class="current"><a href="${pageContext.request.contextPath}index">Home</a></li>
+                    <li><a href="${pageContext.request.contextPath}logout">Out</a></li>
                 </ul>
             </div>
 
         </div>
     </div>
 </div>
-<!--EOF HEADER-->
-<!--BEGIN CONTENT-->
 <div id="content">
     <div class="content">
 
@@ -43,119 +37,6 @@
 
             <h1><strong>Cars</strong></h1>
             <div class="catalog_sidebar">
-                <div class="search_auto">
-                    <h3><strong>Search</strong> auto</h3>
-                    <div class="clear"></div>
-                    <label><strong>Manufacturer:</strong></label>
-                    <div class="select_box_1">
-                        <select class="select_3">
-                            <option value="0">Any</option>
-                            <option value="1">Audi</option>
-                            <option value="2">Mercedes-Benz</option>
-                            <option value="3">BMW</option>
-                            <option value="4">Lexus</option>
-                            <option value="5">Lincoln</option>
-                            <option value="6">Ford</option>
-                            <option value="7">Fiat</option>
-                            <option value="8">Dodge</option>
-                        </select>
-                    </div>
-                    <label><strong>Model:</strong></label>
-                    <div class="select_box_1">
-                        <select class="select_3">
-                            <option value="0">Any</option>
-                            <option value="1">R8</option>
-                            <option value="2">S500</option>
-                            <option value="3">540i</option>
-                            <option value="4">RX300</option>
-                            <option value="5">Navigator</option>
-                            <option value="6">Taurus</option>
-                            <option value="7">Doblo</option>
-                            <option value="8">Viper</option>
-                        </select>
-                    </div>
-                    <label><strong>Year:</strong></label>
-                    <div class="select_box_2">
-                        <select class="select_4">
-                            <option value="0">From</option>
-                            <option value="1">2013</option>
-                            <option value="2">2012</option>
-                            <option value="3">2011</option>
-                            <option value="4">2010</option>
-                            <option value="5">2009</option>
-                            <option value="6">2008</option>
-                            <option value="7">2007</option>
-                            <option value="8">2006</option>
-                        </select>
-                        <select class="select_4">
-                            <option value="0">To</option>
-                            <option value="1">2013</option>
-                            <option value="2">2012</option>
-                            <option value="3">2011</option>
-                            <option value="4">2010</option>
-                            <option value="5">2009</option>
-                            <option value="6">2008</option>
-                            <option value="7">2007</option>
-                            <option value="8">2006</option>
-                        </select>
-                        <div class="clear"></div>
-                    </div>
-                    <label><strong>Price:</strong></label>
-                    <div class="select_box_2">
-                        <select class="select_4">
-                            <option value="0">From</option>
-                            <option value="1">1000</option>
-                            <option value="2">2000</option>
-                            <option value="3">3000</option>
-                            <option value="4">4000</option>
-                            <option value="5">5000</option>
-                            <option value="6">6000</option>
-                            <option value="7">7000</option>
-                            <option value="8">8000</option>
-                        </select>
-                        <select class="select_4">
-                            <option value="0">To</option>
-                            <option value="1">1000</option>
-                            <option value="2">2000</option>
-                            <option value="3">3000</option>
-                            <option value="4">4000</option>
-                            <option value="5">5000</option>
-                            <option value="6">6000</option>
-                            <option value="7">7000</option>
-                            <option value="8">8000</option>
-                        </select>
-                        <div class="clear"></div>
-                    </div>
-                    <label><strong>Mileage:</strong></label>
-                    <div class="select_box_2">
-                        <select class="select_4">
-                            <option value="0">From</option>
-                            <option value="1">1000</option>
-                            <option value="2">2000</option>
-                            <option value="3">3000</option>
-                            <option value="4">4000</option>
-                            <option value="5">5000</option>
-                            <option value="6">6000</option>
-                            <option value="7">7000</option>
-                            <option value="8">8000</option>
-                        </select>
-                        <select class="select_4">
-                            <option value="0">To</option>
-                            <option value="1">1000</option>
-                            <option value="2">2000</option>
-                            <option value="3">3000</option>
-                            <option value="4">4000</option>
-                            <option value="5">5000</option>
-                            <option value="6">6000</option>
-                            <option value="7">7000</option>
-                            <option value="8">8000</option>
-                        </select>
-                        <div class="clear"></div>
-                    </div>
-
-                    <input type="submit" value="Search" class="btn_search"/>
-                    <div class="clear"></div>
-                </div>
 
             </div>
             <div class="main_catalog">
@@ -181,7 +62,7 @@
                                     <span>Mileage:${car.getMileage()}</span>
                                     <span>Type:${car.getTypeCar()}</span>
                                 </div>
-                                <form action="<c:url value="bookCarId/${car.getId()}"/>" method="get">
+                                <form action="<c:url value="bookCarId/${car.getId()}"/>" method="post">
                                     <button class="more markered"><i>Book Car</i></button>
                                 </form>
                             </div>
@@ -192,15 +73,7 @@
 
                 <div class="bottom_catalog_box">
                     <div class="pagination">
-                        <ul>
-                            <li class="active"><a href="#">1</a></li>
-                            <li><a href="#">2</a></li>
-                            <li><a href="#">3</a></li>
-                            <li class="space">...</li>
-                            <li><a href="#">8</a></li>
-                            <li class="next"><a href="#"><img src="../../../resources/static/page_next.gif" alt=""/></a>
-                            </li>
-                        </ul>
+
                     </div>
                     <div class="clear"></div>
                 </div>

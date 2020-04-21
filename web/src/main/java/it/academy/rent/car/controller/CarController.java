@@ -8,7 +8,6 @@ import it.academy.rent.car.service.impl.BusyDateServiceImpl;
 import it.academy.rent.car.service.impl.CarServiceImpl;
 import it.academy.rent.car.service.impl.CompanyServiceImpl;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -29,12 +28,9 @@ import static it.academy.rent.car.util.PageConstant.*;
 @Controller
 @RequiredArgsConstructor
 public class CarController {
-    @Autowired
-    private CompanyServiceImpl companyService;
-    @Autowired
-    private BusyDateServiceImpl busyDateService;
-    @Autowired
-    private CarServiceImpl carService;
+    private final CompanyServiceImpl companyService;
+    private final BusyDateServiceImpl busyDateService;
+    private final CarServiceImpl carService;
 
     @GetMapping("/createCar")
     public String saveCar(Car car) {
@@ -49,6 +45,7 @@ public class CarController {
         Company company = companyService.findByNameCompany(car.getCompany().getNameCompany());
         if (company != null) {
             car.setCompany(company);
+            car.setCarRemote(true);
             carService.save(car);
             return REDIRECT_CREATE_CAR;
         }

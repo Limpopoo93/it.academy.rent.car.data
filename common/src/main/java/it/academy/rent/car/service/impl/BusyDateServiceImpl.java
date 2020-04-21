@@ -4,7 +4,6 @@ import it.academy.rent.car.bean.BusyDate;
 import it.academy.rent.car.repository.BusyDateRepository;
 import it.academy.rent.car.service.BusyDateService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,8 +14,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class BusyDateServiceImpl implements BusyDateService {
-    @Autowired
-    private BusyDateRepository busyDateRepository;
+    private final BusyDateRepository busyDateRepository;
 
     @Override
     public List<BusyDate> findByBusyDate(Date dateCheck, Date dateReturn) {

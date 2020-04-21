@@ -32,59 +32,77 @@
                 <div class="col-lg-8 d-none d-xl-block">
                     <nav class="mainmenu alignright">
                         <ul>
-                            <li><a href="#">Home</a></li>
-                            <li><a href="#">User</a>
+                            <li><a href="${pageContext.request.contextPath}index">Home</a></li>
+                            <li><a>User</a>
                                 <ul>
-                                    <li><a href="${pageContext.request.contextPath}adminRegistration">Create Admin</a>
-                                    </li>
-                                    <li><a href="${pageContext.request.contextPath}companyRegistration">Create User
-                                        Company</a></li>
-
+                                    <sec:authorize access="hasRole('ROLE_ADMIN')">
+                                        <li><a href="${pageContext.request.contextPath}adminRegistration">Create
+                                            Admin</a>
+                                        </li>
+                                    </sec:authorize>
+                                    <sec:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_COMPANY')">
+                                        <li><a href="${pageContext.request.contextPath}companyRegistration">Create User
+                                            Company</a></li>
+                                    </sec:authorize>
                                     <li><a href="${pageContext.request.contextPath}userDeleteByUser">Delete User</a>
                                     </li>
 
                                     <li><a href="${pageContext.request.contextPath}userUpdate">Update User</a></li>
+                                    <sec:authorize access="hasRole('ROLE_ADMIN')">
+                                        <li><a href="${pageContext.request.contextPath}users">List User</a></li>
 
-                                    <li><a href="${pageContext.request.contextPath}users">List User</a></li>
+                                        <li><a href="${pageContext.request.contextPath}letterAdminList">List Letter to
+                                            Admin</a></li>
+                                        <li><a href="${pageContext.request.contextPath}userBlockList">List Block
+                                            User</a></li>
 
-                                    <li><a href="${pageContext.request.contextPath}letterAdminList">List Letter to
-                                        Admin</a></li>
-                                    <li><a href="${pageContext.request.contextPath}userBlockList">List Block
-                                        User</a></li>
-
-                                    <li><a href="${pageContext.request.contextPath}listBookCar">List Book Car</a></li>
-
+                                        <li><a href="${pageContext.request.contextPath}listBookCar">List Book Car</a>
+                                        </li>
+                                    </sec:authorize>
                                 </ul>
                             </li>
 
                             <li><a>Car</a>
                                 <ul>
-                                    <li><a href="${pageContext.request.contextPath}createCar">Create Car</a></li>
-                                    <li><a href="${pageContext.request.contextPath}listCar">List Car</a></li>
+                                    <sec:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_COMPANY')">
+                                        <li><a href="${pageContext.request.contextPath}createCar">Create Car</a></li>
+                                        <li><a href="${pageContext.request.contextPath}listCar">List Car</a></li>
+                                    </sec:authorize>
                                 </ul>
                             </li>
                             <li><a>Company</a>
                                 <ul>
-                                    <li><a href="${pageContext.request.contextPath}createCompany">Create Company</a>
-                                    </li>
+                                    <sec:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_COMPANY')">
+                                        <li><a href="${pageContext.request.contextPath}createCompany">Create Company</a>
+                                        </li>
+                                    </sec:authorize>
+                                    <sec:authorize access="hasRole('ROLE_ADMIN')">
                                     <li><a href="${pageContext.request.contextPath}listCompany">List Company</a></li>
                                     <li><a href="${pageContext.request.contextPath}deleteCompany">Delete Company</a>
+                                        </sec:authorize>
                                     </li>
                                 </ul>
                             </li>
                             <li><a>Country</a>
                                 <ul>
-                                    <li><a href="${pageContext.request.contextPath}countryRegistration">Create
-                                        Country</a></li>
-                                    <li><a href="${pageContext.request.contextPath}listCountry">List Country</a></li>
+                                    <sec:authorize access="hasRole('ROLE_ADMIN')">
+                                        <li><a href="${pageContext.request.contextPath}countryRegistration">Create
+                                            Country</a></li>
+                                        <li><a href="${pageContext.request.contextPath}listCountry">List Country</a>
+                                        </li>
+                                    </sec:authorize>
                                 </ul>
                             </li>
                             <li><a>Town</a>
                                 <ul>
-                                    <li><a href="${pageContext.request.contextPath}createTown">Create Town</a></li>
-                                    <li><a href="${pageContext.request.contextPath}searchListTown">List Town</a></li>
+                                    <sec:authorize access="hasRole('ROLE_ADMIN')">
+                                        <li><a href="${pageContext.request.contextPath}createTown">Create Town</a></li>
+                                        <li><a href="${pageContext.request.contextPath}searchListTown">List Town</a>
+                                        </li>
+                                    </sec:authorize>
                                 </ul>
                             </li>
+                            <li><a href="${pageContext.request.contextPath}logout">Out</a></li>
                         </ul>
                     </nav>
                 </div>
@@ -1694,10 +1712,6 @@
     .book-ur-car select.custom-select {
         background-position: right 12px center;
         background-size: 12px auto;
-    }
-
-    .slider-bg-1 {
-        background-image: url("slider-img-4.jpg");
     }
 
     .home-slider-item {

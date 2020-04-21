@@ -14,11 +14,11 @@
                         <nav>
                             <span class="fa fa-times close-menu"></span>
                             <div class="link">
-                                <a href="${pageContext.request.contextPath}/index">Home</a>
+                                <a href="${pageContext.request.contextPath}index">Home</a>
                                 <div class="line"></div>
                             </div>
                             <div class="link">
-                                <a href="${pageContext.request.contextPath}/logout">Out</a>
+                                <a href="${pageContext.request.contextPath}logout">Out</a>
                                 <div class="line"></div>
                             </div>
                         </nav>
@@ -47,8 +47,8 @@
             <td>${company.getReting()}</td>
             <td>${company.getTelephone()}</td>
             <td>${company.getEmail()}</td>
-            <td>${company.town.getTown()}</td>
-            <td>${company.town.country.getCountry()}</td>
+            <td>${company.town.getNameTown()}</td>
+            <td>${company.town.country.getNameCountry()}</td>
             <td>
                 <form action="<c:url value="listCompanyForm/${company.id}"/>" method="get">
                     <button class="button block"><i class="fa fa-lock">Delete</i>

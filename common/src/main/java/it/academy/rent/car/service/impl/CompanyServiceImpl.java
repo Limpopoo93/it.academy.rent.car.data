@@ -4,7 +4,6 @@ import it.academy.rent.car.bean.Company;
 import it.academy.rent.car.repository.CompanyRepository;
 import it.academy.rent.car.service.CompanyService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,8 +12,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class CompanyServiceImpl implements CompanyService {
-    @Autowired
-    private CompanyRepository companyRepository;
+    private final CompanyRepository companyRepository;
 
     public Company findByNameCompany(String nameCompany) {
         return companyRepository.findByNameCompany(nameCompany);

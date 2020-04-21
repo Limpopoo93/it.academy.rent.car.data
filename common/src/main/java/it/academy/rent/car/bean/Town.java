@@ -33,35 +33,4 @@ public class Town {
     @Column(name = DB_TOWN_REMOTE)
     private Boolean townRemote;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getNameTown() {
-        return nameTown;
-    }
-
-    public void setNameTown(String nameTown) {
-        this.nameTown = nameTown;
-    }
-
-    public Country getCountry() {
-        return country;
-    }
-
-    public void setCountry(Country country) {
-        this.country = country;
-    }
-
-    public Boolean getTownRemote() {
-        return townRemote;
-    }
-
-    public void setTownRemote(Boolean townRemote) {
-        this.townRemote = townRemote;
-    }
 }

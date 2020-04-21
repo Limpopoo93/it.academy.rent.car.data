@@ -33,7 +33,6 @@
         <form:input path="typeCar" type="text" placeholder="typeCar"/>
 
         <button>Search</button>
-        ${carError}
     </form:form>
 </div>
 </body>

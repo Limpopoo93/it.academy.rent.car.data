@@ -5,7 +5,6 @@ import it.academy.rent.car.bean.CarSearch;
 import it.academy.rent.car.repository.CarRepository;
 import it.academy.rent.car.service.CarService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,11 +14,10 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class CarServiceImpl implements CarService {
-    @Autowired
-    private CarRepository carRepository;
+    private final CarRepository carRepository;
 
     public Long daysBetween(Date d1, Date d2) {
-        return (long) ((d2.getTime() - d1.getTime()) / (1000 * 60 * 60 * 24));
+        return ((d2.getTime() - d1.getTime()) / (1000 * 60 * 60 * 24));
     }
 
     public List<Car> list(CarSearch carSearch) {

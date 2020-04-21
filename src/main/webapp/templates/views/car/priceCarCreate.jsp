@@ -10,6 +10,7 @@
 <table>
     <thead>
     <tr>
+
         <th>name Car</th>
         <th>type Fuel</th>
         <th>col Doors</th>

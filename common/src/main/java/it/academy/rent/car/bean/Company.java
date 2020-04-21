@@ -11,12 +11,13 @@ import static it.academy.rent.car.util.DBConstant.*;
 import static it.academy.rent.car.util.ErrorConstant.*;
 
 @Data
-@RequiredArgsConstructor
 @Setter
 @Getter
-@EqualsAndHashCode(exclude = {"authenticate", "town"})
-@ToString(exclude = {"authenticate", "town"})
 @Entity
+@ToString
+@EqualsAndHashCode
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = DB_COMPANY)
 public class Company {
     @Id
@@ -32,7 +33,6 @@ public class Company {
     @Size(min = 4, message = TELEPHONE_INVALID)
     private String telephone;
     @Column
-    @Email(message = EMAIL_INVALID)
     private String email;
     @JsonManagedReference
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
@@ -45,67 +45,4 @@ public class Company {
     @Column(name = DB_COMPANY_REMOTE)
     private Boolean companyRemote;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getNameCompany() {
-        return nameCompany;
-    }
-
-    public void setNameCompany(String nameCompany) {
-        this.nameCompany = nameCompany;
-    }
-
-    public Long getReting() {
-        return reting;
-    }
-
-    public void setReting(Long reting) {
-        this.reting = reting;
-    }
-
-    public String getTelephone() {
-        return telephone;
-    }
-
-    public void setTelephone(String telephone) {
-        this.telephone = telephone;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public Town getTown() {
-        return town;
-    }
-
-    public void setTown(Town town) {
-        this.town = town;
-    }
-
-    public Authenticate getAuthenticate() {
-        return authenticate;
-    }
-
-    public void setAuthenticate(Authenticate authenticate) {
-        this.authenticate = authenticate;
-    }
-
-    public Boolean getCompanyRemote() {
-        return companyRemote;
-    }
-
-    public void setCompanyRemote(Boolean companyRemote) {
-        this.companyRemote = companyRemote;
-    }
 }

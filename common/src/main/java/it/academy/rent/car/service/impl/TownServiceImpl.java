@@ -4,7 +4,6 @@ import it.academy.rent.car.bean.Town;
 import it.academy.rent.car.repository.TownRepository;
 import it.academy.rent.car.service.TownService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,8 +12,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class TownServiceImpl implements TownService {
-    @Autowired
-    private TownRepository townRepository;
+    private final TownRepository townRepository;
 
     @Transactional
     @Override
@@ -30,5 +28,10 @@ public class TownServiceImpl implements TownService {
     @Override
     public Town findById(Long id) {
         return townRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public Town findByTownAndCountry(String nameTown, String nameCountry){
+        return townRepository.findByTownByCountry(nameTown, nameCountry);
     }
 }

@@ -15,7 +15,6 @@ public interface ErrorConstant {
     String TELEPHONE_INVALID = "telephone at least 4 characters";
     String NAME_COUNTRY_INVALID = "country at least 3 characters";
     String TEXT_INVALID = "country at least 5 characters";
-    String NAME_PHOTO_INVALID = "name photo at least 3 characters";
     String NAME_TOWN_INVALID = "town at least 3 characters";
     String EMAIL_INVALID = "email invalid";
     String USER_EMPTY = "user empty";
@@ -23,5 +22,6 @@ public interface ErrorConstant {
     String USER_BUSY = "user busy";
     String LOGIN_PASSWORD_NOT_WALID = "login or password not walid";
     String ERROR = "error";
+    String TOWN_COUNTRY = "town or country empty";
 
 }

@@ -4,7 +4,6 @@ import it.academy.rent.car.bean.Country;
 import it.academy.rent.car.repository.CountryRepository;
 import it.academy.rent.car.service.CountryService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,8 +12,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class CountryServiceImpl implements CountryService {
-    @Autowired
-    private CountryRepository countryRepository;
+    private final CountryRepository countryRepository;
 
     @Transactional
     @Override

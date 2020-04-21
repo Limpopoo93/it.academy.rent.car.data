@@ -7,7 +7,6 @@ public interface DBConstant {
     String DB_COMPANY = "m_company";
     String DB_COUNTRY = "m_country";
     String DB_LETTER = "m_letter";
-    String DB_PHOTO_CAR = "m_photo_car";
     String DB_TOWN = "m_town";
     String DB_ID_AUTHENTICATE = "id_authenticate";
     String DB_ID_CAR = "id_car";
@@ -26,9 +25,6 @@ public interface DBConstant {
     String DB_COUNTRY_REMOTE = "country_remote";
     String DB_TEXT_LETTER = "text_letter";
     String DB_LETTER_REMOTE = "letter_remote";
-    String DB_NAME_PHOTO = "name_photo";
-    String DB_TYPE_PHOTO = "type_photo";
-    String DB_PHOTO_CAR_REMOTE = "photo_car_remote";
     String DB_ID_COUNTRY = "id_country";
     String DB_TOWN_REMOTE = "town_remote";
 }

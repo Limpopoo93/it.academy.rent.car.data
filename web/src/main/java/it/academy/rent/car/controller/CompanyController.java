@@ -1,15 +1,9 @@
 package it.academy.rent.car.controller;
 
-import it.academy.rent.car.bean.Authenticate;
-import it.academy.rent.car.bean.CarSearch;
-import it.academy.rent.car.bean.Company;
-import it.academy.rent.car.bean.Role;
+import it.academy.rent.car.bean.*;
 import it.academy.rent.car.exeption.EntityNotFoundException;
-import it.academy.rent.car.service.impl.AuthenticateService;
-import it.academy.rent.car.service.impl.CompanyServiceImpl;
-import it.academy.rent.car.service.impl.RoleServiceImpl;
+import it.academy.rent.car.service.impl.*;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -19,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import static it.academy.rent.car.util.ErrorConstant.TOWN_COUNTRY;
 import static it.academy.rent.car.util.ErrorConstant.USER_EMPTY;
 import static it.academy.rent.car.util.InitConstant.AUTHENTICATE;
 import static it.academy.rent.car.util.InitConstant.ROLE_COMPANY;
@@ -27,12 +22,11 @@ import static it.academy.rent.car.util.PageConstant.*;
 @Controller
 @RequiredArgsConstructor
 public class CompanyController {
-    @Autowired
-    private AuthenticateService authenticateService;
-    @Autowired
-    private CompanyServiceImpl companyService;
-    @Autowired
-    private RoleServiceImpl roleService;
+    private final AuthenticateService authenticateService;
+    private final CompanyServiceImpl companyService;
+    private final RoleServiceImpl roleService;
+    private final CountryServiceImpl countryService;
+    private final TownServiceImpl townService;
 
     @GetMapping("/companyRegistration")
     public String saveUserByCompany(Authenticate authenticate) {
@@ -63,10 +57,19 @@ public class CompanyController {
         if (bindingResult.hasErrors()) {
             return USER_UPDATE;
         }
-        Authenticate authenticate = (Authenticate) session.getAttribute(AUTHENTICATE);
-        company.setReting(0L);
-        company.setAuthenticate(authenticate);
-        companyService.save(company);
-        return REDIRECT_CREATE_COMPANY;
+        Country country = countryService.findByNameCountry(company.getTown().getCountry().getNameCountry());
+        if(country!= null){
+            Town town = townService.findByTownAndCountry(company.getTown().getNameTown(), company.getTown().getCountry().getNameCountry());
+            if(town != null){
+                Authenticate authenticate = (Authenticate) session.getAttribute(AUTHENTICATE);
+                Authenticate authenticateResult = authenticateService.findByLogin(authenticate.getLogin());
+                company.setReting(0L);
+                company.setAuthenticate(authenticateResult);
+                company.setTown(town);
+                companyService.save(company);
+                return REDIRECT_CREATE_COMPANY;
+            }
+        }
+        throw new EntityNotFoundException(TOWN_COUNTRY);
     }
 }

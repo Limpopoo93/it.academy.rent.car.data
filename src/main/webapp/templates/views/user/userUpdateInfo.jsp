@@ -15,11 +15,11 @@
                         <nav>
                             <span class="fa fa-times close-menu"></span>
                             <div class="link">
-                                <a href="${pageContext.request.contextPath}/index">Home</a>
+                                <a href="${pageContext.request.contextPath}index">Home</a>
                                 <div class="line"></div>
                             </div>
                             <div class="link">
-                                <a href="${pageContext.request.contextPath}/logout">Out</a>
+                                <a href="${pageContext.request.contextPath}logout">Out</a>
                                 <div class="line"></div>
                             </div>
                         </nav>
@@ -65,7 +65,6 @@
                                     <div class="send-button">
                                         <input type="submit" value="Registration">
                                     </div>
-                                        ${authenticateError}
                                 </div>
                             </form:form>
                         </div>

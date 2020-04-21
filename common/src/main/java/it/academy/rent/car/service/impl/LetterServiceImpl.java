@@ -4,7 +4,6 @@ import it.academy.rent.car.bean.Letter;
 import it.academy.rent.car.repository.LetterRepository;
 import it.academy.rent.car.service.LetterService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,8 +12,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class LetterServiceImpl implements LetterService {
-    @Autowired
-    private LetterRepository letterRepository;
+    private final LetterRepository letterRepository;
 
     @Transactional
     @Override

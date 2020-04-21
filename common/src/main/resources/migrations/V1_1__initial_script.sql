@@ -84,7 +84,7 @@ alter table m_town
 
 CREATE SEQUENCE public.m_company_id_seq
     INCREMENT 1
-    START 11
+    START 12
     MINVALUE 1
     MAXVALUE 9223372036854775807
     CACHE 1;
@@ -174,19 +174,5 @@ create table m_letter
 
 alter table m_letter
     owner to postgres;
-create table m_photo_car
-(
-    id               bigserial            not null
-        constraint m_photo_car_pk
-            primary key,
-    name_photo       varchar(50)          not null,
-    type_photo       bytea                not null,
-    id_car           bigint               not null
-        constraint car_id
-            references m_car,
-    photo_car_remote boolean default true not null
-);
 
-alter table m_photo_car
-    owner to postgres;
 

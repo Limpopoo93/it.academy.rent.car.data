@@ -7,7 +7,6 @@ import it.academy.rent.car.service.impl.CompanyServiceImpl;
 import it.academy.rent.car.service.impl.LetterServiceImpl;
 import it.academy.rent.car.service.impl.RoleServiceImpl;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -28,14 +27,10 @@ import static it.academy.rent.car.util.PageConstant.*;
 @Controller
 @RequiredArgsConstructor
 public class AdminController {
-    @Autowired
-    private LetterServiceImpl letterService;
-    @Autowired
-    private AuthenticateService authenticateService;
-    @Autowired
-    private CompanyServiceImpl companyService;
-    @Autowired
-    private RoleServiceImpl roleService;
+    private final LetterServiceImpl letterService;
+    private final AuthenticateService authenticateService;
+    private final CompanyServiceImpl companyService;
+    private final RoleServiceImpl roleService;
 
     @GetMapping("/userDelete")
     public String deleteUser(Authenticate authenticate) {

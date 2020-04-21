@@ -5,7 +5,6 @@ import it.academy.rent.car.bean.Town;
 import it.academy.rent.car.service.impl.CountryServiceImpl;
 import it.academy.rent.car.service.impl.TownServiceImpl;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -23,10 +22,8 @@ import static it.academy.rent.car.util.PageConstant.*;
 @Controller
 @RequiredArgsConstructor
 public class TownController {
-    @Autowired
-    private CountryServiceImpl countryService;
-    @Autowired
-    private TownServiceImpl townService;
+    private final CountryServiceImpl countryService;
+    private final TownServiceImpl townService;
 
     @GetMapping("/createTown")
     public String saveTown(Town town) {

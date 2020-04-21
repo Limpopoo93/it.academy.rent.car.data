@@ -7,10 +7,8 @@ import it.academy.rent.car.bean.Role;
 import it.academy.rent.car.exeption.EntityNotFoundException;
 import it.academy.rent.car.service.impl.AuthenticateService;
 import it.academy.rent.car.service.impl.RoleServiceImpl;
+import it.academy.rent.car.service.impl.UserDetailsServiceImpl;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -18,7 +16,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -30,12 +27,10 @@ import static it.academy.rent.car.util.PageConstant.*;
 @Controller
 @RequiredArgsConstructor
 public class LoginController {
-    @Autowired
-    private AuthenticateService authenticateService;
-    @Autowired
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
-    @Autowired
-    private RoleServiceImpl roleService;
+    private final AuthenticateService authenticateService;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final RoleServiceImpl roleService;
+    private final UserDetailsServiceImpl userDetailsService;
 
     @GetMapping("/")
     public String main(Model model) {
@@ -80,7 +75,7 @@ public class LoginController {
 
     @PostMapping("/userComeIn")
     public String comeInUserByForm(@Valid Authenticate authenticate, BindingResult bindingResult, HttpSession session, Letter letter, CarSearch carSearch, Model model) {
-        UserDetails authenticateDetails = authenticateService.loadUserByUsername(authenticate.getLogin());
+        UserDetails authenticateDetails = userDetailsService.loadUserByUsername(authenticate.getLogin());
         Authenticate authenticateResult = authenticateService.findByLoginAndPassword(authenticateDetails.getUsername(), authenticateDetails.getPassword());
         if(authenticate.getLogin().equals(authenticateResult.getLogin()) && bCryptPasswordEncoder.matches(authenticate.getPassword(), authenticateResult.getPassword())){
             if (authenticateResult.getProfileRemote().equals(true)) {
