@@ -29,7 +29,7 @@
         <dbcp-version>1.4</dbcp-version>
         <jsp.version>2.2</jsp.version>
         <jstl.version>1.2</jstl.version>
-        <spring.version>5.2.3.RELEASE</spring.version>
+        <spring.version>5.2.20.RELEASE</spring.version>
         <json>0.9.1</json>
         <jasper>9.0.31</jasper>
         <commons>3.8.1</commons>
